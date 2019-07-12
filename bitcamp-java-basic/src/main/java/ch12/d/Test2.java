@@ -1,15 +1,15 @@
 package ch12.d;
-// 캡슐화(encapsulation) : 적용 전
-public class Test01 {
+// 캡슐화(encapsulation) : 적용 후
+public class Test2 {
   
   public static void main(String[] args) {
 
-    Patient p = new Patient();
-    p.name = "김영희";
-    p.age = 20;
-    p.weight = 60;
-    p.height = 157;
-    p.gender = Patient.WOMAN; // woman 
+    Patient2 p = new Patient2();
+    p.setName("김영희");
+    p.setAge(20);
+    p.setWeight(60);
+    p.setHeight(157);
+    p.setGender(Patient.WOMAN);
     
     // p만 불러도 toString값이 출력됨
     System.out.println(p);
@@ -24,12 +24,12 @@ public class Test01 {
     // "추상화"라 부른다.
     // => 즉 실세계의 객체(예: 사람, 물건, 업무)를 컴퓨터에서 다룰 수 있도록 클래스로 정의하는 행위를 "추상화"라 부른다.
     
-    Patient p2 = new Patient();
-    p2.name = "이철희";
-    p2.age = 300;
-    p2.weight = -50;
-    p2.height = 400;
-    p2.gender = Patient.MAN; // woman 
+    Patient2 p2 = new Patient2();
+    p2.setName("이철희"); 
+    p2.setAge(300); // 캡슐화를 무너뜨릴 수 있는 유효하지 않은 값은 무시된다.
+    p2.setWeight(-50); // 캡슐화를 무너뜨릴 수 있는 유효하지 않은 값은 무시된다.
+    p2.setHeight(400); // 캡슐화를 무너뜨릴 수 있는 유효하지 않은 값은 무시된다.
+    p2.setGender(Patient.MAN);
     
     // p만 불러도 toString값이 출력됨
     System.out.println(p2);

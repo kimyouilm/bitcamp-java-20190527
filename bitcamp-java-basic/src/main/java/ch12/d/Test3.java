@@ -1,15 +1,16 @@
 package ch12.d;
-// 캡슐화(encapsulation) : 적용 전
-public class Test01 {
+// 객체 지향은 메소드를 사람이나 사물처럼 다루는것  ?: 동사로 표현하는것도 그런건가?
+// 잘못된 값을 넣었을때 무시하지 않고 강력하게 오류를 알리기!
+public class Test3 {
   
   public static void main(String[] args) {
 
-    Patient p = new Patient();
-    p.name = "김영희";
-    p.age = 20;
-    p.weight = 60;
-    p.height = 157;
-    p.gender = Patient.WOMAN; // woman 
+    Patient3 p = new Patient3();
+    p.setName("김영희");
+    p.setAge(20);
+    p.setWeight(60);
+    p.setHeight(157);
+    p.setGender(Patient.WOMAN);
     
     // p만 불러도 toString값이 출력됨
     System.out.println(p);
@@ -24,12 +25,13 @@ public class Test01 {
     // "추상화"라 부른다.
     // => 즉 실세계의 객체(예: 사람, 물건, 업무)를 컴퓨터에서 다룰 수 있도록 클래스로 정의하는 행위를 "추상화"라 부른다.
     
-    Patient p2 = new Patient();
-    p2.name = "이철희";
-    p2.age = 300;
-    p2.weight = -50;
-    p2.height = 400;
-    p2.gender = Patient.MAN; // woman 
+    Patient3 p2 = new Patient3();
+    // .setName() 오퍼레이터 = 연산자 = 메소드
+    p2.setName("이철희"); 
+    p2.setAge(300); // 캡슐화를 무너뜨릴 수 있는 유효하지 않은 값을 넣으면 오류 발생!
+    p2.setWeight(-50); // 캡슐화를 무너뜨릴 수 있는 유효하지 않은 값을 넣으면 오류 발생!
+    p2.setHeight(400); // 캡슐화를 무너뜨릴 수 있는 유효하지 않은 값을 넣으면 오류 발생!
+    p2.setGender(Patient.MAN);
     
     // p만 불러도 toString값이 출력됨
     System.out.println(p2);
