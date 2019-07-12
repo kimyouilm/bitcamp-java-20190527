@@ -20,6 +20,10 @@ public class Test03 {
     else
       System.out.println("s2 != s3");
     
+    if(s1 == sx)
+      System.out.println("s1 == sx");
+    else
+      System.out.println("s1 != sx");
     
     if (s2 == sx)
       System.out.println("s2 == sx");

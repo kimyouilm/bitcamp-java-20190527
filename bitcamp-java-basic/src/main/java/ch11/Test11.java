@@ -36,11 +36,21 @@ public class Test11 {
     // 이제 두 객체의 값을 비교할 때 equals()를 사용하지 않고 
     // 그냥 주소를 비교해도 된다.
     // 왜? 주소가 같다는 것은 같은 인스턴스라는 의미다. 결국 값이 같은 것 아닌가.
-    //
+    
     if (obj3 == obj4) 
       System.out.println("obj3 == obj4");
     else 
       System.out.println("obj3 != obj4");
+    
+    // 오토 박싱인 경우 인스턴스의 주소는?
+    Integer obj5 = 100;
+    Integer obj6 = 100;
+    System.out.println(obj5 == obj6);
+    System.out.println(obj5 == obj3);
+    
+    // Wrapper 객체를 리터럴로 생성할 때는 String 객체와 마찬가지로 상수 풀(constant pool)에 생성된다.
+    // 그리고 같은 값인 경우 중복 생성 되지 않는다.
+
   }
 }
 
