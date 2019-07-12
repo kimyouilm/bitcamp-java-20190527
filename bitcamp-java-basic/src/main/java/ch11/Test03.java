@@ -15,7 +15,6 @@ public class Test03 {
     else
       System.out.println("s1 != s2");
     
-    
     if (s2 == s3)
       System.out.println("s2 == s3");
     else

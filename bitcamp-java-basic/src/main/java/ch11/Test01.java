@@ -18,6 +18,12 @@ public class Test01 {
     else
       System.out.println("다르다");
     
+    if(s1.equals(s2)) {
+      System.out.println(".equals 같다");
+    }else {
+      System.out.println(".equals 다르다");
+    }
+    
   }
 }
 
