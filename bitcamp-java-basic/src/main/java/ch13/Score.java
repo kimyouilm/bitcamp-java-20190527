@@ -34,6 +34,7 @@ public class Score {
   public int getEng() {
     return this.eng;
   }
+  
   public void setEng(int eng) {
     if (eng >= 0 && eng <= 100) { // 유효한 점수인 경우에만 저장한다.
       this.eng = eng;
