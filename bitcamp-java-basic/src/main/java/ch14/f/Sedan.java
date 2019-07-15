@@ -1,6 +1,7 @@
 package ch14.f;
 
 public class Sedan extends Car {
+//  public abstract class Sedan extends Car {
   
   int capacity; // 승차인원
   
