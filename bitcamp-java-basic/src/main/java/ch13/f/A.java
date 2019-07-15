@@ -12,7 +12,7 @@ public class A /*extends Object*/ {
     //    super();
     // 수퍼 클래스의 생성자를 호출할 때는 반드시 첫 번째 문장으로 와야 한다.
     //
-    //System.out.println("A.A()"); // 컴파일 오류!
+//    System.out.println("A.A()"); // 컴파일 오류!
                                    //수퍼 클래스의 생성자를 호출하는 문장 보다 먼저 올 수 없다.
     super(); // 생략하면 수퍼 클래스의 기본 생성자를 호출하는 코드가 자동으로 추가된다.
              // A 클래스의 수퍼클래스? Object 이다.

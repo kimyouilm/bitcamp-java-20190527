@@ -1,13 +1,16 @@
-// 추상 클래스: 서브 클래스에 공통 기능을 물려주는 목적으로 존재하는 클래스
+// 추상 클래스: 파라미터로 사용하기
 package ch13.j;
 
-public class Test01 {
+public class Test03 {
 
   public static void main(String[] args) {
     // 지붕을 열 수 있는 자동차와 집을 싣는 덤프트럭이 필요해서 해당 클래스를 정의하였고,
     // 다음과 같이 사용한다.
     Convertible c1 = new Convertible();
     DumpTruck c2 = new DumpTruck();
+    
+    m1(new DumpTruck()); // okay
+    m2(new Convertible()); // m2의 파라미터는 Car이지만 Convertible, DumpTruck 클래스 가능
     
     // 그러다 두 클래스의 공통점이 있어서
     // 소스 코드의 유지관리를 쉽게 하기 위해 수퍼 클래스 Car를 정의하였다.
@@ -28,4 +31,16 @@ public class Test01 {
     // 그러나 추상 클래스의 인스턴스는 생성할 수 없다.
     //Car c3 = new Car(); // 컴파일 오류!
   }
+  
+  static void m1(DumpTruck car) {
+    // 파라미터가 DumpTruck이면, 이 메소드를 호출할 때 반드시 DumpTruck의 인스턴스나
+    // 또는DumpTruck의 하위클래스의 인스턴스를 넘기라는 뜻이다.
+  }
+  
+  static void m2(Car car) {
+    // 파라미더가 Car다.
+    // 이 메소드를 호출할때 Car의 하위클래스의 인스턴스를 넘기라는 뜻이다.
+    // Car은 추상 클래스이기 때문에 인스턴스를 생성할 수 없다.
+  }
+
 }
