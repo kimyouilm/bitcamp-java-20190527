@@ -1,15 +1,14 @@
 package com.eomcs.lms.handler;
 
 import java.sql.Date;
-import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.domain.Lesson;
-import com.eomcs.lms.util.Input;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.Input;
 
 public class BoardHandler {
-  private BoardList boardList = new BoardList(30);
-  
+  private ArrayList boardList = new ArrayList(30);
   private Input input;
+  
   public BoardHandler(Input input) {
     this.input = input;
   }
@@ -20,9 +19,11 @@ public class BoardHandler {
   // => 의존객체를 강제로 설정하게 만드는 방법?
   //    다음과 같이 의존 객체를 넘겨 받는 생성자를 정의하는 것이다.
   public void listBoard() {
-    Board[] boardArr = boardList.toArray();
-    for(Board board : boardArr)
+    Object[] list = boardList.toArray();
+    for(Object obj : list) {
+      Board board = (Board) obj;
       System.out.printf("%s, %s, %s\n\n", board.getNo(), board.getContents(), board.getCreatedDate());
+    }
   }
 
   public void addBoard() {

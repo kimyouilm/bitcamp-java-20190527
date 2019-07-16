@@ -1,11 +1,12 @@
 package com.eomcs.lms.handler;
 
 import com.eomcs.lms.domain.Member;
-import com.eomcs.lms.util.Input;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.Input;
 
 public class MemberHandler {
 
-  private MemberList memberList = new MemberList();
+  private ArrayList memberList = new ArrayList();
   private Input input;
 
   public MemberHandler(Input input) {
@@ -14,8 +15,9 @@ public class MemberHandler {
 
   public void listMember() {
 
-    Member[] members = memberList.toArray();
-    for(Member member : members) {
+    Object[] list = memberList.toArray();
+    for(Object obj : list) {
+      Member member = (Member) obj;
       System.out.printf("%s, %s, %s, %s, %s, %s, %s\n\n", 
           member.getNo(), member.getLectureName(), member.getEmail(), member.getPw(), 
           member.getPic(), member.getPhoneNum(), member.getSignedUpDate());
