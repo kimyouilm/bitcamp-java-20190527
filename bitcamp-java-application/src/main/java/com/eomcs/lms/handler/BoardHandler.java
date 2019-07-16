@@ -6,7 +6,7 @@ import com.eomcs.util.ArrayList;
 import com.eomcs.util.Input;
 
 public class BoardHandler {
-  private ArrayList boardList = new ArrayList(30);
+  private ArrayList<Board> boardList = new ArrayList<>();
   private Input input;
   
   public BoardHandler(Input input) {
@@ -19,10 +19,13 @@ public class BoardHandler {
   // => 의존객체를 강제로 설정하게 만드는 방법?
   //    다음과 같이 의존 객체를 넘겨 받는 생성자를 정의하는 것이다.
   public void listBoard() {
-    Object[] list = boardList.toArray();
-    for(Object obj : list) {
-      Board board = (Board) obj;
-      System.out.printf("%s, %s, %s\n\n", board.getNo(), board.getContents(), board.getCreatedDate());
+    Board[] boards = boardList.toArray(new Board[] {});
+//    Board[] boards = new Board[boardList.size()];
+//    boardList.toArray(boards);
+//    boardList.toArray(new Board[] {}); // size가 0인 배열이 만들어짐
+    for(Board board : boards) {
+      System.out.printf("%s, %s, %s\n\n", board.getNo(), 
+          board.getContents(), board.getCreatedDate());
     }
   }
 
