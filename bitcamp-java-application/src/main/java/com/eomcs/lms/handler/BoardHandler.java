@@ -19,10 +19,9 @@ public class BoardHandler {
   // => 의존객체를 강제로 설정하게 만드는 방법?
   //    다음과 같이 의존 객체를 넘겨 받는 생성자를 정의하는 것이다.
   public void listBoard() {
-//    Board[] boards = boardList.toArray(new Board[] {});
-    Board[] boards = new Board[3];
-    boardList.toArray(boards);
-//    System.out.println(boardList.size());
+    Board[] boards = boardList.toArray(new Board[] {});
+//    Board[] boards = new Board[boardList.size()];
+//    boardList.toArray(boards);
 //    boardList.toArray(new Board[] {}); // size가 0인 배열이 만들어짐
     for(Board board : boards) {
       System.out.printf("%s, %s, %s\n\n", board.getNo(), 
