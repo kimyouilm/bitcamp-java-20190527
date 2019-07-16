@@ -1,6 +1,5 @@
 package com.eomcs.lms.handler;
 
-import java.sql.Date;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.ArrayList;
 import com.eomcs.util.Input;

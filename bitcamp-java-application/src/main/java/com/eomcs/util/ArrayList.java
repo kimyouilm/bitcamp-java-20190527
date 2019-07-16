@@ -58,6 +58,8 @@ public class ArrayList<E> {
       System.out.println("toArray if a.length <size");
       System.out.println(a.length);
       System.out.println(size);
+      //                                     객체가 속하는 클래스의 정보를 알아내는 메소드이다.
+      //                        원본배열, 복사할 길이,
       return (E[]) Arrays.copyOf(list, size, a.getClass()); // 세번째 파라미터로 지정한 타입의 배열이 생성된다.
     }
     System.arraycopy(list, 0, a, 0, size);

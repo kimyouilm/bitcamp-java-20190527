@@ -36,6 +36,9 @@ public class Test02 {
     
     System.out.println(obj2.toString());
     System.out.println(obj3.toString());
+    System.out.println("-----------------");
+//    System.out.println(obj2);
+//    System.out.println(obj3);
   }
 
 }
