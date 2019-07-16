@@ -73,4 +73,11 @@ public class ArrayList<E> {
   public int size() {
     return this.size;
   }
+  @SuppressWarnings("unchecked")
+  public E get(int index) {
+    if (index < 0 || index >= size)
+      throw new IndexOutOfBoundsException(String.format("index = %s", index));
+    
+    return (E) list[index];
+  }
 }
