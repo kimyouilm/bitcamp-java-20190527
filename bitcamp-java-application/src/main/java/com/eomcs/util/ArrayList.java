@@ -39,6 +39,7 @@ public class ArrayList<E> {
   }
 
   public Object[] toArray() {
+    System.out.println("Object[] list");
     return Arrays.copyOf(this.list, this.size);
     //
     // Object[] arr = new Object[size];
@@ -54,13 +55,20 @@ public class ArrayList<E> {
       // 파라미터로 넘겨 받은 배열의 크기가 저장된 데이터의 개수 보다 작다면
       // 이 메소드에서 새 배열을 만든다.
       //                        .getClass() => 그 클래스가 어떤 타입인지 정보를 담음
+      System.out.println("toArray if a.length <size");
+      System.out.println(a.length);
+      System.out.println(size);
       return (E[]) Arrays.copyOf(list, size, a.getClass()); // 세번째 파라미터로 지정한 타입의 배열이 생성된다.
     }
     System.arraycopy(list, 0, a, 0, size);
+    // 복사한다음에 null로 채움
+    // 값을 채운 그다음방에만 null을 집어넣음 그뒤로는 쓰레기값
     if (a.length > size){
       a[size] = null;
     }
-     return a;
+//    if(a[size] == null)
+//      break;
+    return a;
   }
   public int size() {
     return this.size;
