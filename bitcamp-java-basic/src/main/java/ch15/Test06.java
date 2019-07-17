@@ -24,6 +24,7 @@ public class Test06 {
     System.out.println(obj1);
     System.out.println(obj2);
     
+    // 두개의 디지털 값이 같은지 비교 (크기가 큼) 식별자 느낌
     // hash value?
     // - 데이터를 다른 데이터와 구분하기 위해 사용하는 특별한 정수 값이다.
     // - 특정 수학 공식에 따라 값을 계산한다.
