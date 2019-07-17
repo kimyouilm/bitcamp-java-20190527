@@ -61,6 +61,7 @@ public class Test12_3 {
     System.out.println(s1 == s2);
     System.out.println(s1);
     System.out.println(s2);
+    System.out.println(s1.equals(s2));
   }
 }
 

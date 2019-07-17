@@ -1,8 +1,6 @@
 // 제네릭(generic) 응용 - 클래스 전체에 응용하기
 package ch16;
 
-import java.io.File;
-import java.util.Calendar;
 import java.util.Date;
 
 // 제네릭을 적용하지 않은 클래스
@@ -73,8 +71,8 @@ public class Test04 {
     String y2 = x2.getValue();
     String y3 = x3.getValue();
     
-    Box2<Date> x4 = new Box2<>(new Date());
-    Date y4 = x4.getValue(); // 형변환 할 필요가 없다.
+//    Box2<Date> x4 = new Box2<>(new Date());
+//    Date y4 = x4.getValue(); // 형변환 할 필요가 없다.
                              // 마치 Date을 리턴하는 getValue() 메서드가 있는 것 같다.
     
     // 제네릭은 다형성의 유연함을 그대로 유지하면서 특정 타입의 데이터를 다루도록 
