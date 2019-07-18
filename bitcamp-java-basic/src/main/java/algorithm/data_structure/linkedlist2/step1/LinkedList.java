@@ -1,4 +1,4 @@
-package com.eomcs.util;
+package algorithm.data_structure.linkedlist2.step1;
 
 public class LinkedList {
   // 인스턴스 필드는 값을 초기화 시키지 않으면 초기값은 0(정수형)임!
