@@ -1,9 +1,9 @@
-package com.eomcs.util;
+package algorithm.data_structure.linkedlist2.step2;
 
 public class LinkedListTest {
 
   public static void main(String[] args) {
-    LinkedList<String> list = new LinkedList<>();
+    LinkedList list = new LinkedList();
     // aaa의 주소가 넘어감
     list.add("aaa");
     list.add("bbb");
@@ -27,8 +27,8 @@ public class LinkedListTest {
     list.add("hul");
     
     //list.clear();
-    String[] arr = list.toArray(new String[] {});
-    for(String obj : arr) {
+    Object[] arr = list.toArray();
+    for(Object obj : arr) {
       System.out.println(obj);
     }
   }

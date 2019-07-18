@@ -1,12 +1,10 @@
-// LinkedList : 목록으로 다루는 값을 특정 타입으로 제한하기 위해 제네릭(generic)적용하기
-package com.eomcs.util;
+// LinkedList : Node 클래스를 중첩클래스(static nested class)로 만들기
+package algorithm.data_structure.linkedlist2.step2;
 
-import java.lang.reflect.Array;
-
-public class LinkedList<T> {
+public class LinkedList {
   // 인스턴스 필드는 값을 초기화 시키지 않으면 초기값은 0(정수형)임!
-  Node<T> head;
-  Node<T> tail;
+  Node head;
+  Node tail;
   int size = 0;
 
   public LinkedList() {
@@ -16,8 +14,8 @@ public class LinkedList<T> {
     // tail = head;
   }
 
-  public boolean add(T value) {
-    Node<T> temp = new Node<>(value);
+  public boolean add(Object value) {
+    Node temp = new Node(value);
     if (head == null)
       head = temp;
 
@@ -36,12 +34,12 @@ public class LinkedList<T> {
     // tail = tail.next;
   }
 
-  public T get(int index) {
-    if (index < 0 || index >= size) {
+  public Object get(int index) {
+    if (index < 0 || index >= size)
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
-    }
 
-    Node<T> node = head;
+    Node node = head;
+
     for (int i = 0; i < index; i++) {
       node = node.next;
     }
@@ -50,17 +48,17 @@ public class LinkedList<T> {
 
   // 특정 위치의 값을 바꾼다.
   // list.set(2, "aaa");
-  public T set(int index, T value) {
+  public Object set(int index, Object value) {
     if (index < 0 || index >= size)
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
-    
-    Node<T> node = head;
+    Node node = head;
+
     for (int i = 0; i < index; i++) {
       node = node.next;
     }
 
     // 노드에 저장된 기존 값 백업
-    T oldVal = node.value;
+    Object oldVal = node.value;
     // 해당 노드의 파라미터에서 받은 값으로 변경
     node.value = value;
     // 변경 전 값을 리턴
@@ -68,17 +66,17 @@ public class LinkedList<T> {
   }
 
   // 특정 위치의 값을 삭제한다.
-  public T remove(int index) {
+  public Object remove(int index) {
     if (index < 0 || index >= size)
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
 
-    Node<T> deletedNode = null;
+    Node deletedNode = null;
     if (index == 0) {
       deletedNode = head;
       head = deletedNode.next;
     } else {
 
-      Node<T> node = head;
+      Node node = head;
       for (int i = 0; i < index - 1; i++) {
         // 삭제하려는 노드의 이전 노드 까지 간다.
         node = node.next;
@@ -95,12 +93,12 @@ public class LinkedList<T> {
         tail = node;
       }
     }
-    // 삭제될 노드의 값을 임시 보관한다.
-    T oldVal = deletedNode.value;
-    // 삭제될 노드가 다른 객체를 참조하지 않도록 초기화 시킨다.
-    deletedNode.value = null;
-    // 이런 식으로 개발자가 메모리 관리에 기여할 수 있다.
-    deletedNode.next = null;
+      // 삭제될 노드의 값을 임시 보관한다.
+      Object oldVal = deletedNode.value;
+      // 삭제될 노드가 다른 객체를 참조하지 않도록 초기화 시킨다.
+      deletedNode.value = null;
+      // 이런 식으로 개발자가 메모리 관리에 기여할 수 있다.
+      deletedNode.next = null;
     size--;
     return oldVal;
   }
@@ -114,69 +112,53 @@ public class LinkedList<T> {
       return;
     // size가 0 보다 클때 노드를 따라 가면서 삭제하기
     while (head != null) {
-      Node<T> deletedNode = head;
+      Node deletedNode = head;
       head = head.next;
       deletedNode.value = null;
       deletedNode.next = null;
-
+      
     }
     tail = null;
     size = 0;
   }
-
+  
   public Object[] toArray() {
     // LinkedList에 있는 데이터를 저장할 배열을 준비한다.
     Object[] arry = new Object[size];
     // LinkedList의 head에서 tail까지 반복하면서 배열에 value를 복사한다.
-    Node<T> node = head;
+    Node node = head;
     int i = 0;
-    // i < size
-    while (node != null) {
+    //   node != null
+    while(i < size) {
       arry[i] = node.value;
       node = node.next;
       i++;
     }
-
-    // for (int j = 0; j <size; j++) {
-    // arry[j] = node.value;
-    // node = node.next;
-    // }
-    // 배열을 리턴한다.
+    
+//    for (int j = 0; j <size; j++) {
+//      arry[j] = node.value;
+//      node = node.next;
+//    }
+    //배열을 리턴한다.
     return arry;
   }
+  
+  // LinkedList에서 사용하는 클래스 라면 굳이 패키지 맴버 클래스로 만들 필요가 없다.
+  // LinkedList 안에 선언하여 중첩 클래스로 정의하는 것이
+  // 소스 코드의 유지보수에 좋다.
+  // 외부에 직접 노출되지 않기 때문에 쓸데없는 클래스를 감추는 효과도 있다.
+  static class Node {
 
-  @SuppressWarnings("unchecked")
-  public T[] toArray(T[] a) {
-    if (a.length < size) {
-      // 파라미터로 넘겨받은 배열의 크기가 저장된 데이터의 개수 보다 작다면
-      // 이 메소드에서 새 배열을 만든다.
-      a = (T[]) Array.newInstance(a.getClass().getComponentType(), size);
-    }
-    Node<T> node = head;
-    for (int j = 0; j < size; j++) {
-      a[j] = node.value;
-      node = node.next;
-    }
-
-    if (a.length > size)
-      a[size] = null;
-    return a;
-  }
-
-  // Node 객체에 보관하는 데이터의 클래스 이름을 "타입 파라미터" T에 받는다.
-  static class Node<T> {
-
-    T value;
+    Object value;
     // 다음 상자를 가르김
-    Node<T> next;
-
-    // 개발자가 아무런 생성자를 만들지 않았을때는 이클립스가 기본 생성자를 자동으로 만들어주지만
+    Node next;
+    
+    // 개발자가 아무런 생성자를 만들지 않았을때는 이클립스가 기본 생성자를 자동으로 만들어주지만 
     // 개발자가 기본생성자가 아닌 생성자를 만들었을시는 기본생성자가 자동으로 만들어 지지 않음
     public Node() {
-
+      
     }
-
-    public Node(T value) {
+    public Node(Object value) {
       this.value = value;
     }
   }
