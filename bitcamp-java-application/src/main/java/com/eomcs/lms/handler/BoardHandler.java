@@ -1,10 +1,9 @@
 package com.eomcs.lms.handler;
 
 import java.sql.Date;
+import java.util.List;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.util.Input;
-import com.eomcs.util.LinkedList;
-import com.eomcs.util.List;
 
 public class BoardHandler {
   private List<Board> boardList;
