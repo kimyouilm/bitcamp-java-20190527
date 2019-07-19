@@ -8,8 +8,8 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/util/Stack.java 추가
-- src/main/java/com/eomcs/lms/App.java 변경
+    - src/main/java/com/eomcs/util/Stack.java 추가
+    - src/main/java/com/eomcs/lms/App.java 변경
 
 ## 실습
 

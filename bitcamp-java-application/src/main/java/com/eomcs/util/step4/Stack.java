@@ -1,6 +1,9 @@
-package com.eomcs.util;
+package com.eomcs.util.step4;
 
-public class Stack<E> extends LinkedList<E> implements Cloneable, Iterable<E> {
+import com.eomcs.util.Iterator;
+import com.eomcs.util.LinkedList;
+
+public class Stack<E> extends LinkedList<E> implements Cloneable {
 
   @Override
   public Stack<E> clone() throws CloneNotSupportedException {
@@ -27,8 +30,7 @@ public class Stack<E> extends LinkedList<E> implements Cloneable, Iterable<E> {
     return size() == 0;
   }
 
-  @Override
-  public Iterator<E> iterator() {
+  public Iterator<E> getIterator() {
     return new Iterator<E>() {
 
       @Override
