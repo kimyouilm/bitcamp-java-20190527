@@ -1,16 +1,21 @@
-// generalization 기법으로 생성한 수퍼 클래스를 추상 클래스로 선언하기
-package ch17.d;
+// generalization을 통해 수퍼 클래스를 정의할 때 문제점.
+package ch17.c;
 
-public class Test01 {
+public class Test02 {
 
   public static void main(String[] args) {
     int[] values = {23, 7, 12, 15, 9, 2, 22, 8, 11, 25, 13, 5};
     
-    // => Sorter 클래스를 추상클래스로 선언하면 다음과 같이 직접 사용할 수 없다.
-//    display(new Sorter(), values); // 컴파일 오류
-    // => Sorter 클래스처럼 서브 클래스에게 공통 필드나 기능을 상속해주는 용도로 만든 클래스인 경우
-    // 직접 사용하지 못하게 abstract 클래스로 선언하면
-    // 다른 개발자가 잘못 사용할 일을 막을 수 있다.
+    // => Sorter는 BubbleSort와 QuickSort 클래스 처럼
+    //    단지 정렬을 수행하는 클래스를 만들 때 일관성 있게 사용하려고
+    //    수퍼 클래스를 만든 것이다.
+    // => Sorter는 직접 사용하려고 만든 것이 아니다.
+    
+    // 다음과 같이 Sorter를 직접 사용하는 것은 아무런 의미가 없다.
+    // 왜? 정령을 수행하는 메소드인 sort()가 아무 일도 안한다.
+    display(new Sorter(), values);
+    // => 이런경우, 차라리 Sorter 클래스를 추상 클래스로 만드는 것이 바람직한다.
+    // 추상 클래스인 경우 직접 인스턴스를 만들어 사용할 수 없기 대문이다.
     
   }
 
