@@ -6,7 +6,10 @@ package ch18.f;
 // 클래스를 만들기가 편하다.
 public class Sonata extends AbstractCar {
 
-  // 그리고 서브 클래스에게 구현하라고 맡겨진 추상 메서드를 정의한다.
+  // CarSpec에 선언된 on(), off() 메소드는 수퍼 클래스에서 미리 구현했기 때문에
+  // 서브 클래스에서 다시 구현할 필요가 없어 편하다!
+  
+  // 서브 클래스는 수퍼 클래스가 구현하지 않은 나머지 메소드만 구현하면 된다.
   @Override
   public void run() {
     System.out.println("씽씽~~ 달린다!");
