@@ -17,7 +17,6 @@ public class Test01 {
     
     // 그러나 레퍼런스 변수는 선언할 수 있다.
     A obj2;
-
   }
 
 }

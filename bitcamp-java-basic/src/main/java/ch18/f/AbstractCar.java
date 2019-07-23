@@ -25,7 +25,7 @@ public abstract class AbstractCar implements CarSpec{
   // => 즉 인터페이스의 메소드 중에서 서브 클래스가 구현해야만 의미가 있는 메소드의 경우
   //    추상 클래스에서 미리 구현할 필요가 없다.
   // => 서브 클래스가 구현하도록 강제하기 위해 추상메소드롤 내버려 둔다.
-  public abstract void run();
+//  public abstract void run();
 }
 
 

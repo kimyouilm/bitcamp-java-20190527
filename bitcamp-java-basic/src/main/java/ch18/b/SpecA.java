@@ -11,4 +11,5 @@ public interface SpecA {
   //abstract void m1(); // OK! <= default 접근 제어가 아니다! public을 생략한 것이다.
   void m1(); // OK! public abstract 생략!
   void m2();
+//  public void m3();
 }
