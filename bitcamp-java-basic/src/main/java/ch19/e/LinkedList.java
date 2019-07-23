@@ -46,6 +46,7 @@ public class LinkedList {
     // 배열을 만들어 주는 도우미 클래스이다.
     //
     // Array의 도움을 받으려면 다음과 같이 항상 Array 객체에게 LinkedList 객체를 넘겨야 한다.
+    //                   this:ArrayList 내 주소 알려줄께
     Array helper = new Array(this); // <== LinkedList 객체 주소를 넘긴다.
     
     if (direction == FORWARD) {

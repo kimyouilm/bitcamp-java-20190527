@@ -18,37 +18,51 @@ package ch19.a;
      // => 스태틱 메소드에는 인스턴스 주소를 담은 this라는 변수가 없기 때문이다.
      // => 인스턴스 맴버는 사용하려면 반드시 인스턴스 주소가 있어야 한다.
 //     m2(); // 컴파일 오류
+     //만약 인스턴스 맴버를 사용해야한다면 다음과 같이 별도로 인스턴스를 생성한 후 사용해야 한다.
+     X x = new X();
+     x.m2();
+    
+     // 당연히 인스턴스 주소만 있다면 X의 inner 클래스인 B객체로 생성할 수 있다.
+     // 참고만 하라!
+     obj2 = x.new B(); // 실무에서는 이렇게 외부의 인스턴스를 가지고 inner클래스를 생성하는 방식을 거의 사용하지않음
    }
+
    
    void m2() {
+     // 인스턴스 맴버에서 static nested class와 inner 클래스 사용하기
      
+     // 스태틱 맴버는 인스턴스 맴버에서도 자유롭게 사용할 수 있다.
+     // 즉 다음과 같이 인스턴스 메소드에서 스태틱 메소드를 자유롭게 호출하듯이,
+     m1(); //OK!
+     
+     // 인스턴스 메소드에서 static nested class를 바로 사용할 수 있다.
+     A obj = new A();
+     
+     // instance 메소드에서 다음 인스턴스 맴버를 자유롭게 사용하듯이
+     /* this.*/ a = 100; // this생략 가능
+     /* this.*/m3(); // this생략 가능
+     B obj2 = this.new B();
+     obj2 = new B(); // this 생략 가능
    }
+   
+   int a;
+   void m3() {}
  }
 public class Test03 {
 
-  static class A {}
-
-  class B {} 
-
   public static void main(String[] args) {
-    // 스태틱 맴버는 static nested class를 바로 사용할 수 있다.
-  }
 
-  // 스태틱 메서드 
-  public static void m1() {
-    // 스태틱 멤버는 오직 같은 스태틱 멤버만 사용할 수 있다.
-    A obj = new A();
+    // 다른 클래스에서 중첩 클래스를 사용하기
+    // => static nested class 사용
+    X.A obj = new X.A();
     
-    // 스태틱 멤버는 인스턴스 주소를 담는 this라는 built-in 변수가 없기 때문에 
-    // 인스턴스 멤버(필드, 메서드, inner 클래스)를 사용할 수 없다.
-    B obj2; // 레퍼런스 변수를 선언할 때는 inner 클래스를 사용할 수 있다.
-    //obj2 = new B(); // 컴파일 오류!
-    
-    // 다른 로컬 멤버(변수, 중첩 클래스)는 사용할 수 없다.
-    //C obj3; // 컴파일 오류! C 클래스는 main()에서만 사용할 수 있다.
-    //obj3 = new C(); // 컴파일 오류!
-    
-    
+    // => non-static nested class(inner class)사용
+//    X.B obj2 = new X.B(); // 오류
+    X.B obj2;
+    // X의 inner클래스를 사용하려면 반드시 X의 인스턴스가 있어야 한다.
+//    obj2 = new X.B(); // 오류
+    X x = new X();
+    obj2 = x.new B(); // OK
   }
 
 }

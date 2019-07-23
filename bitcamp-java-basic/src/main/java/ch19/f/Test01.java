@@ -1,6 +1,5 @@
-// non-static nested class가 활용된 경우 
+// 중첩 클래스 사용후: static 과 non-static 중첩클래스  사용
 package ch19.f;
-
 public class Test01 {
 
   public static void main(String[] args) {

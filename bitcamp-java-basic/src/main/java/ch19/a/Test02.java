@@ -1,30 +1,5 @@
 // 중첩 클래스 종류
 package ch19.a;
-
-// 익명 클래스의 예제를 위한 클래스
-class Car {
-  String model;
-
-  public void run() {
-    System.out.println("달린다!");
-  }
-
-  public Car() {
-    this.model = "미정";
-  }
-
-  public Car(String model) {
-    this.model = model;
-  }
-}
-
-
-// 익명 클래스의 예제를 위한 인터페이스
-interface Pen {
-  void write();
-}
-
-
 public class Test02 {
 
   // 중첩 클래스
