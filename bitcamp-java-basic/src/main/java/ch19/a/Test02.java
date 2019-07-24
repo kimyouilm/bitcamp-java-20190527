@@ -49,10 +49,9 @@ public class Test02 {
     // new 수퍼클래스() {클래스 정의}
     // new 인터페이스() {클래스 정의}
 
-    Object obj = new Object() {
-      // Object 클래스를 상속 받은 익명 클래스를 만들고,
-      // f1() 메소드를 추가한다.
-
+    Object obj = new Object() { 
+//      // Object 클래스를 상속 받은 익명 클래스를 만들고,
+//      // f1() 메소드를 추가한다.
       public void f1() {
         System.out.println("Hello");
       }
