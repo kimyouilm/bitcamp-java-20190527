@@ -22,7 +22,9 @@ import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
 import com.eomcs.lms.handler.BoardListCommand;
 import com.eomcs.lms.handler.BoardUpdateCommand;
+import com.eomcs.lms.handler.CalPlusCommand;
 import com.eomcs.lms.handler.Command;
+import com.eomcs.lms.handler.HiCommand;
 import com.eomcs.lms.handler.LessonAddCommand;
 import com.eomcs.lms.handler.LessonDeleteCommand;
 import com.eomcs.lms.handler.LessonDetailCommand;
@@ -84,6 +86,8 @@ public class App {
     commandMap.put("/member/list", new MemberListCommand(input, memberList));
     commandMap.put("/member/update", new MemberUpdateCommand(input, memberList));
     
+    commandMap.put("/hi", new HiCommand(input));
+    commandMap.put("/calc/plus", new CalPlusCommand(input));
     while (true) {
 
       String command = prompt("명령>>");
