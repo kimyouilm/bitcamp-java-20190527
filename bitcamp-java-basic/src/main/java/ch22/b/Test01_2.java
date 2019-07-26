@@ -33,6 +33,7 @@ public class Test01_2 {
         System.out.print(Integer.toHexString(b) + " ");
       }
       */
+      // read => 1byte 씩 읽는다 
       while ((b = in.read()) != -1) {
         System.out.print(Integer.toHexString(b) + " ");
       }
