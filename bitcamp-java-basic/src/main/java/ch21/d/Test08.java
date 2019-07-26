@@ -23,7 +23,7 @@ public class Test08 {
   static void m1() throws RuntimeException {
     // RuntimeException 예외가 최초로 발생되는 메서드를 만들 때는
     // 가능한 메서드 선언부의 throws 절에 어떤 예외가 발생하는지 적어라!
-    // 왜?
+    // 왜?`
     // RuntimeException은 안 적어도 되지만, 가능한 다른 개발자가 알아볼 수 있도록 적어라!
     throw new RuntimeException("m1()에서 발생한 예외");
   }

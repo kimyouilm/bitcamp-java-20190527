@@ -2,7 +2,13 @@
 package ch19.a;
  class X {
    
-   static class A {}
+   static class A {
+     int a;
+     
+     void a() {
+       System.out.println("aaaaaaaaa");
+     }
+   }
    
    class B {}
    static void m1() {
@@ -51,10 +57,10 @@ package ch19.a;
 public class Test03 {
 
   public static void main(String[] args) {
-
-    // 다른 클래스에서 중첩 클래스를 사용하기
+// 다른 클래스에서 중첩 클래스를 사용하기
     // => static nested class 사용
     X.A obj = new X.A();
+    obj.a();
     
     // => non-static nested class(inner class)사용
 //    X.B obj2 = new X.B(); // 오류
@@ -66,10 +72,4 @@ public class Test03 {
   }
 
 }
-
-
-
-
-
-
 

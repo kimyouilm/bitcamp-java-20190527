@@ -1,10 +1,10 @@
 // 애플리케이션 예외의 종류: Exception 계열의 예외와 RuntimeException 계열의 예외
 package ch21.c;
 
-import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Test01 {
+public class Test01_2 {
 
   public static void main(String[] args) {
 
@@ -58,51 +58,17 @@ public class Test01 {
     // catch 블록에서 예외를 반드시 받아야 하는 것은 아니다.
     // => 그래서 아래의 try ~ catch 블록에 이들 예외를 처리하는 catch 블록이 없는 것이다.
     //
-    try {
-      // 사용자로부터 로딩할 클래스 이름을 입력 받는다.
-      System.out.print("실행할 Command 클래스 이름을 입력하세요> ");
-      String className = keyboard.nextLine();
+    ArrayList<String> list = new ArrayList<>();
+    System.out.println(list.get(100));
+    java.util.Hashtable c;
 
-      // 사용자가 알려준 클래스를 로딩한다.
-      // 만약 해당 클래스가 없다면 Exception의 직계 자식인
-      // ClassNotFoundException 예외가 발생한다.
-      Class<?> clazz = Class.forName(className);
-
-      // 클래스 정보를 가지고 Scanner를 파라미터로 받는 생성자를 얻어낸다.
-      // 만약 해당 생성자가없다면 Exception직계 자식인
-      // NoSuchMethodException 예외가 발생한다.
-      Constructor<?> constructor = clazz.getConstructor(Scanner.class);
-
-      // 생성자를 가지고 인스턴스를 생성한다.
-      // 만약 인스턴스 생성에 실패했다면 Exception의 직계 자식인
-      // InInstantiationException 예외 발생
-      Command command = (Command) constructor.newInstance(keyboard);
-
-      // 커맨드 객체를 실행한다.
-      // => execute()에서 발생하는 예외는 모두 RuntimeException 계열의 예외이기 때문에
-      // 반드시 catch 할 필요는 없다.
-      command.execute();
-
-    } catch (ClassNotFoundException e) {
-      // 예외를 발생시키는 방법:
-      // 클래스 이름을 입력할 때> ch21.c.Ok
-      //
-      System.out.println("해당 클래스를 찾지 못했습니다.");
-
-    } catch (NoSuchMethodException e) {
-      // 예외를 발생시키는 방법:
-      // 클래스 이름을 입력할 때> java.lang.String
-      //
-      System.out.println("해당 생성자를 찾지 못했습니다.");
-
-    } catch (InstantiationException e) {
-      System.out.println("인스턴스 생성에 실패했습니다.");
-    } catch (Exception e) {
-
-      System.out.println("기타 예외 발생!");
-
+  }
+  
+  static int divide (int a, int b ) throws RuntimeException{
+    if (b == 0) {
+      throw new RuntimeException("0으로 나눌수 없습니다.");
     }
-
+    return a / b;
   }
 
 }

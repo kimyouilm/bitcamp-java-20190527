@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
-public class Test03 {
+public class Test03_2 {
 
   public static void main(String[] args) 
       throws ClassNotFoundException, // 이 메서드에서 발생하는 예외의 목록을 지정한다.

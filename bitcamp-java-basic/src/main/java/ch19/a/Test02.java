@@ -6,7 +6,7 @@ public class Test02 {
   // => 특정 클래스 안에서만 사용되는 클래스가 있다면 중첩 클래스로 선언하라.
   // => 즉 노출 범위를 좁히는 것이 유지보수에 좋다.
   //
-  // 1) static nested class
+  // 1) static nested class = inner class
   // => 바깥 클래스의 특정 인스턴스에 종속되지 않는 클래스.
   static class A {
   } // Test02.A obj = new Test02.A();
@@ -18,7 +18,7 @@ public class Test02 {
 
   static {
   } // 클래스 로딩할 때 자동으로 실행
-  // 2) non-static nested class = inner class
+  // 2) non-static nested class
   // => 바깥 클래스의 특정 인스턴스에 종속되는 클래스.
 
   class B {

@@ -45,11 +45,4 @@ public class Test04 {
     return value + sum(value - 1);
   }
   
- 
 }
-
-
-
-
-
-
