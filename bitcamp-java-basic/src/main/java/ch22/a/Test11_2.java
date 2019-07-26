@@ -11,16 +11,15 @@ public class Test11_2 {
     class TextFileFilter implements FileFilter {
       @Override
       public boolean accept(File pathname) {
-        if (pathname.isFile() && pathname.getName().endsWith(".txt"))
-          return true;
-        else 
-          return false;
+        return (pathname.isFile() && pathname.getName().endsWith(".txt"));
+
       }
     }
     
     File file = new File(".");
     
     File[] files = file.listFiles(new TextFileFilter());
+    
     
     for (File f : files) {
       System.out.printf("%s %12d %s\n", 

@@ -14,12 +14,10 @@ public class Test11_3 {
     File[] files = file.listFiles(new FileFilter() {
       @Override
       public boolean accept(File pathname) {
-        if (pathname.isFile() && pathname.getName().endsWith(".txt"))
-          return true;
-        else 
-          return false;
+        return (pathname.isFile() && pathname.getName().endsWith(".txt"));
       }
     });
+    
     
     for (File f : files) {
       System.out.printf("%s %12d %s\n", 

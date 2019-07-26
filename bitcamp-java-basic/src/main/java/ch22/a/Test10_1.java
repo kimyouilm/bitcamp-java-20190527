@@ -10,10 +10,10 @@ public class Test10_1 {
   static class TextFileFilter implements FilenameFilter {
     @Override
     public boolean accept(File dir, String name) {
-      if (name.endsWith(".txt"))
-        return true;
-      else 
-        return false;
+//      System.out.printf("%s => %s\n", dir.getName(), name);
+//      return true;
+      
+      return name.endsWith(".txt");
     }
   }
   

@@ -35,7 +35,7 @@ public class Test01 {
     
     System.out.println("---------------------------");
     
-    dir = new File(".");
+    dir = new File("."); // 현재 디렉터리
     System.out.println(dir.getName()); // 폴더명
     System.out.println(dir.getPath()); // 경로
     System.out.println(dir.getAbsolutePath()); // 절대 경로
