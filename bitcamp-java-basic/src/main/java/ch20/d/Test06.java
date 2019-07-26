@@ -31,7 +31,7 @@ public class Test06 {
     
     Set<String> keySet = map.keySet();
     
-    // Set에서 값을 꺼내기 위해 Iterator의 도움을 받는다. ********************
+    // Set에서 값을 꺼내기 위해 Iterator의 도움을 받는다.
     Iterator<String> iterator = keySet.iterator();
     
     // Iterator를 통해 키 목록에서 값을 한 개씩 꺼낸다.

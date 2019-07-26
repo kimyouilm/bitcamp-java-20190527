@@ -20,7 +20,7 @@ class Box1 {
 // => 클래스 전체에서 사용할 "타입 파라미터(타입 이름을 저장하는 변수)"를 선언하기
 // =>   class 클래스명<타입파라미터명, 타입파라미터명, ...> {...}
 // => 클래스가 다루는 어떤 타입이 있다고 가정하자. 그 타입을 T라고 부르겠다.
-//    컴파일할때 자동 캐스팅으로 이루어 진다는거지 JVM에는 제네릭이라는 문법이 없다.
+//    
 class Box2<T> {
   T value;  // T라는 타입의 인스턴스 주소를 저장할 필드
   
@@ -71,8 +71,8 @@ public class Test04 {
     String y2 = x2.getValue();
     String y3 = x3.getValue();
     
-//    Box2<Date> x4 = new Box2<>(new Date());
-//    Date y4 = x4.getValue(); // 형변환 할 필요가 없다.
+    Box2<Date> x4 = new Box2<>(new Date());
+    Date y4 = x4.getValue(); // 형변환 할 필요가 없다.
                              // 마치 Date을 리턴하는 getValue() 메서드가 있는 것 같다.
     
     // 제네릭은 다형성의 유연함을 그대로 유지하면서 특정 타입의 데이터를 다루도록 

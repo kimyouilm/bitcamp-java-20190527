@@ -4,13 +4,6 @@ package ch10;
 import java.util.Calendar;
 
 public class Test16 {
-  // 인스턴스 마다 별도의 값을 갖게 하려면 <- 인스턴스 필드 (변수)로 만드
-  
-  // 중간에 값을 바꿀수 없는 상수 변수
-  public static final int YEAR = 1;
-  public static final int MONTH = 2;
-  public static final int DAY = 5;
-  
   public static void main(String[] args) throws Exception {
     
     Calendar c1;
@@ -21,9 +14,7 @@ public class Test16 {
     // Calendar는 인스턴스 생성을 도와주는 별도의 클래스 메서드(스태틱 메서드)를 제공한다.
     c1 = Calendar.getInstance();
     
-    System.out.println(c1.get(Calendar.YEAR));
-    // 날짜 추출하기
-    System.out.println(c1.get(MONTH));
+    System.out.println(c1.get(Calendar.YEAR)); 
     
     /* 
      # 팩토리 메서드(factory method)

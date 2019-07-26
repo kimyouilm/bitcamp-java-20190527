@@ -17,10 +17,11 @@ public class Test07 {
     // => 참고! 숫자 2바이트의 범위는 -32768 ~ 32767 이다.
     System.out.println((char)0xac00);
     
-    long n = '흥';
-    System.out.println(n);
-    System.out.println((char)n);
+    long v = '흥';
+    System.out.println(v);
+    System.out.println((char)v);
     System.out.println('흥');
+    
     // 문자의 코드를 알지 못한다면 작은 따옴표('')를 이용할 수 있다.
     // '가'?
     // 한글 '가'의 UTF-16 값을 리턴한다.

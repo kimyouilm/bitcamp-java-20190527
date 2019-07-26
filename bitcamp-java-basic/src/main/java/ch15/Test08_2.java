@@ -1,12 +1,12 @@
-// hash code 응용 II - HashSet 과 HashCode
+// hash code 응용 - 문제 해결!
 package ch15;
 
 import java.util.HashSet;
 
 public class Test08_2 {
   
-  static class Student{
-    String  name;
+  static class Student {
+    String name;
     int age;
     boolean working;
     
@@ -14,8 +14,6 @@ public class Test08_2 {
       this.name = name;
       this.age = age;
       this.working = working;
-      
-      
     }
 
     @Override
@@ -27,6 +25,7 @@ public class Test08_2 {
       result = prime * result + (working ? 1231 : 1237);
       return result;
     }
+
     @Override
     public boolean equals(Object obj) {
       if (this == obj)
@@ -47,7 +46,9 @@ public class Test08_2 {
         return false;
       return true;
     }
+    
   }
+  
   public static void main(String[] args) {
     Student s1 = new Student("홍길동", 20, false);
     Student s2 = new Student("홍길동", 20, false);
@@ -59,28 +60,29 @@ public class Test08_2 {
     System.out.println(s2.hashCode());
     System.out.println(s3.hashCode());
     System.out.println(s4.hashCode());
-    System.out.println("----------------------------");
+    System.out.println("--------------------");
     
-    // HashSet(집합)에 객체를 보관한다.
-    HashSet<Student> set = new HashSet<>();
+    // 해시셋(집합)에 객체를 보관한다.
+    HashSet<Student> set = new HashSet<Student>();
     set.add(s1);
     set.add(s2);
     set.add(s3);
     set.add(s4);
     
-    // HashSet에 보관된 객체를 꺼낸다.
+    // 해시셋에 보관된 객체를 꺼낸다.
     Object[] list = set.toArray();
     for (Object obj : list) {
       Student student = (Student) obj;
-      System.out.printf("%s, %d, %s\n", student.name, student.age, 
-          (student.working? "재직중" : "실업중"));
+      System.out.printf("%s, %d, %s\n", 
+          student.name, student.age, student.working ? "재직중" : "실업중");
     }
     
-    // 인스턴스가 다르더라도 인스턴스의 필드값이 같을 경우 
+    // 인스턴스가 다르더라도 인스턴스의 필드 값이 같을 경우 
     // HashSet에 중복 저장되지 않도록 하려면,
-    // hashCode()와 equals()모두 오버라이딩 하라!
-    // => hashCode()는 같은 필드 값을 갖는 경우 같은 hashCode를 리턴하도록 변경하고,
+    // hashCode()와 equals() 모두 오버라이딩 하라!
+    // => hashCode()는 같은 필드 값을 갖는 경우 같은 해시코드를 리턴하도록 변경하고,
     // => equals()는 필드 값이 같을 경우 true를 리턴하도록 변경한다.
+    //
   }
 
 }

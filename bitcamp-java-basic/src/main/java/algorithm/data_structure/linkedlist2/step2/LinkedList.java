@@ -2,164 +2,148 @@
 package algorithm.data_structure.linkedlist2.step2;
 
 public class LinkedList {
-  // 인스턴스 필드는 값을 초기화 시키지 않으면 초기값은 0(정수형)임!
   Node head;
   Node tail;
   int size = 0;
-
+  
   public LinkedList() {
-    // head = new Node();
-    // head를 저장하는게 아니라
-    // head에 들어있는 값을 tail에 저장하는 개념
-    // tail = head;
   }
-
+  
   public boolean add(Object value) {
     Node temp = new Node(value);
     if (head == null)
       head = temp;
-
     if (tail != null)
-      // 새로만든 node를 기존의 값들에 연결시킴
       tail.next = temp;
-
     tail = temp;
     size++;
     return true;
-    // list.add(aaa); => aaa 의 주소가 넘어감
-    // tail.value = value;
-    // 새롭게 Node생성해서 새로운 번지가 만들어짐
-    // tail.next = new Node();
-    // tail에 새로운 번지를 저장.
-    // tail = tail.next;
   }
-
+  
   public Object get(int index) {
     if (index < 0 || index >= size)
-      throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
-
+      throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다!");
+    
     Node node = head;
-
     for (int i = 0; i < index; i++) {
       node = node.next;
     }
     return node.value;
   }
-
+  
   // 특정 위치의 값을 바꾼다.
-  // list.set(2, "aaa");
   public Object set(int index, Object value) {
     if (index < 0 || index >= size)
-      throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
+      throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다!");
+    
     Node node = head;
-
     for (int i = 0; i < index; i++) {
       node = node.next;
     }
-
-    // 노드에 저장된 기존 값 백업
-    Object oldVal = node.value;
-    // 해당 노드의 파라미터에서 받은 값으로 변경
-    node.value = value;
-    // 변경 전 값을 리턴
-    return oldVal;
+    Object oldVal = node.value; // 노드에 저장된 기존 값 백업
+    node.value = value; // 해당 노드의 값을 파라미터에서 받은 값으로 변경
+    return oldVal; // 변경 전 값을 리턴
   }
-
-  // 특정 위치의 값을 삭제한다.
+  
+  // 특정의 위치의 값을 삭제한다.
   public Object remove(int index) {
     if (index < 0 || index >= size)
-      throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
-
+      throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다!");
+    
     Node deletedNode = null;
     if (index == 0) {
       deletedNode = head;
       head = deletedNode.next;
     } else {
-
       Node node = head;
-      for (int i = 0; i < index - 1; i++) {
-        // 삭제하려는 노드의 이전 노드 까지 간다.
-        node = node.next;
+      for (int i = 0; i < index - 1; i++) { 
+        // 삭제하려는 노드의 이전 노드까지 간다.
+        node = node.next; 
       }
-
-      // 삭제될 노드를 임시 보관한다.
-      deletedNode = node.next;
-      // 이전노드가 가리키는 다음 노드를 다음 다음 노드를 가리키게 한다.
-      // 삭제돌 노드의 다음 노드를 가리킨다.
-      node.next = deletedNode.next;
-      // 삭제할 노드가 마지막 노드라면
-      if (deletedNode == tail) {
-        // tail 노드를 변경한다.
-        tail = node;
+      // 이전 노드가 가리키는 다음 노드를 다음, 다음 노드를 가리키게 한다.
+      deletedNode = node.next; // 삭제될 노드를 임시 보관한다.
+      node.next = deletedNode.next; // 삭제될 노드의 다음 노드를 가리킨다.
+      
+      if (deletedNode == tail) { // 삭제할 노드가 마지막 노드라면 
+        tail = node; // tail 노드를 변경한다.
       }
     }
-      // 삭제될 노드의 값을 임시 보관한다.
-      Object oldVal = deletedNode.value;
-      // 삭제될 노드가 다른 객체를 참조하지 않도록 초기화 시킨다.
-      deletedNode.value = null;
-      // 이런 식으로 개발자가 메모리 관리에 기여할 수 있다.
-      deletedNode.next = null;
+    
+    Object oldVal = deletedNode.value; // 삭제될 노드의 값을 임시 보관한다.
+    deletedNode.value = null; // 삭제될 노드가 다른 객체를 참조하지 않도록 초기화시킨다.
+    deletedNode.next = null; // 이런 식으로 개발자가 메모리 관리에 기여할 수 있다.
+    
     size--;
+    
     return oldVal;
   }
-
+  
   public int size() {
     return size;
   }
-
+  
   public void clear() {
     if (size == 0)
       return;
-    // size가 0 보다 클때 노드를 따라 가면서 삭제하기
+    
+    // 노드를 따라 가면서 삭제하기
     while (head != null) {
       Node deletedNode = head;
       head = head.next;
       deletedNode.value = null;
       deletedNode.next = null;
-      
     }
+    
     tail = null;
     size = 0;
   }
   
   public Object[] toArray() {
     // LinkedList에 있는 데이터를 저장할 배열을 준비한다.
-    Object[] arry = new Object[size];
+    Object[] arr = new Object[size];
+    
     // LinkedList의 head에서 tail까지 반복하면서 배열에 value를 복사한다.
+    // 방법1:
+    /*
+    Node node = head;
+    for (int i = 0; i < size; i++) {
+      arr[i] = node.value;
+      node = node.next;
+    }
+    */
+    
+    // 방법2;
     Node node = head;
     int i = 0;
-    //   node != null
-    while(i < size) {
-      arry[i] = node.value;
+    while (node != null) {
+      arr[i++] = node.value;
       node = node.next;
-      i++;
     }
     
-//    for (int j = 0; j <size; j++) {
-//      arry[j] = node.value;
-//      node = node.next;
-//    }
-    //배열을 리턴한다.
-    return arry;
+    // 배열을 리턴한다.
+    return arr;
   }
   
-  // LinkedList에서 사용하는 클래스 라면 굳이 패키지 맴버 클래스로 만들 필요가 없다.
-  // LinkedList 안에 선언하여 중첩 클래스로 정의하는 것이
-  // 소스 코드의 유지보수에 좋다.
+  // LinkedList에서 사용하는 클래스라면 굳이 패키지 멤버 클래스로 만들 필요가 없다.
+  // LinkedList 안에 선언하여 중첩 클래스로 정의하는 것이 
+  // 소스 코드의 유지보수에 좋다. 
   // 외부에 직접 노출되지 않기 때문에 쓸데없는 클래스를 감추는 효과도 있다.
   static class Node {
-
     Object value;
-    // 다음 상자를 가르김
     Node next;
     
-    // 개발자가 아무런 생성자를 만들지 않았을때는 이클립스가 기본 생성자를 자동으로 만들어주지만 
-    // 개발자가 기본생성자가 아닌 생성자를 만들었을시는 기본생성자가 자동으로 만들어 지지 않음
     public Node() {
-      
     }
+    
     public Node(Object value) {
       this.value = value;
     }
   }
 }
+
+
+
+
+
+
+

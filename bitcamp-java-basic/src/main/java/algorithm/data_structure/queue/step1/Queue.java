@@ -1,6 +1,6 @@
 package algorithm.data_structure.queue.step1;
 
-import algorithm.data_structure.linkedlist2.step3.LinkedList;
+import algorithm.data_structure.linkedlist.step1.LinkedList;
 
 // 기존 기능을 활용하는 가장 쉬운 방법이 상속이다.
 // 
@@ -15,6 +15,6 @@ public class Queue extends LinkedList {
   }
   
   public boolean empty() {
-    return this.size() == 0;
+    return this.size == 0;
   }
 }

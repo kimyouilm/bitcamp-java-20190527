@@ -5,11 +5,11 @@ public class Score {
   private String name;
   protected int kor;
   protected int eng;
-  protected int math;
+  protected int math; 
   
   // 서브 클래스에서 사용할 필드는 protected로 접근을 풀어 준다.
   // => 접근 범위를 넓히는 것은 기존 코드에 영향을 미치지 않는다.
-  // => 접근 범위를 좁히게 되면 기존 코드에서 직접 접근하던 코드가'] 동작이 안될 수 있다.
+  // => 접근 범위를 좁히게 되면 기존 코드에서 직접 접근하던 코드가 동작이 안될 수 있다.
   //    접근 범위를 좁히게 되면 기존 코드에 영향을 준다.
   protected int sum;
   protected float aver;
@@ -34,7 +34,6 @@ public class Score {
   public int getEng() {
     return this.eng;
   }
-  
   public void setEng(int eng) {
     if (eng >= 0 && eng <= 100) { // 유효한 점수인 경우에만 저장한다.
       this.eng = eng;

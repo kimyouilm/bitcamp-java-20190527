@@ -1,5 +1,6 @@
 // l-value와 r-value 용어
-package  ch03;
+package ch03;
+
 public class Test04 {
   public static void main(String[] args) { 
     int a = 100;

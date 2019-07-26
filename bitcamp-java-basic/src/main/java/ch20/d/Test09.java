@@ -32,8 +32,8 @@ public class Test09 {
     table.put("ddd", s);
     
     // Hashtable도 HashMap과 마찬가지로 values()를 사용하여 값 목록만 꺼낼 수 있다.
-    // 그러나 Hashtable은 Enumeration으로 값 목록을 꺼내는 메소드를 추가로 제공한다.
-    // value 목록 꺼내기
+    // 또한 Hashtable은 Enumeration으로 값 목록을 꺼내는 메서드를 추가로 제공한다.
+    // => Enumeration의 사용법은 Iterator와 유사하다.
     Enumeration<Student> values = table.elements();
     while (values.hasMoreElements()) {
       System.out.println(values.nextElement());

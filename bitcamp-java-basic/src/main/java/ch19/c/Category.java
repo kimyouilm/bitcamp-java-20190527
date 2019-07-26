@@ -12,12 +12,13 @@ public class Category {
   public static final int COMPUTER_CPU = 104;
   public static final int COMPUTER_RAM = 105;
   public static final int COMPUTER_VGA = 106;
-
+  
+  
   public static final int COMPUTER_NOTEBOOK_13 = 111;
   public static final int COMPUTER_NOTEBOOK_15 = 112;
   public static final int COMPUTER_NOTEBOOK_17 = 113;
   public static final int COMPUTER_NOTEBOOK_20 = 114;
-  
+
   public static final int APPLIANCE_TV = 201;
   public static final int APPLIANCE_AUDIO = 202;
   public static final int APPLIANCE_DVD = 203;

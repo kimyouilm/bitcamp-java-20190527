@@ -13,9 +13,7 @@ public class Test01 {
     //    java.lang.Object
     //      ㄴ java.lang.Throwable
     //           ㄴ java.lang.Error
-    //       java.lang.VirtualMachineError임 (JVM)
-    // => 예) StackOverflowError(에러뜨면 걍 종료해야함), 
-    //       OutOfMemoryError(에러뜨면 걍 종료해야함), IOError, ThreadDeath 등 
+    // => 예) StackOverflowError, OutOfMemoryError, IOError, ThreadDeath 등 
     //
     
     // StackOverflowError 발생시키기
@@ -33,7 +31,6 @@ public class Test01 {
     //    java.lang.Object
     //      ㄴ java.lang.Throwable
     //           ㄴ java.lang.Exception
-    // 보통 Application Exception은 뒤에 Exception붙음
     // => 예) ArrayIndexOutOfBoundsException, ClassCastException, 
     //        ClassNotFoundException, CloneNotSupportedException,
     //       NullPointerException, IOException, SQLException, 
@@ -43,7 +40,7 @@ public class Test01 {
     // 애플리케이션 예외 발생시키기
     // => 예외를 처리하지 않으면 JVM에게 전달되고, JVM은 즉시 멈춘다.
     // 
-    int result = 100 / 1;
+    int result = 100 / 0;
     
     // 위의 코드에서 예외가 발생하면 다음 코드를 실행할 수 없다.
     // 왜? 즉시 JVM에게 예외 내용이 보고되고, JVM은 실행을 멈춘다. 

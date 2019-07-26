@@ -21,7 +21,7 @@ public class Tool2 implements ProtocolA, ProtocolC {
   // 그럼 리턴 값이 다른 메서드를 다음과 같이 또 만들면 되지 않나요?
   // => 오버로딩 규칙에 따라 파라미터와 메서드명은 같고 리턴 값만 다른 메서드를 여러 개 만들 수 없다.
   @Override
-  public int m2( {
+  public int m2() {
     System.out.println("Tool.m2()");
     return 0;
   }

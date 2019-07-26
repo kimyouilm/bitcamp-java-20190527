@@ -1,10 +1,10 @@
-// 비트 이동 연산자 : >>, >>>(오른쪽으로 이동할때 비어있는 비트를 0으로 채운다), <<(왼쪽으로 이동은 오른쪽이 비어있는데 0으로 채움)
+// 비트 이동 연산자 : >>, >>>, <<
 package ch04;
 
 public class Test14 {
   public static void main(String[] args) {
     // >> : 오른쪽으로 비트를 이동시킨다. 경계를 넘어 가는 값은 버린다. 왼쪽 빈자리는 부호비트로 채운다.
-    int a = 0xca; // = 202                  // 4비트 이동
+    int a = 0xca; // = 202
     System.out.println(Integer.toHexString(a >> 4)); // 0xc = 12
     System.out.println(a >> 4);
     // 00000000_00000000_00000000_11001010

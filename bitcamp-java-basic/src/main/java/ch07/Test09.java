@@ -25,7 +25,6 @@ public class Test09 {
   // 스태틱 중첩 클래스(static nested class) = top level nested class 
   // => 이 클래스를 소유하고 있는 클래스 뿐만 아니라 다른 클래스도 사용할 수 있다.
   //
-  // number가 붙은 class 로컬 클래스 
   static class Score2 {
     String name; 
     int kor;
@@ -101,6 +100,24 @@ public class Test09 {
     // 다른 메서드에 정의된 로컬 클래스도 사용할 수 없다.
     //Score4 s4 = new Score4(); // 컴파일 오류!
     
+  }
+  
+  static void m3() {
+    // 로컬 클래스(local class)
+    // => 특정 메서드 안에서만 사용되는 클래스인 경우 로컬 클래스로 정의한다.
+    //
+    class Score4 {
+      String name; 
+      int kor;
+      int eng;
+      int math;
+      int sum;
+      float aver;
+    }
+    
+    class Score5 {
+      
+    }
   }
 }
 

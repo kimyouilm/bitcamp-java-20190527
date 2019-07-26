@@ -13,7 +13,6 @@ public class Test05 {
     Calculator3 c1 = new Calculator3();
     Calculator3 c2 = new Calculator3();
         
-    
     Calculator3.plus(c1/*result 변수가 있는 인스턴스 주소*/, 2);
     Calculator3.plus(c2, 6);
     

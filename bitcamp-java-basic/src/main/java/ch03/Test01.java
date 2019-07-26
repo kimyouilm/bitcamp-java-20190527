@@ -1,5 +1,5 @@
 // 변수 선언과 메모리 크기
-package  ch03;
+package ch03;
 
 public class Test01 {
   public static void main(String[] args) {

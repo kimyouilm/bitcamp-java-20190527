@@ -4,7 +4,7 @@ package ch06;
 public class Test09 {
   public static void main(String[] args) {
     int value = 100;
-    m1(value);  
+    m1(value);
     System.out.println(value);
     
     m1(value + 15);

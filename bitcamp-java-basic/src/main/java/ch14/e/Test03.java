@@ -31,10 +31,18 @@ public class Test03 {
     obj = new Truck();
     obj = new SUV();
     obj = new DumpTruck();
-    obj = Date.valueOf("2019-01-01");
+    obj = Date.valueOf("2019-1-1");
     obj = Calendar.getInstance();
     obj = new java.io.File("test.ok");
     
   }
 
 }
+
+
+
+
+
+
+
+

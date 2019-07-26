@@ -1,5 +1,6 @@
 // 계산 결과는 그 변수의 타입과 같다.
-package  ch03;
+package ch03;
+
 public class Test03 {
   public static void main(String[] args) {
     int a = 5;

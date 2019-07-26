@@ -8,7 +8,7 @@ class My5 {
   String email;
   int gender;
   boolean working;
-
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)

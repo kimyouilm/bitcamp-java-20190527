@@ -51,8 +51,6 @@ public class Test05 {
     s.sum = kor + eng + math;
     s.aver = s.sum / 3f;
     
-    // Heap에 만들어진 instance의 주소 리턴
-    // 그래서 저장됨
     return s; // s에 저장된 인스턴스의 주소를 리턴한다.
     // 강사님! 로컬 변수는 메서드 호출이 끝난 다음에 삭제된다고 했는데 
     // 위에서 생성한 s 변수도 삭제되고, name, kor, eng, math도 삭제되는게 아닌가요?

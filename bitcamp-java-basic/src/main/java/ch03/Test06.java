@@ -1,5 +1,6 @@
 // 키보드로 입력한 값을 받기
 package ch03;
+
 public class Test06 {
   public static void main(String[] args) { 
     // 1) 키보드로 입력한 데이터를 읽을 때 사용할 도구를 준비한다.

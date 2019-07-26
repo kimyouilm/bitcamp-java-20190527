@@ -5,18 +5,19 @@ package ch18.f;
 // 규칙에 따라 클래스를 작성할 때 인터페이스를 구현한다.
 public class Tico implements CarSpec {
   
-  // 인터페이스를 구현한다는 것은 인터페이스에 선언된 모든 메소드를 정의함을 의미한다.
+  // 인터페이스를 구현한다는 것은 인터페이스에 선언된 모든 메서드를 정의함을 의미한다.
   @Override
   public void run() {
     System.out.println("달린다!");
   }
+  
   @Override
   public void on() {
-    System.out.println("시동을 켠다!");
+    System.out.println("시동 켠다!");
   }
   
   @Override
   public void off() {
-    System.out.println("시동을 끈다!");
+    System.out.println("시동 끈다.");
   }
 }

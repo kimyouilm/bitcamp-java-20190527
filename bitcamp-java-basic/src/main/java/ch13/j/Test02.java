@@ -4,24 +4,31 @@ package ch13.j;
 public class Test02 {
 
   public static void main(String[] args) {
-    DumpTruck car = m1();
-//    Convertible car2 = m2(); // no!
- // 어짜피 추상클래스 인스턴스는 못받음, but 추상클래스의 서브(자식)클래스 등 하위 클래스의 값 ok
-    Car car2 = m2(); 
+    m1(new DumpTruck()); // OK!
+    //m2(new Car()); // Error
+    m2(new DumpTruck());
+    m2(new Convertible());
   }
   
-  static DumpTruck m1() {
-    // 이 메소드의 리턴 값은
-    // DumpTruck인스턴스 (주소)이거나
-    // DumpTruck 하위 클래스의 인스턴스(주소) 이다.
-    return new DumpTruck();
+  static void m1(DumpTruck car) {
+    // 파라미터가 DumpTruck이면,
+    // 이 메서드를 호출할 때 반드시 DumpTruck의 인스턴스나 
+    // 또는 DumpTruck 의 하위 클래스의 인스턴스를 넘기라는 뜻이다.
   }
   
-  static Car m2() {
-    // 이 메소드의 리턴 값은 Car의 인스턴스가 아니다.
-    // 왜? Car은 추상클래스이기 때문에 인스턴스를 생성할 수 없다.
-    // 그럼? Car의 하위 클래스의 인스턴스를 리턴한다는 뜻이다.
-    return new DumpTruck();
+  static void m2(Car car) {
+    // 파라미터가 Car이다.
+    // 이 메서드를 호출할 때 Car의 하위 클래스의 인스턴스를 넘기라는 뜻이다.
+    // Car는 추상 클래스이기 때문에 인스턴스를 생성할 수 없다.
   }
 
 }
+
+
+
+
+
+
+
+
+

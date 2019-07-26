@@ -12,10 +12,12 @@ public class Test04 {
     else
       System.out.println("s1 != s2");
     
+    
     if (s1.equals(s2)) // 인스턴스에 있는 문자열이 같은지 비교한다.
       System.out.println("s1과 s2의 문자열이 같다.");
     else
       System.out.println("s1과 s2의 문자열이 다르다.");
+    
     
     String s3 = "hello";
     String s4 = "HELLO";

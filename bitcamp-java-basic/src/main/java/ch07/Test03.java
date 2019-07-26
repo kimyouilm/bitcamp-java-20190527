@@ -36,9 +36,6 @@ public class Test03 {
     s1 = new Score(); // Score 설계도에 따라 메모리(변수들)를 준비시킨다.
                       // 그리고 메모리의 주소를 레퍼런스에 저장한다.
     
-    // .forName() => 문자열로 주어진 클래스를 찾아서 **메모리 영역에 로딩하는 역할
-    // $ => Score Class가 Test03클래스 안에 들어있다는 뜻 (클래스 안에 클래스 "inner class")
-    
     Class c = Class.forName("ch07.Test03$Score");
     Score s3 = (Score)c.newInstance();
     

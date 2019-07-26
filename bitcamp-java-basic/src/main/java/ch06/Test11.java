@@ -21,26 +21,18 @@ public class Test11 {
     m2(arr); // arr의 값을 넘긴다. 어? 그러면 call by value 가 아닌가요?
              // 그런데 arr의 값은 배열의 주소이다. 
              // 이렇게 주소를 넘겨 주는 것을 call by reference라 부른다.
-//    System.out.println(arr[1]);
-//    int i = 0;
-//    for(int r : arr) {
-//      System.out.println("arr[" + i + "]" + r);
-//      i++;
-//    }
+    System.out.println(arr[1]);
   }
   
   // m1()의 value는 값을 받는 변수이다.
   // 따라서 main()의 value 변수와 관계가 없다.
   static void m1(int value) {
     value *= 2;
-    System.out.println(value);
   }
   
   // m1()의 arr는 배열 주소를 받는 변수이다.
   static void m2(int[] arr) {
-//    System.out.println("aaaaaaaaaa" + arr[1]); // 200
     arr[1] = 111;
-//    System.out.println("bbbbbbbbbb" + arr[1]); // 111
   }
 }
 

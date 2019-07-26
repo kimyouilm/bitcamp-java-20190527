@@ -1,5 +1,6 @@
 // 변수 선언과 값 저장(할당=배정=대입=assignment)
-package  ch03;
+package ch03;
+
 public class Test02 {
   public static void main(String[] args) {
     // 변수 선언 후 값 저장

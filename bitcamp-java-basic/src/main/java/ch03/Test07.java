@@ -1,5 +1,6 @@
 // 키보드로 입력한 값을 받기 II - 한 줄의 문자열 읽기
 package ch03;
+
 public class Test07 {
   public static void main(String[] args) { 
     java.util.Scanner keyboard = new java.util.Scanner(System.in);

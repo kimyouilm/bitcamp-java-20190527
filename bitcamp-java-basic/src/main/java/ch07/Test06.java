@@ -14,7 +14,6 @@ public class Test06 {
   
   public static void main(String[] args) throws Exception {
     
-    // 인스턴스를 만날때 설계도 이때 로딩 
     Score s1 = new Score(); 
     Score s2 = new Score();
     
@@ -23,7 +22,7 @@ public class Test06 {
              // 이렇게 주소를 잃어 버려 사용할 수 없는 인스턴스를 "가비지(garbage)"라 부른다.
              // 가비지는 가비지 컬렉터에 의해 제거될 수 있다.
              // 개발자가 임의로 제거할 수 없다.
-    System.out.println(s2);
+    
     // s1이 가리키던 인스턴스를 이제 s2도 가리킨다.
     // JVM은 인스턴스 주소를 몇 개의 레퍼런스가 갖고 있는지 따로 관리한다.
     // 이것을 "레퍼런스 카운트(reference count)"라 한다.

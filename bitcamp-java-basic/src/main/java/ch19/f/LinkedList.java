@@ -129,7 +129,7 @@ public class LinkedList {
     //
     //LinkedList list; <== 이 코드 필요 없다.
     
-    /*  같은 인스턴스 멤버기 때문에 생성자에서 인스턴스 주소를 받을 필요가 없다.
+    /*  같은 인스턴스 멤버이기 때문에 생성자에서 인스턴스 주소를 받을 필요가 없다.
     public Array(LinkedList list) {
       this.list = list;
     }
@@ -144,8 +144,8 @@ public class LinkedList {
       //
       Object[] arr = new Object[LinkedList.this.size()];
       
-      for (int i = 0; i < /*LinkedList.this.*/size(); i++) { // 생략가능
-        arr[i] = /*LinkedList.this.*/get(i); // 생략가능
+      for (int i = 0; i < LinkedList.this.size(); i++) {
+        arr[i] = LinkedList.this.get(i);
       }
       return arr;
     }
@@ -164,9 +164,10 @@ public class LinkedList {
       return arr;
     }
   }
-  // Node클래스는 바깥 클래스(LinkedList의) 특정 인스턴스와 관계가 없다.
-  // 따라서 위에서 정의한 Array 중첩 클래스와 다르겐
-  // static nested class로 선언한다.
+  
+  // Node 클래스는 바깥 클래스(LinkedList)의 특정 인스턴스와 관계가 없다.
+  // 따라서 위에서 정의한 Array 중첩 클래스와 다르게 
+  // static nested class 로 선언한다.
   private static class Node {
     public Object value;
     public Node prev;
@@ -185,6 +186,7 @@ public class LinkedList {
       this.next = next;
     }
   }
+
 }
 
 

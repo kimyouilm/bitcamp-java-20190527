@@ -1,46 +1,34 @@
-// 추상 클래스: 파라미터로 사용하기
+// 추상 클래스: 리턴 타입으로 사용하기
 package ch13.j;
 
 public class Test03 {
 
   public static void main(String[] args) {
-    // 지붕을 열 수 있는 자동차와 집을 싣는 덤프트럭이 필요해서 해당 클래스를 정의하였고,
-    // 다음과 같이 사용한다.
-    Convertible c1 = new Convertible();
-    DumpTruck c2 = new DumpTruck();
-    
-    m1(new DumpTruck()); // okay
-    m2(new Convertible()); // m2의 파라미터는 Car이지만 Convertible, DumpTruck 클래스 가능
-    
-    // 그러다 두 클래스의 공통점이 있어서
-    // 소스 코드의 유지관리를 쉽게 하기 위해 수퍼 클래스 Car를 정의하였다.
-    // Car 클래스는 직접 사용하기 위해 정의한 클래스가 아니라,
-    // 소스 코드 관리를 위해 여러 클래스의 일반 기능을 모아둔 클래스이다.
-    // 이런 클래스는 직접 사용하지 못하게 막는 것이 좋다.
-    // 특정 클래스의 인스턴스를 생성하지 못하도록 하기위해 만든 문법이 "추상클래스"이다.
-    // 어떤 클래스를 추상 클래스로 지정하면 인스턴스를 생성할 수 있다.
-    // 특히 Car클래스 처럼 generalization을 통해 생성한 클래스라면
-    // 단지 서브 클래스에게 공통 필드나 메소드를 상속해주는 용도로만 사용하도록 만들기 위해 만들었기 때문에
-    // 추상 클래스로 지정하는 것이 좋다.
-    
-    // 거꾸로 어떤 클래스가 추상 클래스라면, 그 클래스를 만든 개발자는 해당 클래스를 직접 사용하지 말고
-    // 서브 클래스를 만들어 기능을 확장한 다음에 사용하라는 의도임을 알아야한다.
-    
-    
-    
-    // 그러나 추상 클래스의 인스턴스는 생성할 수 없다.
-    //Car c3 = new Car(); // 컴파일 오류!
+    DumpTruck car = m1(); 
+    Car car2 = m2();
   }
   
-  static void m1(DumpTruck car) {
-    // 파라미터가 DumpTruck이면, 이 메소드를 호출할 때 반드시 DumpTruck의 인스턴스나
-    // 또는DumpTruck의 하위클래스의 인스턴스를 넘기라는 뜻이다.
+  static DumpTruck m1() {
+    // 이 메서드의 리턴 값은 
+    // DumpTruck 인스턴스 (주소) 이거나 
+    // DumpTruck의 하위 클래스의 인스턴스 (주소) 이다.
+    return new DumpTruck();
   }
   
-  static void m2(Car car) {
-    // 파라미더가 Car다.
-    // 이 메소드를 호출할때 Car의 하위클래스의 인스턴스를 넘기라는 뜻이다.
-    // Car은 추상 클래스이기 때문에 인스턴스를 생성할 수 없다.
+  static Car m2() {
+    // 이 메서드의 리턴 값은 Car의 인스턴스가 아니다.
+    // 왜? Car는 추상클래스이기 때문에 인스턴스를 생성할 수 없다.
+    // 그럼? Car의 하위 클래스의 인스턴스를 리턴한다는 뜻이다.
+    return new DumpTruck();
   }
 
 }
+
+
+
+
+
+
+
+
+

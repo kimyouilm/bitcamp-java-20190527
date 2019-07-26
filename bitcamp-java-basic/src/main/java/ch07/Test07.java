@@ -37,7 +37,6 @@ public class Test07 {
     // 
     // 그래서 인스턴스 필드(변수)는 생성되는 즉시 0으로 초기화 된다.
     Score s = new Score();
-    // 주소가 지정 되지 않는다. 
     System.out.println(s.name);
     System.out.println(s.kor);
     System.out.println(s.aver);

@@ -3,6 +3,7 @@ package ch12.d;
 public class Patient2 {
   public static final int WOMAN = 1;
   public static final int MAN = 2;
+  
   private String name;
   private int age;
   private int height;
@@ -10,7 +11,7 @@ public class Patient2 {
   private int gender;
 
   public String getName() {
-    return this.name;
+    return name;
   }
 
   public void setName(String name) {
@@ -18,7 +19,7 @@ public class Patient2 {
   }
 
   public int getAge() {
-    return this.age;
+    return age;
   }
 
   public void setAge(int age) {
@@ -27,16 +28,16 @@ public class Patient2 {
   }
 
   public int getHeight() {
-    return this.height;
+    return height;
   }
 
   public void setHeight(int height) {
-    if (height > 1 && height < 300)
+    if (height > 0 && height < 300)
       this.height = height;
   }
 
   public int getWeight() {
-    return this.weight;
+    return weight;
   }
 
   public void setWeight(int weight) {
@@ -45,7 +46,7 @@ public class Patient2 {
   }
 
   public int getGender() {
-    return this.gender;
+    return gender;
   }
 
   public void setGender(int gender) {
@@ -53,12 +54,15 @@ public class Patient2 {
       this.gender = gender;
   }
 
-  @Override
   public String toString() {
-    // number는 %s나 %d 상관없움
-    return String.format("name=%s, age=%s, height=%d, weight=%s, gender=%d,", this.name, this.age,
-        this.height, this.weight, this.gender);
+    return String.format("name=%s, age=%d, height=%d, weight=%d, gender=%d", 
+        this.name, this.age, this.height, this.weight, this.gender);
   }
-
-
 }
+
+
+
+
+
+
+

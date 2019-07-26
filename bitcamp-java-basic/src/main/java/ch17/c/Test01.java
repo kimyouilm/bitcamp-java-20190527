@@ -1,4 +1,4 @@
-// 정렬 객체를 일관성 있게 사용하려면 같은 타입으로 묶어야 한다. 상속의 generalization 이용!
+// 정렬 객체를 일관성 있게 사용하려면 같은 타입으로 묶어야 한다. 상속의 generalization 기법 이용!
 package ch17.c;
 
 public class Test01 {
@@ -18,24 +18,14 @@ public class Test01 {
     // => 언제든 다른 객체로 교체할 수 있어 유연하다.
     display(new BubbleSort(), values);
     display(new QuickSort(), values2);
-
-    
   }
 
-  // 컴파일러는 어떤 인스턴스에 대해서 메소드가 호출할수 있냐없냐 검사하고 
-  // 레퍼런스가 어느 타입인지 보고 그클래스에 있는지 보고 super클래스들을 확인함!
-  // 있으묜 okay 없으면 nope!
-  // 실행시 => JVM
   static void display(Sorter sorter, int[] values) {
     
     // 정렬 객체의 클래스가 뭔지 상관없다.
     // 그 클래스를 사용할 때는 공통 분모가 되는 
     // 수퍼 클래스의 메서드를 호출한다.
     sorter.sort(values);
-    // sort()가 존재하는 메소드인지 확인
-    // 실행을 할때 호출되는 메소드가 다르다.
-    // 컴파일과 실행은 엄연히 다름.
-    
     
     // 정렬된 값을 출력한다.
     for (int  value : values) {
@@ -44,6 +34,9 @@ public class Test01 {
     System.out.println();
   }
 }
+
+
+
 
 
 
