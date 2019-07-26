@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 public class Test01_1 {
   public static void main(String[] args) {
     // 바이너리 데이터?
+    // 편집해서 저장할 수 없으면 바이너리
     // => character set(문자표) 규칙에 따라 작성한 파일이 아닌 파일.
     // => 메모장으로 편집이 불가능한 파일.
     // => 보통 전용 프로그램을 이용해서 편집하는 파일.
@@ -14,6 +15,7 @@ public class Test01_1 {
     //       .class, .swf, .avi 등
     // 
     // 텍스트 데이터?
+    // 메모장같은 에디터로 편집해서 저장할수 있으면 텍스트
     // => 특정 character set(문자표) 규칙에 따라 작성한 파일.
     // => 메모장으로 편집 가능.
     // => 예) .txt, .c, .cpp, .java, .xml, .html, .css, .js,
