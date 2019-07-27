@@ -29,6 +29,7 @@ public class Test06 {
     map.put("bbb", new Student("임꺽정", 30));
     map.put("ccc", new Student("안중근", 25));
     
+    // Iterator을 사용하기 위해서는 꼭 Set에서 map.keySet()을 넘겨준 후 사용해야하나?
     Set<String> keySet = map.keySet();
     
     // Set에서 값을 꺼내기 위해 Iterator의 도움을 받는다.
@@ -44,12 +45,3 @@ public class Test06 {
     
   }
 }
-
-
-
-
-
-
-
-
-

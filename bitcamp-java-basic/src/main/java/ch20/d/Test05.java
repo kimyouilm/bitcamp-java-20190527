@@ -28,13 +28,13 @@ public class Test05 {
     map.put("aaa", new Student("홍길동", 20));
     map.put("bbb", new Student("임꺽정", 30));
     map.put("ccc", new Student("안중근", 25));
-    
+
     // key, value 함께 꺼내기
+    // Entry has getValue()
     Set<Entry<String,Student>> entrySet = map.entrySet();
-    for (Entry<String,Student> entry : entrySet) {
+    for (Entry<String,Student> entry : entrySet) { 
       System.out.printf("%s==>%s\n", entry.getKey(), entry.getValue());
     }
-    
   }
 }
 

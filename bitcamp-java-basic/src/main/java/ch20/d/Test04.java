@@ -28,6 +28,10 @@ public class Test04 {
     map.put("bbb", new Student("임꺽정", 30));
     map.put("ccc", new Student("안중근", 25));
     
+    for(String v : map.keySet()) {
+      System.out.println(map.get(v)); 
+    }
+    System.out.println("-------Collection을 이용한 for문-------");
     // value 목록 꺼내기
     Collection<Student> values = map.values();
     for (Student value : values) {
