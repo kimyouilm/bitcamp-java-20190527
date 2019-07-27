@@ -9,7 +9,7 @@ public class Test02 {
     
     // echo() 의 리턴 값을 원하는 타입으로 받기 위해 형변환 해야 하는 일이 번거롭다.
     // 해결책? 각 타입에 대해 echo()를 만들라
-    // 
+    
     String obj1 = echo(new String("Hello"));
     Date obj2 = echo(new Date());
     Calendar obj3 = echo(Calendar.getInstance());
@@ -22,7 +22,6 @@ public class Test02 {
     //
     // Object의 다형적 변수를 이용한 방법과 각 메서드를 타입별로 만들어 
     // 형변환을 하지 않는 이점을 모두 취할 수 있는 문법이 "제네릭(generic)"이다.
-    //
   }
   
   // 제네릭 적용 전

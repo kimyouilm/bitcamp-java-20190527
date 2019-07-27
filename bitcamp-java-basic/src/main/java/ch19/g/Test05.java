@@ -23,6 +23,7 @@ public class Test05 {
           return false;
       }
     };
+    
     String[] names = dir.list(filter);
     // 
     // 조금 더 가까이!

@@ -12,7 +12,8 @@ public class Test14 {
     //
     File dir = new File("bin/main");
     
-    findClass2(dir, "");
+    
+    findClass(dir, "");
     System.out.println("완료!");
   }
   
@@ -22,6 +23,7 @@ public class Test14 {
     //    => 파일 명이 Hello.class 이고 패키지명이 aaa.bbb 라면
     //       출력할 이름은 aaa.bbb.Hello 이다.
     if (path.isFile()) {
+      System.out.println("aaaaaaaaaaaaaaaaaaaa");
       System.out.println(
           String.format("%s.%s", 
                     packageName, 
@@ -37,6 +39,7 @@ public class Test14 {
     
     // 3) 하위 디렉토리와 파일 목록에서 클래스를 찾는다.
     for (File file : files) {
+      System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbb");
       if (file.isDirectory())
         findClass(file, packageName + "." + file.getName());
       else 
@@ -60,6 +63,7 @@ public class Test14 {
                     packageName, 
                     file.getName().replace(".class", ""))
                 .substring(1));
+        
       }
     }
   }
