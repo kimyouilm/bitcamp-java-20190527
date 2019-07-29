@@ -1,23 +1,22 @@
-// 버퍼 사용 - 사용 후
+// 버퍼 사용(for 텍스트 파일) - 사용 전
 // 
-package ch22.c.ex1;
+package ch22.c.ex1.character_stream;
 
 import java.io.FileInputStream;
 
 public class Test01_2 {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception{
     
-    try {
-      FileInputStream in = new FileInputStream("temp/jls12.pdf");
+      FileInputStream in = new FileInputStream("temp/jls12.txt");
       
       System.out.println("데이터 읽는 중...");
       
       long start = System.currentTimeMillis();
       
-      byte[] buf = new byte[8192];
-      int len = 0;
+      char[] buf = new char[8192];
+      int b;
       int count = 0;
-      while ((len = in.read(buf)) != -1) {
+      while ((b = in.read()) != -1) {
         count++;
       }
       
@@ -26,10 +25,6 @@ public class Test01_2 {
       System.out.println(count);
       
       in.close();
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
     
     System.out.println("출력 완료!");
   }

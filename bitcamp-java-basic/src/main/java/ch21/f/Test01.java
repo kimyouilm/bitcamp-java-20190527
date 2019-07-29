@@ -42,6 +42,7 @@ public class Test01 {
       } catch (Exception e2) {
         // 자원을 해제시키다가 예외가 발생할 경우 개발자가 처리할 게 없다.
         // 그래서 예외를 받기만 하고 특별히 뭔가를 수행하지는 않는다.
+        System.out.println("Test");
       }
       
       // StringWriter 객체에 저장된 문자열 꺼내기

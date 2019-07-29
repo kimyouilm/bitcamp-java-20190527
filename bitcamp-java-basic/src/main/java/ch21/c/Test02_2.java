@@ -25,7 +25,7 @@ public class Test02_2 {
     // => try ~ catch 로 예외 처리하기
     try {
       Scanner keyboard = new Scanner(System.in);
-      Class<?> clazz = Class.forName("ch21.c.PlusCommand2");
+      Class<?> clazz = Class.forName("ch21.c.PlusCommand");
       Constructor<?> constructor = clazz.getConstructor(Scanner.class);
       Command command = (Command) constructor.newInstance(keyboard);
       command.execute();
