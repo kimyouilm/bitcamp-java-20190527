@@ -1,12 +1,16 @@
 // 버퍼 없이 대량의 primitive 타입의 값을 출력하기
-package ch22.c.ex3.byte_stream;
+package ch22.c.ex4;
 
-import ch22.c.ex2.byte_stream.DataOutputStream;
+import java.io.FileOutputStream;
 
 public class Test01_1 {
   public static void main(String[] args) throws Exception {
 
-    DataOutputStream out = new DataOutputStream("temp/data.bin");
+    // 실제 파일에 출력을 수행하는 객체를 준비한다.
+    FileOutputStream other = new FileOutputStream("temp/data.bin");
+    
+    // 파일을 출력하는 객체에 primitive 타입의 값을 출력하는 데코레이터 객체를 붙인다.
+    DataOutputStream out = new DataOutputStream(other);
     short s = 0x1122;
     int i = 0x33445566;
     long l = 0x1122334455667788L;

@@ -4,7 +4,7 @@ package ch22.c.ex3.byte_stream;
 public class Test02_1 {
   public static void main(String[] args) throws Exception {
 
-    DataOutputStream2 out = new DataOutputStream2("temp/data.bin");
+    BufferedDataOutputStream2 out = new BufferedDataOutputStream2("temp/data.bin");
     short s = 0x1122;
     int i = 0x33445566;
     long l = 0x1122334455667788L;

@@ -1,17 +1,24 @@
-package ch22.c.ex3.byte_stream;
+package ch22.c.ex4;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import ch22.c.ex1.byte_stream.BufferedOutputStream;
+import java.io.OutputStream;
 
-// 버퍼 기능을 추가하기 위해 기존에 작성한 BufferedOutputStream을 상속 받는다. 
-public class DataOutputStream2 extends BufferedOutputStream{
+//데코레이터 설계 패턴을 적용하여 기존 OutputStream에 기능을 추가한다.
+//=> Decorator OutputStream을 상속 받는다.
+public class DataOutputStream extends DecoratorOutputStream{
 
-  public DataOutputStream2(String name) throws FileNotFoundException {
-    super(name);
+  public DataOutputStream(OutputStream other) throws FileNotFoundException {
+    super(other);
   }
   
+  // 자실에게 1바이트 출력하라고 요청이 들어오면
+  // 생성자에게 받은 다른 OutputStream 객체에 일을 떠 넘긴다.
+  // 왜? 데코레이터(악세서리)가 하는 일이 그렇다.
+  @Override
+  public void write(int b) throws IOException {
+    other.write(b);
+  }
   public void writeInt(int value) throws IOException {
     write(value >> 24);
     write(value >> 16);
@@ -42,9 +49,7 @@ public class DataOutputStream2 extends BufferedOutputStream{
     writeShort(bytes.length);
     
     // 그리고 문자열의 UTF-8 코드 값이 들어 있는 바이트 배열을 출력한다.
-    for (int i = 0; i < bytes.length; i++) {
-      write(bytes[i]);
-    }
+    write(bytes);
   }
 
   public void writeBoolean (boolean value) throws IOException {
