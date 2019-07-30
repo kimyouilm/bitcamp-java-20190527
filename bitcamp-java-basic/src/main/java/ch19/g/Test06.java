@@ -23,7 +23,6 @@ public class Test06 {
 //          return false;
 //      }
 //    });
-    
     String[] names = dir.list((f, name) -> name.endsWith(".txt"));
     // 
     // 필터가 무슨일을 하는지 바로 알 수 있다!!!

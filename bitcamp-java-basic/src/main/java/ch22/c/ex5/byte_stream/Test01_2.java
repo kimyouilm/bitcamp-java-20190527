@@ -1,6 +1,7 @@
 // 버퍼없이 대량의 primitive 타입의 값을 읽기
-package ch22.c.ex4;
+package ch22.c.ex5.byte_stream;
 
+import java.io.DataInputStream;
 import java.io.FileInputStream;
 
 public class Test01_2 {

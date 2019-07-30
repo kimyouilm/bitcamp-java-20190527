@@ -1,5 +1,4 @@
 package ch22.f;
-
 public class Score1 {
   private String name;
   private int kor;

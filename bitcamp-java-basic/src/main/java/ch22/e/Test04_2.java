@@ -3,12 +3,13 @@ package ch22.e;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public class Test04_2 {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException, ClassNotFoundException {
     
     ArrayList<Score> students = new ArrayList<>();
     
@@ -22,9 +23,9 @@ public class Test04_2 {
     //    이때는 생성자가 호출되지 않는다.
     //    따라서 초기화시킬 것이 있다면 따로 메서드를 호출해야 한다.
     // 
-    try (ObjectInputStream in = new ObjectInputStream(
-          new BufferedInputStream(
-          new FileInputStream("score.data")))) {
+    FileInputStream in0 = new FileInputStream("temp/score.data");
+    BufferedInputStream in1 = new BufferedInputStream(in0);
+    ObjectInputStream in = new ObjectInputStream(in1);
       
       int len = in.readInt();
       
@@ -36,11 +37,8 @@ public class Test04_2 {
         //score.compute();
         students.add(score);
       }
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
     
+      in.close();
     // 그리고 세 학생의 정보를 다음과 같은 형식으로 출력하라.
     // =>   홍길동, 100, 100, 100, 300, 100 
     // 

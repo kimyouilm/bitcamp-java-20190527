@@ -1,4 +1,4 @@
-package ch22.c.ex4;
+package ch22.c.ex4.byte_stream;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,8 +8,8 @@ import java.io.InputStream;
 public class BufferedInputStream extends DecoratorInputStream {
   
   byte[] buf = new byte[8192];
-  int size = 0;
-  int cursor = 0;
+  int size = 0; // 총사이즈 
+  int cursor = 0; // 지금있는곳 
   int count = 0;
   
   public BufferedInputStream(InputStream other) throws IOException {

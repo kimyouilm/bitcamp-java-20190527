@@ -1,4 +1,4 @@
-package ch22.c.ex4;
+package ch22.c.ex4.byte_stream;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,6 +19,7 @@ public class DataOutputStream extends DecoratorOutputStream{
   public void write(int b) throws IOException {
     other.write(b);
   }
+  
   public void writeInt(int value) throws IOException {
     write(value >> 24);
     write(value >> 16);

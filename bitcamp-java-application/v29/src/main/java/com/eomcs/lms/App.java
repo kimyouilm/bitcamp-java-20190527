@@ -174,6 +174,7 @@ public class App {
       
       // 파일에서 첫 번째 int 값을 먼저 읽는다.
       // 이 값은 파일에 저장된 데이터의 개수이다. 
+      // option
       int len = in2.readInt();
       
       while (len-- > 0) {
@@ -209,6 +210,7 @@ public class App {
     
     // 바이트 단위로 데이터를 다루기 위해 바이트 스트림 클래스를 준비한다.
     FileOutputStream out = null;
+    // 배열로 저장
     DataOutputStream out2 = null;
     
     try {

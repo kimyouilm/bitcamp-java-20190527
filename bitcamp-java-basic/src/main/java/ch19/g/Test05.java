@@ -25,7 +25,6 @@ public class Test05 {
     };
     
     String[] names = dir.list(filter);
-    // 
     // 조금 더 가까이!
     // => list()를 호출하는 코드를 보는 즉시 무엇을 필터링하는지 알 수 있다면 
     //    소스 코드를 더 잘 읽을 수 있을 텐데...
