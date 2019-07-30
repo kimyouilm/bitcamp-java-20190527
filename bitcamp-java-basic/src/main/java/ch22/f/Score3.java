@@ -1,5 +1,5 @@
 package ch22.f;
-
+// 인스턴스 -> 바이트 배열 // 시리얼 넘버
 import java.io.Serializable;
 
 // java.io.Serializable
@@ -20,6 +20,7 @@ public class Score3 implements Serializable {
   //    tel 필드는 추가되었다 하더라도 기존의 성적 데이터에 영향을 끼치지 않기 때문에 
   //    이전 버전의 값을 그대로 읽어도 된다.
   //    이런 경우에 serialVersionUID의 값을 그대로 두는 것이다.
+  // 자동으로 구현
   private static final long serialVersionUID = 100L;
   
   private String name;

@@ -6,9 +6,9 @@ import java.io.ObjectOutputStream;
 
 public class Test2_1 {
 
-  public static void main(String[] args) {
-    try (ObjectOutputStream out = new ObjectOutputStream(
-          new FileOutputStream("score2.data"))) {
+  public static void main(String[] args) throws Exception{
+    FileOutputStream out0 = new FileOutputStream("temp/score2.data");
+    ObjectOutputStream out = new ObjectOutputStream(out0);
       
       // 인스턴스 출력하기
       
@@ -20,11 +20,8 @@ public class Test2_1 {
       // 
       out.writeObject(new Score2("홍길동", 100, 100, 100));
       
+      out.close();
       System.out.println("출력 완료!");
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
 
   }
 

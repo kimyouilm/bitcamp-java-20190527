@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
 public class Test2_2 {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception{
     
     // deserialize
     // => 저장할 때 사용한 클래스를 가지고 인스턴스를 만든 후에 
@@ -18,8 +18,8 @@ public class Test2_2 {
     //       예를 들어 인스턴스 필드를 추가해보라.
     //       그런 후에 다시 읽기를 시도해보라.
     //
-    try (ObjectInputStream in = new ObjectInputStream(
-          new FileInputStream("score2.data"))) {
+    FileInputStream in1 = new FileInputStream("temp/score2.data");
+    ObjectInputStream in = new ObjectInputStream(in1);
       
       Score2 score = (Score2) in.readObject();
       System.out.println(score);
@@ -41,9 +41,6 @@ public class Test2_2 {
       //    deserialize 할 때 사용할 Score2 클래스의 serialVersionUID 값을 
       //    비교하여 같다면 파일의 데이터를 읽어 인스턴스를 생성하여 리턴하고,
       //    다르다면 예외를 발생시킨다.
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+      in.close();
   }
 }

@@ -2,13 +2,12 @@
 // 인스턴스 출력 - Serialize
 package ch22.f;
 
-import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
 public class Test1_1 {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception{
     
     // 직렬화 인스턴스 객체를 바이트 배열로 만드는것
     FileOutputStream out0 = new FileOutputStream("temp/score.data");
@@ -31,11 +30,8 @@ public class Test1_1 {
       
       // Score1 클래스는 java.io.Serializable을 구현하지 않았기 때문에
       // writeObject()를 사용할 수 없다.
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
 
+      out.close();
   }
 
 }
