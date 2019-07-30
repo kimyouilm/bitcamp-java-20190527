@@ -1,28 +1,25 @@
-// byte 배열 객체에 출력하기 - 직접 바이트 배열을 다루는 경우 
+// 파일에 출력하기 - Stream API를 사용하여 데이터 출력하기 
 package ch22.i.byte_stream;
 
 import java.io.FileOutputStream;
 
 public class Test01_2 {
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     // 1~100 중에서 짝수만 바이트 배열에 넣어보자!
     
-    // 1) 값을 저장할 바이트 배열을 준비한다.
-    byte[] bytes = new byte[1000];
-    
-    // 2) 바이트 배열에 저장된 개수를 관리할 변수를 준비한다.
-    int size = 0;
-    
-    // 3) 짝수를 바이트 배열에 출력한다.
-    for (int i = 0; i < 100; i++) {
-      if (i % 2 == 0)
-        bytes[size++] = (byte)i;
+    // 1) 값을 출력할 파일 출력 객체 준비
+    try (FileOutputStream out = new FileOutputStream("temp/data.bin")) {
+      
+      // 2) 짝수를 파일에 출력한다.
+      for (int i = 0; i < 100; i++) {
+        if (i % 2 == 0)
+          out.write(i);
+      }
+      System.out.println("출력완료!");
+    }catch (Exception e) {
+      System.out.println("파일 출력 예외 발생!");
+      e.printStackTrace();
     }
-    // 4) byte배열에 저장된 값을 확인해보자!
-    for (int i = 0; i < size; i++) {
-      System.out.println(bytes[i] + ", ");
-    }
-    System.out.println();
   }
 }
 
