@@ -9,26 +9,20 @@ import java.io.IOException;
 public class Test02_2 {
   public static void main(String[] args) {
 
-    FileOutputStream out1 = null;
-    BufferedOutputStream out2 = null;
     // primitive 타입
-    DataOutputStream out3 = null;
+    DataOutputStream out = null;
     try {
-      out1 = new FileOutputStream("temp3/data.bin");
-      out2 = new BufferedOutputStream(out1);
-      out3 = new DataOutputStream(out2);
+      out =  new DataOutputStream(new BufferedOutputStream(new FileOutputStream("temp3/data.bin")));
       
-      out3.write(0x11223344);
+      out.write(0x11223344);
       
     }catch (IOException e) {
       System.out.println("파일 입출력 예외 발생");
+      e.printStackTrace();
     }finally {
-      // 이러면 out3.close()에서 오류 나자마자 catch가서 out2.close()로 못감 
-      // try{out3.close(); out2.close(); out1.close();}
-      // 입출력 객체를 닫을 때는 가장 바깥의 객체부터 닫아라!*****************************************
-      try{out3.close();} catch (Exception e2) {}
-      try{out2.close();} catch (Exception e2) {}
-      try{out1.close();} catch (Exception e2) {}
+      // 실제 가장 바깥 입출력 객체를 close() 하면
+      // 안쪽의 객체를 찾아가면서 close()를 호출하도록 되어있다.
+      try{out.close();} catch (Exception e2) {}
     }
 
   }

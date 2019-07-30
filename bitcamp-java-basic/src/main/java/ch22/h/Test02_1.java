@@ -22,6 +22,7 @@ public class Test02_1 {
       
     }catch (IOException e) {
       System.out.println("파일 입출력 예외 발생");
+      e.printStackTrace();
     }finally {
       // 이러면 out3.close()에서 오류 나자마자 catch가서 out2.close()로 못감 
       // try{out3.close(); out2.close(); out1.close();}
