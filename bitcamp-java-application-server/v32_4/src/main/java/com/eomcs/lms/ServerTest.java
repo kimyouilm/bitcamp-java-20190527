@@ -7,12 +7,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.List;
 import com.eomcs.lms.domain.Member;
 
 public class ServerTest {
 
-  public static void main(String[] args) throws Exception{
+  public static void main(String[] args) {
     System.out.println("[Add&Drop class management Server Application Test!]");
 
     // 서버에 통신을 연결한다.
@@ -33,80 +32,31 @@ public class ServerTest {
 
     try (Socket socket = new Socket("192.168.43.153", 8888);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
-      ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
       // 서버와의 입출력을 위해 스트림 객체를 준비한다.
-      System.out.println("Connect to server");
+      System.out.println("Connect server");
 
-      // 서버에 전송할 객체를 준비한다.
+      //서버에 전송할 객체를 준비한다.
       Member member = new Member();
       member.setNo(1);
       member.setName("Youlim Kim");
       member.setEmail("lima1016@gmail.com");
       member.setPhoto("kim.gif");
       member.setTel("1111-1111");
-      
-      out.writeUTF("add");
+      System.out.println();
       // 서버에 객체를 전송한다.
       out.writeObject(member);
-      System.out.println("add 요청함.");
-
+      out.flush();
+      
+      System.out.println("서버에 객체를 보냈음.");
       // 서버에 보낸 데이터를 읽는다
       String response = in.readUTF();
-      System.out.println("==> " + response);
+      System.out.println("서버로부터 데이터를 보냈음");
 
-      member = new Member();
-      member.setNo(2);
-      member.setName("ss Kim");
-      member.setEmail("eeef@gmail.com");
-      member.setPhoto("23e.gif");
-      member.setTel("fdw-1111");
-      
-      out.writeUTF("add");
-      // 서버에 객체를 전송한다.
-      out.writeObject(member);
-      out.flush();
-      System.out.println("add 요청함");
-
-      // 서버에 보낸 데이터를 읽는다
-      response = in.readUTF();
-      System.out.println("==> " + response);
-
-      out.writeUTF("list");
-      out.flush();
-      System.out.println("list 요청함");
-
-      response = in.readUTF();
-      System.out.println("==> " + response);
-
-      @SuppressWarnings("unchecked")
-      List<Member> list = (List<Member>) in.readObject();
-
-      System.out.println("------------------------------");
-      for (Member m : list) {
-        System.out.println(m);
-      }
-      System.out.println("------------------------------");
-
-      // 서버가 처리할 수 없는 명령어 보내기
-      out.writeUTF("delete");
-      out.flush();
-      System.out.println("delete 요청함");
-      // fail일때 
-      response = in.readUTF();
-      System.out.println("==> " + response);
-      
       // 서버가 보낸 데이터를 읽는다.
-      response = in.readUTF();
-      System.out.println("==> " + response);
+      System.out.println("-->" + response);
+      System.out.println("서버로부터 데이터를 받았음!!!");
 
-      // 서버가 처리할 수 없는 명령어 보내기
-      out.writeUTF("quit");
-      out.flush();
-      System.out.println("quit 요청함");
-      
-      response = in.readUTF();
-      System.out.println("==> " + response);
-      
     } catch (IOException e) {
 
       // 예외가 발생하면 일단 어디에서 예외가 발생했는지 확인하기 위해 호출 정보를 모두 출력한다.

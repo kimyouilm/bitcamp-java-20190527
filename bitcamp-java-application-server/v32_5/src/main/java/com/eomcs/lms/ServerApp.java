@@ -1,4 +1,4 @@
-// v32_6: 회원데이터를 다루는 CRUD명령을 처리한다.
+// v32_5: 명령어에 따라 클라이언트가 보낸 데이터 처리하기
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
