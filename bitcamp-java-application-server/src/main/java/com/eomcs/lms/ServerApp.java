@@ -13,12 +13,14 @@ import com.eomcs.lms.domain.Member;
  * 없는 클래스들을 연결해서 쓸 수 있다.
  */
 public class ServerApp {
-
-
+  
+  static ArrayList<Member> memberList = new ArrayList<>();
+  static ObjectInputStream in;
+  static ObjectOutputStream out;
+  
   public static void main(String[] args) {
     System.out.println("[수업관리시스템 서버 애플리케이션!]");
 
-    ArrayList<Member> memberList = new ArrayList<>();
 
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 시작!");
@@ -29,6 +31,10 @@ public class ServerApp {
 
         System.out.println("클라이언트와 연결되었음&&^");
 
+        // 다른 메소드가 사용할 수 있도록 입출력 스트림을 스태틱 변수에 저장한다.
+        ServerApp.in = in;
+        ServerApp.out = out;
+        
         Loop: while (true) {
           // 클라이언트가 보낸 명령을 읽는다.
           String command = in.readUTF();
@@ -36,15 +42,12 @@ public class ServerApp {
           System.out.println(command + "요청 처리중...");
           // 명령어에 따라 처리한다.
           switch (command) {
-            case "add":
+            case "/member/add":
               // 클라이언트가 보낸 객체를 읽는다.
-              Member member = (Member) in.readObject();
-              out.writeUTF("ok");
-              memberList.add(member);
+              addMember();
               break;
-            case "list":
-              out.writeUTF("ok");
-              out.writeObject(memberList);
+            case "/member/list":
+              listMember();
               break;
             case "quit":
               out.writeUTF("ok");
@@ -66,5 +69,16 @@ public class ServerApp {
     }
 
     System.out.println("서버 종료&&");
+  }
+  
+  private static void addMember() throws Exception{
+    Member member = (Member) in.readObject();
+    out.writeUTF("ok");
+    memberList.add(member);
+  }
+  
+  private static void listMember() throws Exception{
+    out.writeUTF("ok");
+    out.writeObject(memberList);
   }
 }
