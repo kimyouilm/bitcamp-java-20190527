@@ -15,13 +15,13 @@ public class ServerTest {
     // 서버에 통신을 연결한다.
     // => new Socket(인터넷주소, 포트번호)
     // => 서버와 연결될 때까지 리턴하지 않는다.
-    //인터넷 주소?
+    // 인터넷 주소?
     // => IP주소(예: 192.168.0.1)
     // => 도메일 이름(예: www.okok.com)
     // 클라이언트의 연결을 처리할 객체 준비
     // => new ServerSocket(포트번호)
     // 포트번호?
-    // =>클라이언트가 서버에 연결할 때 사용할 사서함 번호
+    // => 클라이언트가 서버에 연결할 때 사용할 사서함 번호
     // => 사서함 번호는 한 컴퓨터에서 중복 사용할 수 없다.
     // localHost?
     // => 로컬 PC를 가리키는 특수 도메인 이름이다.
@@ -29,7 +29,7 @@ public class ServerTest {
     // => 로컬 PC를 가리키는 특수 IP주소이다.
 
     try (Socket serverSocket = new Socket("192.168.0.33", 8888)) {
-      System.out.println("Connect server");
+      System.out.println("Connect to server");
       
     } catch (IOException e) {
 

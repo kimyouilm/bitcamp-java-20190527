@@ -15,7 +15,7 @@ public class ServerApp {
     // 클라이언트의 연결을 처리할 객체 준비
     // => new ServerSocket(포트번호)
     // 포트번호?
-    // =>클라이언트가 서버에 연결할 때 사용할 사서함 번호
+    // => 클라이언트가 서버에 연결할 때 사용할 사서함 번호
     // => 사서함 번호는 한 컴퓨터에서 중복 사용할 수 없다.
 
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
