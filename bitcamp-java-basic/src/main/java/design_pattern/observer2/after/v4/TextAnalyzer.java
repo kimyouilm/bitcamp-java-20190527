@@ -24,12 +24,12 @@ public class TextAnalyzer {
       int ch;
       while (true) {
         // -1도 보고를 해야 하기 때문에 다음과 같이 변경한다.
+        // 문자 한바이트를 읽는 이벤트
         ch = in.read();
         // 문자를 읽을 때 마다, 이 객체에 등록된 모든 관찰자에게 보고한다.
         for (CharacterListener listener : listeners) {
           listener.readed(ch); // 보고를 한다는 것은 메소드를 호출하는 것이다.
         }
-
         if (ch == -1)
           break;
       }

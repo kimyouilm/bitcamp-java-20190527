@@ -40,7 +40,6 @@ public class TextAnalyzer {
             countSlash = 0;
           }
         } else if (ch == '\n') {
-
           startLinecomment = false;
         }
       }

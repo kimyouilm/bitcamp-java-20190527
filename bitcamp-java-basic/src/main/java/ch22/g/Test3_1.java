@@ -7,14 +7,14 @@ import java.io.ObjectOutputStream;
 public class Test3_1 {
 
   public static void main(String[] args) throws Exception {
-    FileOutputStream out0 = new FileOutputStream("temp/score2.data");
+    FileOutputStream out0 = new FileOutputStream("temp/score.data");
     ObjectOutputStream out = new ObjectOutputStream(out0);
 
     Score3 score = new Score3();
     score.setName("홍길동");
     score.setKor(100); // setter 내부에서 compute()를 호출하여 sum과 aver를 자동 계산한다.
     score.setEng(100);
-    score.setMath(100);
+    score.setMath(90);
 
     System.out.println(score);
     // 인스턴스 출력하기

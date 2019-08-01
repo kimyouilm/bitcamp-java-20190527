@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 public class Test2_1 {
 
   public static void main(String[] args) throws Exception {
-    FileOutputStream out0 = new FileOutputStream("temp/score2.data");
+    FileOutputStream out0 = new FileOutputStream("temp/score.data");
     ObjectOutputStream out = new ObjectOutputStream(out0);
 
     Score2 score = new Score2();

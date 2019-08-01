@@ -43,7 +43,6 @@ public class TextAnalyzer {
             countSlash = 0;
           }
         } else if (ch == '\n') {
-
           startLinecomment = false;
         }
 
@@ -64,8 +63,6 @@ public class TextAnalyzer {
         } else {
           line.append((char)ch);
         }
-
-
 
       }
       if (!isEmpty) {
