@@ -21,6 +21,7 @@ public class ServerTest {
     try (Socket socket = new Socket("192.168.43.153", 8888);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
       ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
       // 서버와의 입출력을 위해 스트림 객체를 준비한다.
       System.out.println("Connect to server");
 
@@ -34,7 +35,9 @@ public class ServerTest {
       member.setPhoto("kim.gif");
       member.setTel("1111-1111");
 
-      add(member);
+      if (!add(member)) {
+        error();
+      }
 
       member = new Member();
       member.setNo(2);
@@ -43,17 +46,29 @@ public class ServerTest {
       member.setPhoto("23e.gif");
       member.setTel("fdw-1111");
 
-      add(member);
+      if (!add(member)) {
+        error();
+      }
 
       System.out.println("------------------------------");
-      list();
+      if (!list()) {
+        error();
+      }
 
       System.out.println("------------------------------");
-      delete();
+      if (!delete()) {
+        error();
+      }
 
       System.out.println("------------------------------");
-      quit();
+      if (!quit()) {
+        error();
+      }
 
+    } catch (RequestException e) {
+      // 서버에서 요청 처리에 실패했다면
+      // 서버가 보낸 이유를 받는다.
+      System.out.printf("오류: %s\n", in.readUTF());
     } catch (IOException e) {
 
       // 예외가 발생하면 일단 어디에서 예외가 발생했는지 확인하기 위해 호출 정보를 모두 출력한다.
@@ -63,60 +78,64 @@ public class ServerTest {
     System.out.println("Disconnect");
   }
 
-  private static void quit() throws Exception {
+  private static void error() throws Exception {
+    System.out.printf("오류: %s\n", in.readUTF());
+
+  }
+
+  private static boolean quit() throws IOException, RequestException {
     // 서버가 처리할 수 없는 명령어 보내기
     out.writeUTF("quit");
     out.flush();
     System.out.println("quit 요청함 => ");
 
     if (!in.readUTF().equals("ok"))
-      throw new Exception("서버 실행 오류");
+      return false;
     System.out.println("처리완료!");
-
+    return true;
   }
 
-  private static void add(Member m) throws Exception {
+  private static boolean add(Member m) throws Exception {
     out.writeUTF("/member/add");
     out.writeObject(m);
     // 서버에 객체를 전송한다.
     out.flush();
     System.out.print("add 요청함 => ");
 
-    // 서버에 보낸 데이터를 읽는다
-    String response = in.readUTF();
-    System.out.println(response);
+    if (!in.readUTF().equals("ok"))
+      return false;
+    System.out.println("처리완료!");
+    return true;
   }
 
-  private static void list() throws Exception {
+  private static boolean list() throws Exception {
     out.writeUTF("/member/list");
     out.flush();
     System.out.println("list 요청함 =>");
 
-    String response = in.readUTF();
-    System.out.println(response);
+    if (!in.readUTF().equals("ok"))
+      return false;
+    System.out.println("처리완료!");
 
     @SuppressWarnings("unchecked")
     List<Member> list = (List<Member>) in.readObject();
-
-    System.out.println("------------------------------");
+    System.out.println("---------------------------");
     for (Member m : list) {
       System.out.println(m);
     }
+    return true;
   }
 
-  private static void delete() throws Exception {
+  private static boolean delete() throws IOException, RequestException {
     // 서버가 처리할 수 없는 명령어 보내기
     out.writeUTF("/member/delete");
     out.flush();
     System.out.println("delete 요청함 => ");
 
-    // fail일때
-    String response = in.readUTF();
-    System.out.println(response);
-
-    // 서버가 보낸 데이터를 읽는다. (왜 fail인지 한번 더읽기)
-    response = in.readUTF();
-    System.out.println(response);
+    if (!in.readUTF().equals("ok"))
+      return false;
+    System.out.println("처리완료!");
+    return true;
 
   }
 }
