@@ -70,7 +70,6 @@ public class ServerApp {
           out.flush();
           System.out.println("클라이언트에게 응답 완료");
         }
-        out.flush();
       }
       System.out.println("클라이언트와 연결을 끊었음!@#$");
 
