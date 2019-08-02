@@ -38,18 +38,7 @@ public class ServerTest {
       if (!add(member)) {
         error();
       }
-
-      member = new Member();
-      member.setNo(2);
-      member.setName("ss Kim");
-      member.setEmail("eeef@gmail.com");
-      member.setPhoto("23e.gif");
-      member.setTel("fdw-1111");
-
-      if (!add(member)) {
-        error();
-      }
-
+      
       System.out.println("------------------------------");
       if (!list()) {
         error();
@@ -60,6 +49,33 @@ public class ServerTest {
         error();
       }
 
+      System.out.println("------------------------------");
+      if (!list()) {
+        error();
+      }
+      
+      System.out.println("------------------------------");
+      if (!detail()) {
+        error();
+      }
+      
+      System.out.println("------------------------------");
+      Member m = new Member();
+      m.setNo(1);
+      m.setName("KimKimLimaLima");
+      m.setEmail("limlimlimlim@gmail.com");
+      m.setPhoto("fkdkf.gif");
+      m.setTel("23235-2352");
+      
+      if (!update(m)) {
+        error();
+      }
+      
+      System.out.println("------------------------------");
+      if (!list()) {
+        error();
+      }
+      
       System.out.println("------------------------------");
       if (!quit()) {
         error();
@@ -86,6 +102,7 @@ public class ServerTest {
   private static boolean quit() throws IOException, RequestException {
     // 서버가 처리할 수 없는 명령어 보내기
     out.writeUTF("quit");
+    // 상대방한테 보내고싶으면 반드시 flush() 해야함 **
     out.flush();
     System.out.println("quit 요청함 => ");
 
@@ -109,6 +126,7 @@ public class ServerTest {
   }
 
   private static boolean list() throws Exception {
+    
     out.writeUTF("/member/list");
     out.flush();
     System.out.println("list 요청함 =>");
@@ -126,9 +144,11 @@ public class ServerTest {
     return true;
   }
 
-  private static boolean delete() throws IOException, RequestException {
+  private static boolean delete() throws Exception{
     // 서버가 처리할 수 없는 명령어 보내기
     out.writeUTF("/member/delete");
+    // 삭제할 맴버의 번호
+    out.writeInt(2);
     out.flush();
     System.out.println("delete 요청함 => ");
 
@@ -136,6 +156,57 @@ public class ServerTest {
       return false;
     System.out.println("처리완료!");
     return true;
+  }
+  
+  private static boolean detail() throws Exception{
+    out.writeUTF("/member/detail");
+    out.writeInt(1);
+    out.flush();
+    System.out.println("detail 요청함 => ");
 
+    if (!in.readUTF().equals("ok"))
+      return false;
+    
+    System.out.println("처리완료!");
+    System.out.println(in.readObject());
+    return true;
+  }
+  
+  private static boolean update(Member m) throws Exception{
+    // 서버가 처리할 수 없는 명령어 보내기
+    out.writeUTF("/member/update");
+    
+    out.writeObject(m);
+    out.flush();
+    System.out.println("update 요청함 => ");
+
+    if (!in.readUTF().equals("ok"))
+      return false;
+    
+    System.out.println("처리완료!");
+    return true;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
