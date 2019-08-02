@@ -1,4 +1,4 @@
-// v32_8: 회원/수업/게시물 요청을 처리하는 코드를 별도의 클래스로 분리하다.
+// v32_7: 수업과 게시물 데이터를 다루는 (CRUD 명령을 처리한다.)
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -18,7 +18,7 @@ public class ServerApp {
 
   static ArrayList<Member> memberList = new ArrayList<>();
   static ArrayList<Lesson> lessonList = new ArrayList<>();
-
+  static ArrayList<Board> boardList = new ArrayList<>();
   static ObjectInputStream in;
   static ObjectOutputStream out;
 
@@ -38,19 +38,11 @@ public class ServerApp {
         ServerApp.in = in;
         ServerApp.out = out;
 
-        BoardServlet boardServlet = new BoardServlet(in, out);
         Loop: while (true) {
           // 클라이언트가 보낸 명령을 읽는다.
           String command = in.readUTF();
 
           System.out.println(command + "요청 처리중...");
-          
-          if (command.startsWith("/board/")) {
-            boardServlet.service(command);
-            out.flush();
-            // 처리하면 밑으로 가지말고 다시 while문으로 가렴!
-            continue;
-          }
           // 명령어에 따라 처리한다.
           switch (command) {
             // Member
@@ -89,12 +81,32 @@ public class ServerApp {
               updateLesson();
               break;
 
+            // Board
+            case "/board/add":
+              // 클라이언트가 보낸 객체를 읽는다.
+              addBoard();
+              break;
+            case "/board/list":
+              listBoard();
+              break;
+            case "/board/delete":
+              deleteBoard();
+              break;
+            case "/board/detail":
+              detailBoard();
+              break;
+            case "/board/update":
+              updateBoard();
+              break;
+
+
             case "quit":
               out.writeUTF("ok");
               break Loop;
             default:
               fail("지원하지 않는 명령입니다.");
           }
+          out.flush();
           System.out.println("클라이언트에게 응답 완료");
         } // Loop
         out.flush();
@@ -281,7 +293,70 @@ public class ServerApp {
     }
     return -1;
   }
+  
+  // Board Method() --------------------------------------------------------------------------
 
+  private static void addBoard() throws Exception {
+    Board board = (Board) in.readObject();
+    out.writeUTF("ok");
+    boardList.add(board);
+  }
+
+  private static void listBoard() throws Exception {
+    out.writeUTF("ok");
+    out.reset();
+    out.writeObject(boardList);
+  }
+
+  private static void deleteBoard() throws Exception {
+    int no = in.readInt();
+    int index = indexOfBoard(no);
+    if (index == -1) {
+      fail("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    boardList.remove(index);
+    out.writeUTF("ok");
+  }
+
+  private static void detailBoard() throws Exception {
+    int no = in.readInt();
+    int index = indexOfBoard(no);
+
+    if (index == -1) {
+      fail("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    out.writeUTF("ok");
+    out.writeObject(boardList.get(index));
+  }
+
+  private static void updateBoard() throws Exception {
+    Board board = (Board) in.readObject();
+    int index = indexOfBoard(board.getNo());
+
+    if (index == -1) {
+      fail("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    boardList.set(index, board);
+    out.writeUTF("ok");
+  }
+
+  private static int indexOfBoard(int no) {
+    int i = 0;
+    for (Board m : boardList) {
+      if (m.getNo() == no) {
+        return i;
+      }
+      i++;
+    }
+    return -1;
+  }
+  
   // wow 이것도... 메소드로..?
   private static void fail(String cause) throws Exception {
     out.writeUTF("fail");
