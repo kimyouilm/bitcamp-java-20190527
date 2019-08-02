@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.sql.Date;
 import java.util.List;
 import com.eomcs.lms.domain.Board;
 
@@ -70,7 +69,7 @@ public class ServerTest3 {
       System.out.println("------------------------------");
       board = new Board();
       board.setNo(1);
-      board.setContents("웹개발자 양성과정");
+      board.setContents("오호라라ㅏㅏㅏㅏㅏ 변경");
 
       if (!update(board)) {
         error();

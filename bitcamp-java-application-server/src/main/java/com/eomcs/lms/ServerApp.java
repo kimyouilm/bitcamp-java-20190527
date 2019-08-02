@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
 
 /*
@@ -15,6 +17,8 @@ import com.eomcs.lms.domain.Member;
 public class ServerApp {
 
   static ArrayList<Member> memberList = new ArrayList<>();
+  static ArrayList<Lesson> lessonList = new ArrayList<>();
+  static ArrayList<Board> boardList = new ArrayList<>();
   static ObjectInputStream in;
   static ObjectOutputStream out;
 
@@ -41,6 +45,7 @@ public class ServerApp {
           System.out.println(command + "요청 처리중...");
           // 명령어에 따라 처리한다.
           switch (command) {
+            // Member
             case "/member/add":
               // 클라이언트가 보낸 객체를 읽는다.
               addMember();
@@ -57,6 +62,44 @@ public class ServerApp {
             case "/member/update":
               updateMember();
               break;
+
+            // Lesson
+            case "/lesson/add":
+              // 클라이언트가 보낸 객체를 읽는다.
+              addLesson();
+              break;
+            case "/lesson/list":
+              listLesson();
+              break;
+            case "/lesson/delete":
+              deleteLesson();
+              break;
+            case "/lesson/detail":
+              detailLesson();
+              break;
+            case "/lesson/update":
+              updateLesson();
+              break;
+
+            // Board
+            case "/board/add":
+              // 클라이언트가 보낸 객체를 읽는다.
+              addBoard();
+              break;
+            case "/board/list":
+              listBoard();
+              break;
+            case "/board/delete":
+              deleteBoard();
+              break;
+            case "/board/detail":
+              detailBoard();
+              break;
+            case "/board/update":
+              updateBoard();
+              break;
+
+
             case "quit":
               out.writeUTF("ok");
               break Loop;
@@ -176,6 +219,110 @@ public class ServerApp {
     // return;
     // }
     // }
+  }
+
+  // Lesson Method ------------------------------------------------------------------------
+
+  private static void addLesson() throws Exception {
+    Lesson lesson = (Lesson) in.readObject();
+    out.writeUTF("ok");
+    lessonList.add(lesson);
+  }
+
+  private static void listLesson() throws Exception {
+    out.writeUTF("ok");
+    out.reset();
+    out.writeObject(lessonList);
+  }
+
+  private static void deleteLesson() throws Exception {
+    int no = in.readInt();
+    int index = indexOfMember(no);
+    if (index == -1) {
+      fail("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    lessonList.remove(index);
+    out.writeUTF("ok");
+  }
+
+  private static void detailLesson() throws Exception {
+    int no = in.readInt();
+    int index = indexOfMember(no);
+
+    if (index == -1) {
+      fail("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    out.writeUTF("ok");
+    out.writeObject(lessonList.get(index));
+  }
+
+  private static void updateLesson() throws Exception {
+    Lesson lesson = (Lesson) in.readObject();
+    int index = indexOfMember(lesson.getNo());
+
+    if (index == -1) {
+      fail("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    lessonList.set(index, lesson);
+    out.writeUTF("ok");
+  }
+
+  // Board Method() --------------------------------------------------------------------------
+
+  private static void addBoard() throws Exception {
+    Board board = (Board) in.readObject();
+    out.writeUTF("ok");
+    boardList.add(board);
+  }
+
+  private static void listBoard() throws Exception {
+    out.writeUTF("ok");
+    out.reset();
+    out.writeObject(boardList);
+  }
+
+  private static void deleteBoard() throws Exception {
+    int no = in.readInt();
+    int index = indexOfMember(no);
+    if (index == -1) {
+      fail("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    boardList.remove(index);
+    out.writeUTF("ok");
+  }
+
+  private static void detailBoard() throws Exception {
+    int no = in.readInt();
+    int index = indexOfMember(no);
+
+    if (index == -1) {
+      fail("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    out.writeUTF("ok");
+    out.writeObject(boardList.get(index));
+  }
+
+  private static void updateBoard() throws Exception {
+    Board board = (Board) in.readObject();
+    int index = indexOfMember(board.getNo());
+
+    if (index == -1) {
+      fail("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    boardList.set(index, board);
+    out.writeUTF("ok");
   }
 
   private static int indexOfMember(int no) {
