@@ -62,20 +62,14 @@ public class ServerApp {
             continue;
           } else if (command.equals("quit")) {
             out.writeUTF("ok");
+            out.flush();
+            break;
           } else {
             fail("지원하지 않는 명령입니다.");
           }
-          
-          // 명령어에 따라 처리한다.
-          switch (command) {
-            case "quit":
-              out.writeUTF("ok");
-              break Loop;
-            default:
-              fail("지원하지 않는 명령입니다.");
-          }
+          out.flush();
           System.out.println("클라이언트에게 응답 완료");
-        } // Loop
+        }
         out.flush();
       }
       System.out.println("클라이언트와 연결을 끊었음!@#$");
