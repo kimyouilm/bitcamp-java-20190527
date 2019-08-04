@@ -1,6 +1,9 @@
 package com.eomcs.lms.limakim;
 
-import java.io.IOException;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -27,16 +30,41 @@ public class ServerAppLim {
     // 한 포트에 둘 이상의 서버소켓이 연결된다면 클라이언트 입장에서 그 둘을 구분할 수 없기 때문이다.
 
     // 서버소켓을 생성하여 8886번 포트와 결합(bind)시킨다.
+    // 클라이언트의 연결 요청이 들어올 때까지 기다리다가 요청이 들어오는 즉시 승인을 한후, 연결정보(client info)를 리턴함.
     try (ServerSocket serverSocket = new ServerSocket(8886)) {
       System.out.println("<<Start Server>>");
 
-      try(Socket clientSocket = serverSocket.accept()){
+      // 클라이언트 연결 객체(소켓)에서 I/O 스트림 객체를 얻는다.
+      // => 사용하기 편하게 데코레이터를 붙인다.
+      // Adapter pattern
+      try (Socket clientSocket = serverSocket.accept();
+          BufferedReader in =
+              new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+          PrintWriter out =
+              new PrintWriter(new BufferedOutputStream(clientSocket.getOutputStream()))) {
         System.out.println("<<Connect to Client>>");
+        
+        // 클라이언트가 보낸 데이터를 읽는다.
+        // => 보낸 규칙에 맞춰서 읽어야 한다.
+        String message = in.readLine();
+        System.out.println("<<Read files on server>>");
+        
+        // 클라이언트가 보낸 문ㄴ자열이 궁금하다 서보쪽 콘솔 창에 출력해 보자.
+        System.out.println("--> " + message);
+        // PrintWriter에 출력한 데이터는 버퍼에 있다. 버퍼에 있는 데이터를 강제로 출력하라
+        out.flush();
+        // 클라이언트가 보낸 문자열을 그대로 리턴한다.
+        out.println("[Youlim Kim" + message);
+        System.out.println("<<Send data to client>>");
+
       }
+      // try 블록을 벗어날 때 clientSocket.close()가 자동으로 호출되어 클라이언트와의 연결을 끊는다.
+      System.out.println("<<The session has been disconnected by the client>>");
+
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
+
     System.out.println("<<Disconnected>>");
 
   }

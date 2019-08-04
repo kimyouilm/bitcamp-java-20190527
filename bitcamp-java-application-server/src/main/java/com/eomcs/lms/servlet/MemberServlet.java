@@ -98,7 +98,7 @@ public class MemberServlet implements Servlet {
     out.writeObject(member);
   }
 
-  private void updateMember() throws Exception {
+  private void  updateMember() throws Exception {
     Member member = (Member) in.readObject();
 
     if (memberDao.update(member) == 0) {

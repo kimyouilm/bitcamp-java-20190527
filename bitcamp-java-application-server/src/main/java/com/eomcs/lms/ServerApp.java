@@ -1,4 +1,4 @@
-// v32_11 : Servlet 클래스에서 데이터 저장 기능을 별도의 클래스로 분리하기.
+// v32_12: DAO 클래스들의 공통 필드나 메소드를 뽑아 수퍼 클래스로 정으 (generalization)
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;

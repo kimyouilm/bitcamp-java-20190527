@@ -18,11 +18,11 @@ public class ServerApp {
     // => 클라이언트가 서버에 연결할 때 사용할 사서함 번호
     // => 사서함 번호는 한 컴퓨터에서 중복 사용할 수 없다.
 
+    // => 클라이언트의 연결 요청이 들어올 때까지 기다리다가
+    // 요청이 들어오는 즉시 승인을 후,연결 정보를 리턴한다.
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 시작!");
 
-      // => 클라이언트의 연결 요청이 들어올 때까지 기다리다가
-      // 요청이 들어오는 즉시 승인을 후,연결 정보를 리턴한다.
       try (Socket clientSocket = serverSocket.accept()) {
         System.out.println("클라이언트와 연결되었음.");
       } 
