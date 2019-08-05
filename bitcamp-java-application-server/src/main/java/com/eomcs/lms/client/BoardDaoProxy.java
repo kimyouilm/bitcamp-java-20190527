@@ -17,8 +17,8 @@ import com.eomcs.lms.domain.Board;
 // => 프록시 역할을 수행할 클래스는 원래 실제 일을 하는 클래스와 같은 규칙을 따라야 한다.
 public class BoardDaoProxy implements BoardDao {
 
-  static ObjectInputStream in;
-  static ObjectOutputStream out;
+  ObjectInputStream in;
+  ObjectOutputStream out;
 
   public BoardDaoProxy(ObjectInputStream in, ObjectOutputStream out) {
     this.in = in;

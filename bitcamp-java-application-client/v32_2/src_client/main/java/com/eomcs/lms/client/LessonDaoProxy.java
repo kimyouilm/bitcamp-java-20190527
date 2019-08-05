@@ -17,8 +17,8 @@ import com.eomcs.lms.domain.Lesson;
 // => 프록시 역할을 수행할 클래스는 원래 실제 일을 하는 클래스와 같은 규칙을 따라야 한다.
 public class LessonDaoProxy implements LessonDao {
 
-  ObjectInputStream in;
-  ObjectOutputStream out;
+  static ObjectInputStream in;
+  static ObjectOutputStream out;
 
   public LessonDaoProxy(ObjectInputStream in, ObjectOutputStream out) {
     this.in = in;
