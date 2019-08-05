@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Member implements Serializable {
-  // 상대와 데이터를 주고받을때 serialversionUID를 맞추면 
   private static final long serialVersionUID = 1L;
   
   private int no;

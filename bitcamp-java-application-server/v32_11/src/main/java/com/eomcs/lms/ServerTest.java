@@ -98,7 +98,6 @@ public class ServerTest {
     System.out.println("서버와 연결 끊음.");
   }
   
-
   private static void error() throws Exception {
     System.out.printf("오류: %s\n", in.readUTF());
   }
@@ -176,7 +175,7 @@ public class ServerTest {
     return true;
   }
 
-  private static boolean add(Member m) throws Exception{
+  private static boolean add(Member m) throws IOException {
     out.writeUTF("/member/add");
     out.writeObject(m);
     out.flush();
@@ -189,3 +188,9 @@ public class ServerTest {
     return true;
   }
 }
+
+
+
+
+
+

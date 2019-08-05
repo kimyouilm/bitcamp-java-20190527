@@ -15,7 +15,6 @@ public class Lesson implements Serializable {
   private int totalHours;
   private int dayHours;
   
-  
   @Override
   public String toString() {
     return "Lesson [no=" + no + ", title=" + title + ", contents=" + contents + ", startDate="

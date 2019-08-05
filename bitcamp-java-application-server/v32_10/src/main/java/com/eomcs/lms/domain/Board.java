@@ -11,7 +11,6 @@ public class Board implements Serializable {
   private Date createdDate;
   private int viewCount;
   
-  
   @Override
   public String toString() {
     return "Board [no=" + no + ", contents=" + contents + ", createdDate=" + createdDate

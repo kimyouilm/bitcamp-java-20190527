@@ -1,110 +1,120 @@
-// v32_13: CSV(Comma-separated value) 형식으로 데이터를 다루는 DAO추가
+// client - v32_2"
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import com.eomcs.lms.dao.BoardDao;
+import com.eomcs.lms.dao.LessonDao;
+import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.observer.ServletContextListener;
 import com.eomcs.lms.servlet.BoardServlet;
 import com.eomcs.lms.servlet.LessonServlet;
 import com.eomcs.lms.servlet.MemberServlet;
 
-/*
- * [Adapter pattern] 한 클래스의 인터페이스를 클라이언트에서 사용하고자하는 다른 인터페이스로 변환한다. 어댑터를 이용하면 인터페이스 호환성 문제 때문에 같이 쓸 수
- * 없는 클래스들을 연결해서 쓸 수 있다.
- */
 public class ServerApp {
 
-  static ObjectInputStream in;
-  static ObjectOutputStream out;
+  ArrayList<ServletContextListener> listeners = new ArrayList<>();
+  int port;
+  
+  public ServerApp(int port) {
+    this.port = port;
+  }
+  
+  public void execute() {
+    System.out.println("[수업관리시스템 서버 애플리케이션]");
 
-  public static void main(String[] args) {
-    System.out.println("[수업관리시스템 서버 애플리케이션!]");
-
-    try (ServerSocket serverSocket = new ServerSocket(8888)) {
+    try (ServerSocket serverSocket = new ServerSocket(this.port)) {
       System.out.println("서버 시작!");
 
+      // 서버가 실행되는 동안 공유할 객체를 보관하는 저장소를 준비한다.
+      HashMap<String,Object> servletContext = new HashMap<>();
+      
+      // 서버가 시작되면 보고를 받을 관찰자(observer)에게 보고한다.
+      for (ServletContextListener listener : listeners) {
+        listener.contextInitialized(servletContext);
+      }
+      
       try (Socket clientSocket = serverSocket.accept();
-          ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-          ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream())) {
-
-        System.out.println("클라이언트와 연결되었음&&^");
-
-        // 다른 메소드가 사용할 수 있도록 입출력 스트림을 스태틱 변수에 저장한다.
-        ServerApp.in = in;
-        ServerApp.out = out;
-
-        BoardServlet boardServlet = new BoardServlet(in, out);
-        LessonServlet lessonServlet = new LessonServlet(in, out);
-        MemberServlet memberServlet = new MemberServlet(in, out);
-
+          ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
+          ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream())) {
+        
+        System.out.println("클라이언트와 연결되었음.");
+        
+        BoardDao boardDao = (BoardDao)servletContext.get("boardDao");
+        MemberDao memberDao = (MemberDao)servletContext.get("memberDao");
+        LessonDao lessonDao = (LessonDao)servletContext.get("lessonDao");
+        
+        BoardServlet boardServlet = new BoardServlet(boardDao, in, out);
+        MemberServlet memberServlet = new MemberServlet(memberDao, in, out);
+        LessonServlet lessonServlet = new LessonServlet(lessonDao, in, out);
+        
         while (true) {
           // 클라이언트가 보낸 명령을 읽는다.
           String command = in.readUTF();
-
-          System.out.println(command + "요청 처리중...");
-
+          System.out.println(command + " 요청 처리중...");
+          
           if (command.startsWith("/board/")) {
             boardServlet.service(command);
-            out.flush();
-            System.out.println("클라이언트에게 응답 완료");
-            // 처리하면 밑으로 가지말고 다시 while문으로 가렴! m
-            continue;
-          } else if (command.startsWith("/lesson/")) {
-            lessonServlet.service(command);
-            out.flush();
-            System.out.println("클라이언트에게 응답 완료");
-            continue;
+            
           } else if (command.startsWith("/member/")) {
             memberServlet.service(command);
-            out.flush();
-            System.out.println("클라이언트에게 응답 완료");
-            continue;
+            
+          } else if (command.startsWith("/lesson/")) {
+            lessonServlet.service(command);
+            
           } else if (command.equals("quit")) {
             out.writeUTF("ok");
             out.flush();
             break;
+            
           } else {
-            fail("지원하지 않는 명령입니다.");
+            out.writeUTF("fail");
+            out.writeUTF("지원하지 않는 명령입니다.");
           }
           out.flush();
-          System.out.println("클라이언트에게 응답 완료!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        }
-        // 클라이언트와 연결을 끊기 전에 작업 내용을 파일에 저장한다.
-        boardServlet.saveData();
-        memberServlet.saveData();
-        lessonServlet.saveData();
+          System.out.println("클라이언트에게 응답 완료!");
+        } // loop:
+      } 
+      
+      System.out.println("클라이언트와 연결을 끊었음.");
+      
+      // 서버가 종료될 때 관찰자(observer)에게 보고한다.
+      for (ServletContextListener listener : listeners) {
+        listener.contextDestroyed(servletContext);
       }
-      System.out.println("클라이언트와 연결을 끊었음!@#$");
-
+      
     } catch (Exception e) {
-
       e.printStackTrace();
     }
-
-    System.out.println("서버 종료&&");
+    
+    System.out.println("서버 종료!");
   }
-
-  // private static void updateMember0() throws Exception {
-  // Member member = (Member) in.readObject();
+  
+  // 서버가 시작하거나 종료할 때 보고를 받을 객체를 등록하는 메서드
+  // => 즉 서블릿을 실행하는데 필요한 환경을 준비시키는 객체를 등록한다.
   //
-  // for (Member m : memberList) {
-  // if (m.getNo() == member.getNo()) {
-  // // 클라이언트가 보낸 값으로 기존 객체의 값을 바꾼다.
-  // m.setName(member.getName());
-  // m.setEmail(member.getEmail());
-  // m.setPassword(member.getPassword());
-  // m.setPhoto(member.getPhoto());
-  // m.setTel(member.getTel());
-  // m.setRegisteredDate(member.getRegisteredDate());
-  // out.writeUTF("ok");
-  // return;
-  // }
-  // }
-  // }
-  // wow 이것도... 메소드로..?
-  private static void fail(String cause) throws Exception {
-    out.writeUTF("fail");
-    out.writeUTF(cause);
+  public void addServletContextListener(ServletContextListener listener) {
+    listeners.add(listener);
+  }
+  
+  public static void main(String[] args) {
+    
+    ServerApp server = new ServerApp(8888);
+    
+    // 서버의 시작과 종료 상태를 보고 받을 객체를 등록한다.
+    // => 보고를 받는 객체는 ServletContextListener 규칙에 따라 만든 클래스여야 한다.
+    server.addServletContextListener(new AppInitListener());
+    
+    server.execute();
   }
 }
+
+
+
+
+
+
