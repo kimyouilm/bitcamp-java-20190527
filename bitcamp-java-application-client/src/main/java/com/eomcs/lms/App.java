@@ -41,7 +41,6 @@ public class App {
 
   Scanner keyScan;
 
-  @SuppressWarnings("unchecked")
   private void service() {
 
     try (Socket socket = new Socket("localHost", 8888);
@@ -50,12 +49,12 @@ public class App {
 
       // Command 객체가 사용할 데이터 처리 객체를 준비한다.
       BoardDao boardDao = new BoardDaoProxy(in, out);
-      
+
       // 회원과 수업 데이터를 다루는 커멘드는 일단 ArrayList를 사용!
       ArrayList<Member> memberList = new ArrayList<>();
       ArrayList<Board> boardList = new ArrayList<>();
       ArrayList<Lesson> lessonList = new ArrayList<>();
-      
+
       keyScan = new Scanner(System.in);
 
       Deque<String> commandStack = new ArrayDeque<>();
@@ -77,11 +76,11 @@ public class App {
       commandMap.put("/member/list", new MemberListCommand(input, memberList));
       commandMap.put("/member/update", new MemberUpdateCommand(input, memberList));
 
-      commandMap.put("/board/add", new BoardAddCommand(input, boardList));
-      commandMap.put("/board/delete", new BoardDeleteCommand(input, boardList));
-      commandMap.put("/board/detail", new BoardDetailCommand(input, boardList));
-      commandMap.put("/board/list", new BoardListCommand(input, boardList));
-      commandMap.put("/board/update", new BoardUpdateCommand(input, boardList));
+      commandMap.put("/board/add", new BoardAddCommand(input, boardDao));
+      commandMap.put("/board/delete", new BoardDeleteCommand(input, boardDao));
+      commandMap.put("/board/detail", new BoardDetailCommand(input, boardDao));
+      commandMap.put("/board/list", new BoardListCommand(input, boardDao));
+      commandMap.put("/board/update", new BoardUpdateCommand(input, boardDao));
 
       commandMap.put("/hi", new HiCommand(input));
       commandMap.put("/calc/plus", new CalPlusCommand(input));
@@ -99,6 +98,8 @@ public class App {
         Command executor = commandMap.get(command);
 
         if (command.equals("quit")) {
+          out.writeUTF("quit");
+          out.flush();
           break;
         } else if (command.equals("history")) {
           printCommandHistory(commandStack);
