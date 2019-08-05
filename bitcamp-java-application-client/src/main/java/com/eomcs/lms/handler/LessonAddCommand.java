@@ -1,17 +1,18 @@
 package com.eomcs.lms.handler;
 
 import java.util.List;
+import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.Input;
 
 public class LessonAddCommand implements Command {
   
-  private List<Lesson> list;
+  private LessonDao lessonDao;
   private Input input;
   
-  public LessonAddCommand(Input input, List<Lesson> list) {
+  public LessonAddCommand(Input input, LessonDao lessonDao) {
     this.input = input;
-    this.list = list;
+    this.lessonDao = lessonDao;
   }
   
   @Override
@@ -28,11 +29,13 @@ public class LessonAddCommand implements Command {
     lesson.setTotalHours(input.getIntValue("총수업시간? "));
     lesson.setDayHours(input.getIntValue("일수업시간? "));
     
-    // LessonHandler에서 직접 데이터를 보관하지 않고 
-    // LessonList에게 전달한다.
-    list.add(lesson);
-    
-    System.out.println("저장하였습니다.");
+    try {
+      lessonDao.insert(lesson);
+      System.out.println("저장하였습니다.");
+    } catch (Exception e) {
+      System.out.println("데이터 저장에 실패했습니다.");
+      System.out.println(e.getMessage());
+    }
   }
 
 }

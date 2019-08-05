@@ -1,6 +1,5 @@
 package com.eomcs.lms.handler;
 
-import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.util.Input;
