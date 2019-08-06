@@ -2,6 +2,7 @@ package com.eomcs.lms.client;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.List;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
@@ -17,71 +18,92 @@ import com.eomcs.lms.domain.Lesson;
 // => 프록시 역할을 수행할 클래스는 원래 실제 일을 하는 클래스와 같은 규칙을 따라야 한다.
 public class LessonDaoProxy implements LessonDao {
 
-  ObjectInputStream in;
-  ObjectOutputStream out;
+  String host;
+  int port;
 
-  public LessonDaoProxy(ObjectInputStream in, ObjectOutputStream out) {
-    this.in = in;
-    this.out = out;
+  public LessonDaoProxy(String host, int port) {
+    this.host = host;
+    this.port = port;
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public List<Lesson> findAll() throws Exception {
-    out.writeUTF("/lesson/list");
-    out.flush();
 
-    if (!in.readUTF().equals("ok"))
-      throw new Exception(in.readUTF());
+    try (Socket socket = new Socket(host, port);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+      out.writeUTF("/lesson/list");
+      out.flush();
 
-    return (List<Lesson>) in.readObject();
+      if (!in.readUTF().equals("ok"))
+        throw new Exception(in.readUTF());
+
+      return (List<Lesson>) in.readObject();
+    }
   }
 
   @Override
   public int delete(int no) throws Exception {
-    out.writeUTF("/lesson/delete");
-    out.writeInt(no);
-    out.flush();
+    try (Socket socket = new Socket(host, port);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+      out.writeUTF("/lesson/delete");
+      out.writeInt(no);
+      out.flush();
 
-    if (!in.readUTF().equals("ok"))
-      throw new Exception(in.readUTF());
+      if (!in.readUTF().equals("ok"))
+        throw new Exception(in.readUTF());
 
-    return 1;
+      return 1;
+    }
   }
 
   @Override
   public int insert(Lesson lesson) throws Exception {
-    out.writeUTF("/lesson/add");
-    out.writeObject(lesson);
-    out.flush();
+    try (Socket socket = new Socket(host, port);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+      out.writeUTF("/lesson/add");
+      out.writeObject(lesson);
+      out.flush();
 
-    if (!in.readUTF().equals("ok"))
-      throw new Exception(in.readUTF());
+      if (!in.readUTF().equals("ok"))
+        throw new Exception(in.readUTF());
 
-    return 1;
+      return 1;
+    }
   }
 
   @Override
   public Lesson findBy(int no) throws Exception {
-    out.writeUTF("/lesson/detail");
-    out.writeInt(no);
-    out.flush();
+    try (Socket socket = new Socket(host, port);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+      out.writeUTF("/lesson/detail");
+      out.writeInt(no);
+      out.flush();
 
-    if (!in.readUTF().equals("ok"))
-      throw new Exception(in.readUTF());
+      if (!in.readUTF().equals("ok"))
+        throw new Exception(in.readUTF());
 
-    return (Lesson) in.readObject();
+      return (Lesson) in.readObject();
+    }
   }
 
   @Override
   public int update(Lesson lesson) throws Exception {
-    out.writeUTF("/lesson/update");
-    out.writeObject(lesson);
-    out.flush();
+    try (Socket socket = new Socket(host, port);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+      out.writeUTF("/lesson/update");
+      out.writeObject(lesson);
+      out.flush();
 
-    if (!in.readUTF().equals("ok"))
-      throw new Exception(in.readUTF());
+      if (!in.readUTF().equals("ok"))
+        throw new Exception(in.readUTF());
 
-    return 1;
+      return 1;
+    }
   }
 }
