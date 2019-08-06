@@ -1,4 +1,4 @@
-// client - v33_2: Stateful 통신 방식을 Stateless 통신 방식으로 변경한다.
+// client - v33_1: 서버 종료 명령 추가하기
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -91,7 +91,7 @@ public class App {
       commandMap.put("/hi", new HiCommand(input));
       commandMap.put("/calc/plus", new CalPlusCommand(input));
 
-
+      
       while (true) {
 
         String command = prompt();
@@ -108,7 +108,7 @@ public class App {
           out.writeUTF("quit");
           out.flush();
           break;
-        } else if (command.equals("serverstop")) {
+        } else if(command.equals("serverstop")) {
           out.writeUTF(command);
           out.flush();
           break;
@@ -151,9 +151,6 @@ public class App {
     return keyScan.nextLine();
   }
 
-  private void send() {
-    
-  }
   public static void main(String[] args) {
     App app = new App();
     app.service();
