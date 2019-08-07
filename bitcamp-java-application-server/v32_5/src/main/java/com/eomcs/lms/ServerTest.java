@@ -12,7 +12,7 @@ public class ServerTest {
   public static void main(String[] args) throws Exception {
     System.out.println("[수업관리시스템 서버 애플리케이션 테스트]");
 
-    try (Socket socket = new Socket("192.168.0.37", 8888);
+    try (Socket socket = new Socket("localhost", 8888);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
       

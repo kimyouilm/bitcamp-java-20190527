@@ -56,9 +56,9 @@ public class App {
   private void service() {
 
     // Command 객체가 사용할 데이터 처리 객체를 준비한다.
-    BoardDao boardDao = new BoardDaoProxy("localhost", 8888);
-    LessonDao lessonDao = new LessonDaoProxy("localhost", 8888);
-    MemberDao memberDao = new MemberDaoProxy("localhost", 8888);
+    BoardDao boardDao = new BoardDaoProxy(host, 8888);
+    LessonDao lessonDao = new LessonDaoProxy(host, 8888);
+    MemberDao memberDao = new MemberDaoProxy(host, 8888);
 
     // 회원과 수업 데이터를 다루는 커멘드는 일단 ArrayList를 사용!
     ArrayList<Member> memberList = new ArrayList<>();
