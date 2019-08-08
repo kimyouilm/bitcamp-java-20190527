@@ -22,6 +22,8 @@ public class Test03 {
     // 
     // run() 메서드 종료 후 다시 running 상태로 돌아갈 수 없다. 
     // => 새로 스레드를 만들어 실행하는 방법 밖에 없다!
+    // 스레드를 상속받는 익명 클래스
+    
     Thread t = new Thread() {
       @Override
       public void run() {

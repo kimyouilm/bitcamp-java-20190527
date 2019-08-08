@@ -98,6 +98,7 @@ public class App {
 
     while (true) {
 
+      System.out.println("client while문 들어옴");
       String command = prompt();
 
       if (command.length() == 0)
@@ -149,7 +150,7 @@ public class App {
   }
 
   private void serverStop() {
-    try (Socket socket = new Socket("localhos", 8888);
+    try (Socket socket = new Socket("localhost", 8888);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
       out.writeUTF("serverstop");
