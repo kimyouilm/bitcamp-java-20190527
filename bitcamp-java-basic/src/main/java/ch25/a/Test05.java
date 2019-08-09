@@ -9,7 +9,7 @@ public class Test05 {
   public static void main(String[] args) {
     // DriverManager.getConnetion()
     // => org.mariadb.jdbc.Driver.connect()
-    //  
+    //            
     try (Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
       System.out.println("DBMS에 연결됨!");
@@ -18,14 +18,6 @@ public class Test05 {
       e.printStackTrace();
     }
   }
-
 }
-
-
-
-
-
-
-
 
 

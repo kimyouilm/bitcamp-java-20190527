@@ -16,26 +16,27 @@ public class BoardInsertApp {
   // 등록하였습니다.
   // 등록하시겠습니까?(Y/n) n
   // 등록을 취소 하였습니다.
-  //----------------------------
+  // ----------------------------
   public static void main(String[] args) {
+    
     String title = null;
     String contents = null;
-
+    
     try (Scanner keyboard = new Scanner(System.in)) {
-      System.out.print("제목? ");
+      System.out.println("제목?");
       title = keyboard.nextLine();
       
-      System.out.print("내용? ");
+      System.out.println("내용" ); 
       contents = keyboard.nextLine();
       
-      System.out.print("입력하시겠습니까?(Y/n) ");
+      System.out.println("입력하시겠습니까? (y/n");
       String input = keyboard.nextLine();
       
-      if (!input.equalsIgnoreCase("y") &&
-          input.length() != 0) {
+      if (!input.equalsIgnoreCase("y") && input.length() != 0) {
         System.out.println("등록을 취소 하였습니다.");
         return;
       }
+        
     }
     
     try (Connection con = DriverManager.getConnection(
