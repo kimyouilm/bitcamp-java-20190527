@@ -7,25 +7,23 @@ import com.eomcs.util.Input;
 
 public class MemberListCommand implements Command {
   private MemberDao memberDao;
-  private Input input;
-
+  
   public MemberListCommand(Input input, MemberDao memberDao) {
-    this.input = input;
     this.memberDao = memberDao;
   }
-
+  
   @Override
   public void execute() {
-
     try {
       List<Member> members = memberDao.findAll();
-
       for (Member member : members) {
-        System.out.printf("%s, %s, %s, %s, %s\n", member.getNo(), member.getName(),
-            member.getEmail(), member.getTel(), member.getRegisteredDate());
+        System.out.printf("%s, %s, %s, %s, %s\n", 
+            member.getNo(), member.getName(), member.getEmail(), 
+            member.getTel(), member.getRegisteredDate());
       }
+
     } catch (Exception e) {
-      System.out.println("데이터 목록 조회에 실패 했습니다.");
+      System.out.println("데이터 목록 조회에 실패했습니다!");
       System.out.println(e.getMessage());
     }
   }
