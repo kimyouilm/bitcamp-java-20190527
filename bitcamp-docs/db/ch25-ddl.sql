@@ -16,6 +16,8 @@ create table x_board (
 
 -- 게시물 첨부파일 테이블 생성
 create table x_board_file (
+//                                내가 지정하지 않아도 알아서 값을 증가시키면서 자동 입력이됨
+// primary 제약조건 (무결성)
   board_file_id int not null primary key auto_increment,
   file_path varchar(255) not null,
   board_id int not null,
@@ -24,22 +26,22 @@ create table x_board_file (
 
 -- 게시물 데이터 입력 
 insert into x_board(board_id, title, contents)
-values(1, '제목1', '내용');
+values(1, 'title1', 'hello');
 
 insert into x_board(board_id, title, contents)
-values(2, '제목2', '내용');
+values(2, 'title2', 'hello');
 
 insert into x_board(board_id, title, contents)
-values(3, '제목3', '내용');
+values(3, 'title3', 'hello');
 
 insert into x_board(board_id, title, contents)
-values(4, '제목4', '내용');
+values(4, 'title4', 'hello');
 
 insert into x_board(board_id, title, contents)
-values(5, '제목5', '내용');
+values(5, 'title5', 'hello');
 
 insert into x_board(board_id, title, contents)
-values(6, '제목6', '내용');
+values(6, 'title6', 'hello');
 
 -- 게시물 첨부파일 데이터 입력
 insert into x_board_file(board_file_id, file_path, board_id) 

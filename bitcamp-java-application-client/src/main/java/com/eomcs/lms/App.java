@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,9 +17,6 @@ import com.eomcs.lms.client.MemberDaoProxy;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
-import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.domain.Lesson;
-import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -61,9 +57,9 @@ public class App {
     MemberDao memberDao = new MemberDaoProxy(host, 8888);
 
     // 회원과 수업 데이터를 다루는 커멘드는 일단 ArrayList를 사용!
-    ArrayList<Member> memberList = new ArrayList<>();
-    ArrayList<Board> boardList = new ArrayList<>();
-    ArrayList<Lesson> lessonList = new ArrayList<>();
+    // ArrayList<Member> memberList = new ArrayList<>();
+    // ArrayList<Board> boardList = new ArrayList<>();
+    // ArrayList<Lesson> lessonList = new ArrayList<>();
 
     keyScan = new Scanner(System.in);
 
@@ -94,7 +90,6 @@ public class App {
 
     commandMap.put("/hi", new HiCommand(input));
     commandMap.put("/calc/plus", new CalPlusCommand(input));
-
 
     while (true) {
 

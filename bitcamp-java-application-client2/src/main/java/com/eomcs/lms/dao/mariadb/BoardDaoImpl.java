@@ -56,11 +56,12 @@ public class BoardDaoImpl implements BoardDao {
         ResultSet rs = stmt.executeQuery("select * from lms_board where board_id = " + no)) {
 
       Board board = new Board();
-      board.setNo(rs.getInt("board_id"));
-      board.setContents(rs.getString("conts"));
-      board.setCreatedDate(rs.getDate("cdt"));
-      board.setViewCount(rs.getInt("vw_cnt"));
-      
+      if (rs.next()) {
+        board.setNo(rs.getInt("board_id"));
+        board.setContents(rs.getString("conts"));
+        board.setCreatedDate(rs.getDate("cdt"));
+        board.setViewCount(rs.getInt("vw_cnt"));
+      }
       return board;
     }
   }
@@ -74,29 +75,30 @@ public class BoardDaoImpl implements BoardDao {
 
 
       // update 문장은 executeUpdate()를 사용하여 서버에 전달한다.
-      return stmt.executeUpdate("update x_board'" + "', contents = '" + board.getContents() + "'"
+      stmt.executeUpdate("update lms_board set" + ", contents = '" + board.getContents() + "'"
           + " where board_id = " + board.getNo());
+
     }
+    return 1;
   }
 
   @Override
   public int delete(int no) throws Exception {
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
-      
+    try (Connection con = DriverManager
+        .getConnection("jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
+
       try (Statement stmt = con.createStatement()) {
-        
+
         // delete 문장은 executeUpdate()를 사용하여 서버에 전달한다.
-        int count = stmt.executeUpdate(
-            "delete from x_board where board_id = " + no);
-        
+        int count = stmt.executeUpdate("delete from x_board where board_id = " + no);
+
         if (count == 0) {
           System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
         } else {
           System.out.println("삭제하였습니다.");
         }
       }
-      
+
     }
     return 0;
   }

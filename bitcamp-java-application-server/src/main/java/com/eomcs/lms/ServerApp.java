@@ -17,7 +17,6 @@ public class ServerApp {
 
   public static boolean isStoping = false;
 
-  Thread thread = new Thread();
   ArrayList<ServletContextListener> listeners = new ArrayList<>();
 
   // 서버가 실행되는 동안 공유할 객체를 보관하는 저장소를 준비한다.
@@ -42,15 +41,11 @@ public class ServerApp {
         listener.contextInitialized(servletContext);
       }
 
-      int i = 1;
       while (true) {
 
-        System.out.println("while문 " + i + "번째 ");
         System.out.println("클라이언트 요청을 기다리는 중...");
         // 클라이언트 요청이 들어오면 클라이언트와 통실할 때 사용할 소켓을 생성한다.
-        System.out.println("accept전");
         Socket socket = serverSocket.accept();
-        System.out.println("accept후");
 
         // 스레드풀을 사용할 때는 직접 스레드를 만들지 않는다.
         // 단지 스레드풀에게 "스레드가 실행할 코드(Runnable 구현체)"를 제출한다.
@@ -59,10 +54,7 @@ public class ServerApp {
 
         // RequestHandler클래스는 Runnable 인터페스를 구현한 클래스 별도의 스레드에서
         // 독립적으로 실행해야할 run이라는 메소드안에 작성 되어있다.
-        System.out.println("submit 전");
         executorService.submit(new RequestHandler(socket));
-        System.out.println("submit 후");
-        i++;
       } // while
     } catch (Exception e) {
       e.printStackTrace();
@@ -93,7 +85,6 @@ public class ServerApp {
 
   // serverstop 명령 처리
   private void stop() {
-    System.out.println("stop()들어옴");
     // 서버가 종료될 때 관찰자(observer)에게 보고한다.
     for (ServletContextListener listener : listeners) {
       listener.contextDestroyed(servletContext);
@@ -123,7 +114,6 @@ public class ServerApp {
     // 별도의 실행 흐름[실; 스레드]은 run() 메서드에 작성한다.
     @Override
     public void run() {
-      System.out.println("run에 들어옴");
       // 여기에서 클라이언트의 요청을 처리한다.
       // main thread와는 분리된 실행 흐름(thread)이기 때문에
       // 여기서 실행이 지체되더라도 main thread의 흐름에는 영향을 끼치지 않는다.
@@ -165,19 +155,13 @@ public class ServerApp {
 
   public static void main(String[] args) {
 
-    System.out.println("main진입");
     ServerApp server = new ServerApp(8888);
-    System.out.println("main 실행");
 
     // 서버의 시작과 종료 상태를 보고 받을 객체를 등록한다.
     // => 보고를 받는 객체는 ServletContextListener 규칙에 따라 만든 클래스여야 한다.
-    System.out.println("main Lestener 실행전");
     server.addServletContextListener(new AppInitListener());
-    System.out.println("main Lestener 실행후");
 
-    System.out.println("main execute 실행전");
     server.execute();
-    System.out.println("main execute 실행후");
   }
 }
 
