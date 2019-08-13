@@ -40,10 +40,13 @@ public class Input {
     Lesson lesson = new Lesson();
     Date temp1 = lesson.getStartDate();
     Date temp2 = lesson.getEndDate();
-    int length = in.readLine().length();
     try {
-      if (length == 0) {
+      if (Date.valueOf(in.readLine()) == null) {
         lesson.setStartDate(temp1);
+        // in.readLine().equals("\n"
+      }
+      if (lesson.getEndDate() == null) {
+        lesson.setEndDate(temp2);
       }
     } catch (IllegalArgumentException e) {
       e.printStackTrace();
