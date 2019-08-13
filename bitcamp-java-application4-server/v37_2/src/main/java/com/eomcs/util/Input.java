@@ -46,7 +46,7 @@ public class Input {
     Date temp1 = lesson.getStartDate();
     Date temp2 = lesson.getEndDate();
     try {
-      if (in.readLine() == null) {
+      if (lesson.getStartDate() == null) {
         lesson.setStartDate(temp1);
       }
       if (lesson.getEndDate() == null) {
