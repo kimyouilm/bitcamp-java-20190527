@@ -122,8 +122,6 @@ public class App {
 
         if (command == null) {
           out.println("해당 명령을 처리할 수 없습니다.");
-          out.println("!end!");
-          out.flush();
           continue;
         } else {
           command.execute(in, out);
