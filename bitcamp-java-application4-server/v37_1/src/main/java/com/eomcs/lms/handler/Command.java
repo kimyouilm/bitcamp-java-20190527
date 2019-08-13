@@ -14,5 +14,5 @@ public interface Command {
   // 단 기존에 이 인터페이스를 구현한 클래스에게 영향을 주지 않기 위해
   // 새로 추가하는 메소드는 default메소드로 선언한다.
   default void execute(BufferedReader in, PrintStream out) {}
-  
+
 }
