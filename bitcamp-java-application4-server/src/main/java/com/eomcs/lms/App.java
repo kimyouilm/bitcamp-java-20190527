@@ -59,23 +59,23 @@ public class App {
       LessonDao lessonDao = new LessonDaoImpl(con);
 
       // Client 명령을 처리할 커맨드 객체를 준비한다.
-      commandMap.put("/lesson/add", new LessonAddCommand(null, lessonDao));
-      commandMap.put("/lesson/delete", new LessonDeleteCommand(null, lessonDao));
-      commandMap.put("/lesson/detail", new LessonDetailCommand(null, lessonDao));
+      commandMap.put("/lesson/add", new LessonAddCommand(lessonDao));
+      commandMap.put("/lesson/delete", new LessonDeleteCommand(lessonDao));
+      commandMap.put("/lesson/detail", new LessonDetailCommand(lessonDao));
       commandMap.put("/lesson/list", new LessonListCommand(lessonDao));
-      commandMap.put("/lesson/update", new LessonUpdateCommand(null, lessonDao));
+      commandMap.put("/lesson/update", new LessonUpdateCommand(lessonDao));
 
-      commandMap.put("/member/add", new MemberAddCommand(null, memberDao));
-      commandMap.put("/member/delete", new MemberDeleteCommand(null, memberDao));
-      commandMap.put("/member/detail", new MemberDetailCommand(null, memberDao));
+      commandMap.put("/member/add", new MemberAddCommand(memberDao));
+      commandMap.put("/member/delete", new MemberDeleteCommand(memberDao));
+      commandMap.put("/member/detail", new MemberDetailCommand(memberDao));
       commandMap.put("/member/list", new MemberListCommand(memberDao));
-      commandMap.put("/member/update", new MemberUpdateCommand(null, memberDao));
+      commandMap.put("/member/update", new MemberUpdateCommand(memberDao));
 
-      commandMap.put("/board/add", new BoardAddCommand(null, boardDao));
-      commandMap.put("/board/delete", new BoardDeleteCommand(null, boardDao));
-      commandMap.put("/board/detail", new BoardDetailCommand(null, boardDao));
+      commandMap.put("/board/add", new BoardAddCommand(boardDao));
+      commandMap.put("/board/delete", new BoardDeleteCommand(boardDao));
+      commandMap.put("/board/detail", new BoardDetailCommand(boardDao));
       commandMap.put("/board/list", new BoardListCommand(boardDao));
-      commandMap.put("/board/update", new BoardUpdateCommand(null, boardDao));
+      commandMap.put("/board/update", new BoardUpdateCommand(boardDao));
 
     } catch (Exception e) {
       System.out.println("DBMS에 연결할 수 없습니다!");
@@ -90,7 +90,7 @@ public class App {
         if (processClient(serverSocket.accept()) == STOP)
           break;
       } // while
-      
+
       System.out.println("애플리케이션 서버를 종료함!");
     }
     // DBMS와의 연결을 끊는다.
@@ -136,7 +136,7 @@ public class App {
       System.out.println("클라이언트와 통신 오류!");
     }
     return state;
-    
+
   }
 
   public static void main(String[] args) {

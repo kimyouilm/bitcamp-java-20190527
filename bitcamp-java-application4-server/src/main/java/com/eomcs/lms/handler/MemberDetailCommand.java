@@ -1,37 +1,37 @@
 package com.eomcs.lms.handler;
 
+import java.io.BufferedReader;
+import java.io.PrintStream;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.util.Input;
 
 public class MemberDetailCommand implements Command {
   private MemberDao memberDao;
-  private Input input;
-  
-  public MemberDetailCommand(Input input, MemberDao memberDao) {
-    this.input = input;
+
+  public MemberDetailCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
 
   @Override
-  public void execute() {
-    int no = input.getIntValue("번호? ");
-    
+  public void execute(BufferedReader in, PrintStream out) {
+
     try {
+      int no = Input.getIntValue(in, out, "번호? ");
       Member member = memberDao.findBy(no);
       if (member == null) {
-        System.out.println("해당 번호의 데이터가 없습니다!");
+        out.println("해당 번호의 데이터가 없습니다!");
         return;
       }
-      System.out.printf("이름: %s\n", member.getName());
-      System.out.printf("이메일: %s\n", member.getEmail());
-      System.out.printf("암호: %s\n", member.getPassword());
-      System.out.printf("사진: %s\n", member.getPhoto());
-      System.out.printf("전화: %s\n", member.getTel());
-      System.out.printf("가입일: %s\n", member.getRegisteredDate());
+      out.printf("이름: %s\n", member.getName());
+      out.printf("이메일: %s\n", member.getEmail());
+      out.printf("암호: %s\n", member.getPassword());
+      out.printf("사진: %s\n", member.getPhoto());
+      out.printf("전화: %s\n", member.getTel());
+      out.printf("가입일: %s\n", member.getRegisteredDate());
 
     } catch (Exception e) {
-      System.out.println("데이터 조회에 실패했습니다!");
+      out.println("데이터 조회에 실패했습니다!");
       System.out.println(e.getMessage());
     }
   }
