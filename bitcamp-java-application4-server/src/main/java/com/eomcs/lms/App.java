@@ -43,10 +43,10 @@ public class App {
   Connection con;
   HashMap<String, Command> commandMap = new HashMap<>();
   int state;
-  
+
   // 스레드풀
   ExecutorService executorService = Executors.newCachedThreadPool();
-  
+
   public App() throws Exception {
 
     // 처음에는 계속 클라이언트 요청을 처리해야 하는 상태로 설정한다.
@@ -88,21 +88,31 @@ public class App {
 
   }
 
+  @SuppressWarnings("static-access")
   private void service() {
 
     try (ServerSocket serverSocket = new ServerSocket(8888);) {
       System.out.println("애플리케이션 서버가 시작되었음!");
 
       while (true) {
-        // 클라이언트가 접속하면 별도의 스레드를 생성하여 처리를 맡긴다.
-        new Thread(new CommandProcessor(serverSocket.accept())).start();
+        // 클라이언트가 접속하면 작업을 수행할 Runnable 객체를 만들어 스레드풀에 맡긴다.
+        executorService.submit(new CommandProcessor(serverSocket.accept()));
 
         // 클라이언트 중에서 serverstop 명령을 보내면 종료상태로 설정되고
         // 다음 요청을 처리할 때 즉시 실행을 멈춘다.
         if (state == STOP)
           break;
       }
+      // 스레드풀에게 실행 종료를 요청한다.
+      // => 스레드풀은 자신이 관리하는 스레드들이 실행이 종료되었는지 감시한다.
+      executorService.shutdown();
 
+      // 스레드풀이 관리하는 모든 스레드가 종료되었는지 매 0.5초마다 검사한다.
+      // => 스레드풀의 모든 스레드가 실행을 종료했으면 즉시 main 스레드를 종료한다.
+      // executorService가 종료되지 않았다면
+      while (!executorService.isTerminated()) {
+        Thread.currentThread().sleep(500);
+      }
       System.out.println("애플리케이션 서버를 종료함!");
 
     } catch (Exception e) {
@@ -140,7 +150,7 @@ public class App {
         if (request.equals("quit")) {
           out.println("Good bye!");
         } else if (request.equals("serverstop")) {
-          if(state == STOP) {
+          if (state == STOP) {
             out.println("Good bye!");
           }
           state = STOP;
