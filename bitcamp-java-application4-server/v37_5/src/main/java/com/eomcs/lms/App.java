@@ -1,4 +1,4 @@
-// v37_6: 스레드풀 적용하기.
+// v37_5: 한 요청 처리에 시간이 오래 걸릴 경우 Stateless통신 방법으로도 해결 안됨. 멀티 스레드 적용하여 해결하기
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -9,8 +9,6 @@ import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
@@ -43,10 +41,7 @@ public class App {
   Connection con;
   HashMap<String, Command> commandMap = new HashMap<>();
   int state;
-  
-  // 스레드풀
-  ExecutorService executorService = Executors.newCachedThreadPool();
-  
+
   public App() throws Exception {
 
     // 처음에는 계속 클라이언트 요청을 처리해야 하는 상태로 설정한다.
