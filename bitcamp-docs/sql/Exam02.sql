@@ -7,7 +7,7 @@
 ```
 /* 연락처 테이블 생성 */
 create table test1 (
-  no int not null,
+  no int not null,  // primary key 됨
   name varchar(20) not null,
   tel varchar(20) not null,
   fax varchar(20),
@@ -38,7 +38,6 @@ insert into 테이블명(컬럼,컬럼,...) values(값,값,...);
 insert into test1(name,fax,tel,no,pstno,addr) 
     values('bbb','222','111',null,'10101','seoul');
 ```
-
 - 값을 입력할 컬럼을 선택하기. 단 필수 입력 컬럼은 반드시 선택해야 한다.
 ```
 /* no 컬럼은 필수 입력 컬럼이지만, 
@@ -126,18 +125,6 @@ delete from test1 where no=2 or no=3;
 /* 조건을 지정하지 않으면 모든 데이터가 삭제된다. 주의!*/
 delete from test1;
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

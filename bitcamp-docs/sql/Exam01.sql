@@ -32,6 +32,7 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 
 예) 
 > create table test01 (
+//       가변문자 0자부터 최대 50자 컬럼
     name varchar(50) not null,
     kor int not null,
     eng int not null,
@@ -169,6 +170,7 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 > insert into test1(c1) values('abc');
 > insert into test1(c2) values('abc');
 > select * from test1 where c1='abc'; 
+
 DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 검사하는 경우도 있다.
 즉 c1='abc'에서는 데이터를 찾지 못하고, c1='abc  '여야만 데이터를 찾는 경우가 있다.
 그러나 mysql은 고정크기 컬럼이더라도 빈자리를 무시하고 데이터를 찾는다.
@@ -231,6 +233,8 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 > insert into test1(c3) values('0'); /* false */
 > insert into test1(c3) values(1); /* true */
 > insert into test1(c3) values(0); /* false */
+> insert into test1(c3) values(true); /* false */
+> insert into test1(c3) values(false); /* false */
 
 
 ### 키 컬럼 지정 
@@ -333,6 +337,7 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
   kor int,
   eng int,
   math int,
+  // 제약 조건
   constraint test1_uk unique (name, age)
   );
 
