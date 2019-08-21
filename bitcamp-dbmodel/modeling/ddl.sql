@@ -119,9 +119,6 @@ ALTER TABLE managers
       manager_id -- 매니저번호
     );
 
-ALTER TABLE managers
-  MODIFY COLUMN manager_id INTEGER NOT NULL AUTO_INCREMENT COMMENT '매니저번호';
-
 -- 교육센터
 CREATE TABLE centers (
   center_id INTEGER      NOT NULL COMMENT '교육센터번호', -- 교육센터번호
@@ -280,7 +277,7 @@ CREATE TABLE members (
   post_no     CHAR(6)      NULL     COMMENT '우편번호', -- 우편번호
   bas_addr    VARCHAR(255) NULL     COMMENT '기본주소', -- 기본주소
   det_addr    VARCHAR(255) NULL     COMMENT '상세주소', -- 상세주소
-  last_sg_id  INTEGER      NOT NULL COMMENT '최종학력', -- 최종학력
+  last_sg_id  INTEGER      NOT NULL COMMENT '최종학력번호', -- 최종학력번호
   last_school VARCHAR(25)  NOT NULL COMMENT '최종학교', -- 최종학교
   major       VARCHAR(25)  NOT NULL COMMENT '전공' -- 전공
 )
@@ -304,6 +301,9 @@ CREATE INDEX IX_members
   ON members( -- 회원
     name ASC -- 이름
   );
+
+ALTER TABLE members
+  MODIFY COLUMN member_id INTEGER NOT NULL AUTO_INCREMENT COMMENT '회원번호';
 
 -- 학력
 CREATE TABLE school_grade (
@@ -452,10 +452,19 @@ ALTER TABLE lecture_teacher
 ALTER TABLE members
   ADD CONSTRAINT FK_school_grade_TO_members -- 학력 -> 회원
     FOREIGN KEY (
-      last_sg_id -- 최종학력
+      last_sg_id -- 최종학력번호
     )
     REFERENCES school_grade ( -- 학력
       sg_id -- 학력번호
     );
     
-    SET FOREIGN_KEY_CHECKS = 1;
+SET FOREIGN_KEY_CHECKS = 1;    
+    
+
+
+
+
+
+
+
+

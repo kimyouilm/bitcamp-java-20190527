@@ -1,5 +1,5 @@
 /* as 로 컬럼에 별명(라벨명) 붙이기  */
-
+-- select loc, qnty, name, rno from room;
 /* 출력 라벨명을 변경하기
    => 라벨명을 지정하지 않으면 컬럼명이 라벨명이 된다*/
 select rno as room_no, loc as location, name 
