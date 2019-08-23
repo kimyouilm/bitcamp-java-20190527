@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.util.DataSource;
+import com.eomcs.util.ConnectionFactory;
 
 public class BoardDaoImpl implements BoardDao {
 
-  DataSource dataSource;
+  ConnectionFactory conFactory;
   
-  public BoardDaoImpl(DataSource dataSource) {
-    this.dataSource = dataSource;
+  public BoardDaoImpl(ConnectionFactory conFactory) {
+    this.conFactory = conFactory;
   }
 
   @Override
   public int insert(Board board) throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
 
       return stmt.executeUpdate(
@@ -30,7 +30,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public List<Board> findAll() throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
             "select * from lms_board order by board_id desc")) {
@@ -52,7 +52,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public Board findBy(int no) throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
             "select * from lms_board where board_id=" + no)) {
@@ -78,7 +78,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int update(Board board) throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
 
       return stmt.executeUpdate("update lms_board set"
@@ -89,7 +89,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int delete(int no) throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
 
       return stmt.executeUpdate("delete from lms_board where board_id=" + no);

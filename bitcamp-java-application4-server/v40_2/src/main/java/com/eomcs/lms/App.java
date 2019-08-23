@@ -1,4 +1,4 @@
-// v41_1: 커넥션풀 도입하기 
+// v40_2: 스레드 전용 커넥션 객체사용하기(스레드 로컬 문법적용) + 트렌젝션 처리 + 트랜젝션 관리자 도입
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -41,7 +41,7 @@ import com.eomcs.lms.handler.PhotoBoardDeleteCommand;
 import com.eomcs.lms.handler.PhotoBoardDetailCommand;
 import com.eomcs.lms.handler.PhotoBoardListCommand;
 import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
-import com.eomcs.util.DataSource;
+import com.eomcs.util.ConnectionFactory;
 import com.eomcs.util.PlatformTransactionManager;
 
 public class App {
@@ -53,7 +53,7 @@ public class App {
  
   ExecutorService executorService = Executors.newCachedThreadPool();
 
-  DataSource conFactory;
+  ConnectionFactory conFactory;
   
   public App() throws Exception {
 
@@ -62,7 +62,7 @@ public class App {
     
     try {
       // 커넥션 관리자를 준비한다.
-      conFactory = new DataSource(
+      conFactory = new ConnectionFactory(
           "org.mariadb.jdbc.Driver",
           "jdbc:mariadb://localhost/bitcampdb",
           "bitcamp",

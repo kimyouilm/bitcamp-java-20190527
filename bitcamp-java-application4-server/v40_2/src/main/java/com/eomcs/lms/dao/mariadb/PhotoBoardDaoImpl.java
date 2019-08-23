@@ -8,19 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
-import com.eomcs.util.DataSource;
+import com.eomcs.util.ConnectionFactory;
 
 public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
-  DataSource dataSource;
+  ConnectionFactory conFactory;
   
-  public PhotoBoardDaoImpl(DataSource dataSource) {
-    this.dataSource = dataSource;
+  public PhotoBoardDaoImpl(ConnectionFactory conFactory) {
+    this.conFactory = conFactory;
   }
 
   @Override
   public int insert(PhotoBoard photoBoard) throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
 
       // insert 한 후에 자동 생성된 PK 값을 리턴 받고 싶다면 
@@ -51,7 +51,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public List<PhotoBoard> findAll() throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
             "select * from lms_photo order by photo_id desc")) {
@@ -73,7 +73,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public PhotoBoard findBy(int no) throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
             "select * from lms_photo where photo_id=" + no)) {
@@ -100,7 +100,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public int update(PhotoBoard photoBoard) throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
 
       return stmt.executeUpdate("update lms_photo set"
@@ -111,7 +111,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public int delete(int no) throws Exception {
-    try (Connection con = dataSource.getConnection();
+    try (Connection con = conFactory.getConnection();
         Statement stmt = con.createStatement()) {
 
       return stmt.executeUpdate("delete from lms_photo where photo_id=" + no);
