@@ -10,8 +10,9 @@ public class ConnectionFactory {
   String username;
   String password;
 
-  public ConnectionFactory(String jdbcDriver, String jdbcUrl, String username, String password) {
-
+  public ConnectionFactory(
+      String jdbcDriver, String jdbcUrl, String username, String password) {
+    
     this.jdbcDriver = jdbcDriver;
     this.jdbcUrl = jdbcUrl;
     this.username = username;
@@ -20,8 +21,12 @@ public class ConnectionFactory {
 
   public Connection getConnection() throws Exception {
     Class.forName(jdbcDriver);
-
+    
     return DriverManager.getConnection(jdbcUrl, username, password);
   }
-
 }
+
+
+
+
+
