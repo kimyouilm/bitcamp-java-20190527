@@ -2,23 +2,22 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-import java.sql.Connection;
 import java.util.List;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
-import com.eomcs.util.ConnectionFactory;
 import com.eomcs.util.Input;
+import com.eomcs.util.PlatformTransactionManager;
 
 public class PhotoBoardUpdateCommand implements Command {
-  private ConnectionFactory conFactory;
+  private PlatformTransactionManager txManager;
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
 
-  public PhotoBoardUpdateCommand(ConnectionFactory conFactory, PhotoBoardDao photoBoardDao,
+  public PhotoBoardUpdateCommand(PlatformTransactionManager txManager, PhotoBoardDao photoBoardDao,
       PhotoFileDao photoFileDao) {
-    this.conFactory = conFactory;
+    this.txManager = txManager;
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }
@@ -26,10 +25,7 @@ public class PhotoBoardUpdateCommand implements Command {
   @Override
   public void execute(BufferedReader in, PrintStream out) {
 
-    Connection con = null;
     try {
-      con = conFactory.getConnection();
-      con.setAutoCommit(false);
       int no = Input.getIntValue(in, out, "번호? ");
 
       PhotoBoard photoBoard = photoBoardDao.findBy(no);
@@ -45,7 +41,7 @@ public class PhotoBoardUpdateCommand implements Command {
       if (str.length() > 0) {
         photoBoard.setTitle(str);
         photoBoardDao.update(photoBoard);
-        con.commit();
+        txManager.commit();
         out.println("게시물의 제목을 변경하였습니다.");
       }
 
@@ -95,19 +91,12 @@ public class PhotoBoardUpdateCommand implements Command {
 
     } catch (Exception e) {
       try {
-        con.rollback();
+        txManager.rollback();
       } catch (Exception e2) {
       }
       out.println("데이터 변경에 실패했습니다!");
       System.out.println(e.getMessage());
 
-    } finally {
-      // => 커넥션 객체를 원래의 자동 커밋 상태로 설정한다.
-      // => DBMS 쪽 담당자(스레드)에게 이제부터 모든 데이터 변경작업은 즉시 실행할 것을 명령한다.
-      try {
-        con.setAutoCommit(true);
-      } catch (Exception e) {
-      }
     }
   }
 
