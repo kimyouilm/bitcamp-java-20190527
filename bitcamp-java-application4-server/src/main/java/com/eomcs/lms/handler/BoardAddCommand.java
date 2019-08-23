@@ -7,9 +7,9 @@ import com.eomcs.lms.domain.Board;
 import com.eomcs.util.Input;
 
 public class BoardAddCommand implements Command {
-
+  
   private BoardDao boardDao;
-
+  
   public BoardAddCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
@@ -22,9 +22,11 @@ public class BoardAddCommand implements Command {
 
       boardDao.insert(board);
       out.println("저장하였습니다.");
+      
     } catch (Exception e) {
       out.println("데이터 저장에 실패했습니다!");
       System.out.println(e.getMessage());
     }
   }
+
 }

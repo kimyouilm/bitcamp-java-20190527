@@ -107,24 +107,6 @@ public class ClientApp {
     }
   }
 
-  // private void dummyRequest() {
-  // // 클라이언트에서 serverstop 명령을 보냈을때
-  // // state 의 값이 STOP으로 바뀐다.
-  // // 이 state 상태를 인식할 수 있도록 가상의 클라이언트가 되어 요청을 보낸다.
-  // try (Socket socket = new Socket("localhost", 8888);
-  // PrintStream out = new PrintStream(socket.getOutputStream());
-  // BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-  // out.println("quit");
-  // out.flush();
-  //
-  // while (true) {
-  // if (in.readLine().equals("!end!"))
-  // break;
-  // }
-  // } catch (Exception e ) {
-  //
-  // }
-  // }
   private String prompt() {
     System.out.print("명령> ");
     return keyboard.nextLine();
