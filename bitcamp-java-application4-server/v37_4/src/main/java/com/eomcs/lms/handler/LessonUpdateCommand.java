@@ -2,7 +2,6 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-import java.sql.Date;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.Input;
@@ -17,10 +16,9 @@ public class LessonUpdateCommand implements Command {
 
   @Override
   public void execute(BufferedReader in, PrintStream out) {
-
     try {
       int no = Input.getIntValue(in, out, "번호? ");
-      // 사용자가 입력한 번호를 가지고 목록에서 그 번호에 해당하는 Lesson 객체를 찾는다.
+
       Lesson lesson = lessonDao.findBy(no);
       if (lesson == null) {
         out.println("해당 번호의 데이터가 없습니다!");
@@ -38,13 +36,17 @@ public class LessonUpdateCommand implements Command {
         lesson.setContents(str);
       }
 
-      lesson.setStartDate(Input.getDateValue(in, out, "시작일(" + lesson.getStartDate() + ")? "));
-    
-      lesson.setEndDate(Input.getDateValue(in, out, "종료일(" + lesson.getEndDate() + ")? "));
+      lesson.setStartDate(
+          Input.getDateValue(in, out, "시작일(" + lesson.getStartDate() + ")? "));
 
-      lesson.setTotalHours(Input.getIntValue(in, out, "총수업시간(" + lesson.getTotalHours() + ")? "));
+      lesson.setEndDate(
+          Input.getDateValue(in, out, "종료일(" + lesson.getEndDate() + ")? "));
 
-      lesson.setDayHours(Input.getIntValue(in, out, "일수업시간(" + lesson.getDayHours() + ")? "));
+      lesson.setTotalHours(
+          Input.getIntValue(in, out, "총수업시간(" + lesson.getTotalHours() + ")? "));
+
+      lesson.setDayHours(
+          Input.getIntValue(in, out, "일수업시간(" + lesson.getDayHours() + ")? "));
 
       lessonDao.update(lesson);
       out.println("데이터를 변경하였습니다.");
@@ -56,5 +58,15 @@ public class LessonUpdateCommand implements Command {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
 
 

@@ -21,6 +21,7 @@ import com.eomcs.lms.handler.BoardDetailCommand;
 import com.eomcs.lms.handler.BoardListCommand;
 import com.eomcs.lms.handler.BoardUpdateCommand;
 import com.eomcs.lms.handler.Command;
+import com.eomcs.lms.handler.HelloCommand;
 import com.eomcs.lms.handler.LessonAddCommand;
 import com.eomcs.lms.handler.LessonDeleteCommand;
 import com.eomcs.lms.handler.LessonDetailCommand;
@@ -39,14 +40,14 @@ public class App {
   private static final int STOP = 0;
 
   Connection con;
-  HashMap<String, Command> commandMap = new HashMap<>();
+  HashMap<String,Command> commandMap = new HashMap<>();
 
   public App() throws Exception {
 
     try {
       // DAO가 사용할 Connection 객체 준비하기
-      con = DriverManager
-          .getConnection("jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
+      con = DriverManager.getConnection(
+          "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
 
       // Command 객체가 사용할 데이터 처리 객체를 준비한다.
       BoardDao boardDao = new BoardDaoImpl(con);
@@ -72,6 +73,8 @@ public class App {
       commandMap.put("/board/detail", new BoardDetailCommand(boardDao));
       commandMap.put("/board/list", new BoardListCommand(boardDao));
       commandMap.put("/board/update", new BoardUpdateCommand(boardDao));
+
+      commandMap.put("/hello", new HelloCommand());
 
     } catch (Exception e) {
       System.out.println("DBMS에 연결할 수 없습니다!");
@@ -109,7 +112,8 @@ public class App {
     int state = CONTINUE;
 
     try (Socket socket = s;
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        BufferedReader in = new BufferedReader(
+            new InputStreamReader(socket.getInputStream()));
         PrintStream out = new PrintStream(socket.getOutputStream())) {
 
       System.out.println("클라이언트와 연결됨!");
@@ -118,9 +122,11 @@ public class App {
       String request = in.readLine();
       if (request.equals("quit")) {
         out.println("Good bye!");
+        
       } else if (request.equals("serverstop")) {
         state = STOP;
         out.println("Good bye!");
+        
       } else {
         Command command = commandMap.get(request);
         if (command == null) {
@@ -129,9 +135,9 @@ public class App {
           command.execute(in, out);
         }
       }
-
       out.println("!end!");
       out.flush();
+
       System.out.println("클라이언트와 연결 끊음!");
 
     } catch (Exception e) {
@@ -153,5 +159,13 @@ public class App {
     }
   }
 }
+
+
+
+
+
+
+
+
 
 

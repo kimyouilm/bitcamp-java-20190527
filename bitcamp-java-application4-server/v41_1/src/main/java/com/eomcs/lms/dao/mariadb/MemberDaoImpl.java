@@ -13,8 +13,8 @@ public class MemberDaoImpl implements MemberDao {
 
   DataSource dataSource;
   
-  public MemberDaoImpl(DataSource dataSource) {
-    this.dataSource = dataSource;
+  public MemberDaoImpl(DataSource conFactory) {
+    this.dataSource = conFactory;
   }
   
   @Override

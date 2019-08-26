@@ -15,7 +15,6 @@ public class MemberAddCommand implements Command {
 
   @Override
   public void execute(BufferedReader in, PrintStream out) {
-
     try {
       Member member = new Member();
       member.setName(Input.getStringValue(in, out, "이름? "));
@@ -23,9 +22,10 @@ public class MemberAddCommand implements Command {
       member.setPassword(Input.getStringValue(in, out, "암호? "));
       member.setPhoto(Input.getStringValue(in, out, "사진? "));
       member.setTel(Input.getStringValue(in, out, "전화? "));
+      
       memberDao.insert(member);
       out.println("저장하였습니다.");
-
+      
     } catch (Exception e) {
       out.println("데이터 저장에 실패했습니다!");
       System.out.println(e.getMessage());

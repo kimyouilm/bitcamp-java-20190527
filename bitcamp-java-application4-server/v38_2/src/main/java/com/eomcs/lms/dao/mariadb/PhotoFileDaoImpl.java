@@ -22,7 +22,7 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
     try (Statement stmt = con.createStatement()) {
 
       return stmt.executeUpdate(
-          "insert into lms_photo_file(photo_id,file_path)"
+          "insert into lms_photo_file(photo_id, file_path)"
               + " values(" + photoFile.getBoardNo()
               + ",'" + photoFile.getFilePath() + "')");
     }
@@ -35,8 +35,7 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
             "select photo_file_id, photo_id, file_path"
             + " from lms_photo_file"
             + " where photo_id=" + boardNo
-            + " order by photo_file_id asc"
-            )) {
+            + " order by photo_file_id asc")) {
 
       ArrayList<PhotoFile> list = new ArrayList<>();
       
@@ -52,40 +51,55 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
     }
   }
 
-
-
   @Override
   public int deleteAll(int boardNo) throws Exception {
     try (Statement stmt = con.createStatement()) {
 
-      return stmt.executeUpdate("delete from lms_photo_file where photo_id=" + boardNo);
+      return stmt.executeUpdate("delete from lms_photo_file"
+          + " where photo_id=" + boardNo);
     }
   }
   
   public static void main(String[] args) throws Exception {
     try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");){
-      PhotoFileDao dao = new PhotoFileDaoImpl(con);
-      
+        "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");) {
+    
+      //PhotoFileDao dao = new PhotoFileDaoImpl(con);
+    
       //1) insert() 테스트
+      /*
+      PhotoFile b = new PhotoFile();
+      b.setBoardNo(6);
+      b.setFilePath("ok5.gif");
       
-//      PhotoFile b = new PhotoFile();
-//      b.setBoardNo(60);
-//      b.setFilePath("ok5.gif");
-//      
-//      dao.insert(b);
+      dao.insert(b);
+      */
       
       //2) findAll() 테스트
-//      List<PhotoFile> list = dao.findAll(6);
-//      for (PhotoFile b : list)
-//        System.out.println(b);
+      /*
+      List<PhotoFile> list = dao.findAll(6);
+      for (PhotoFile b : list) {
+        System.out.println(b);
+      }
+      */
       
-      //5) delete() 테스트
-      
-//      dao.deleteAll(6);
+      //3) deleteAll() 테스트
+      ///*
+      //dao.deleteAll(6);
+      //*/
       
       System.out.println("실행 완료!");
     }
   }
 
 }
+
+
+
+
+
+
+
+
+
+

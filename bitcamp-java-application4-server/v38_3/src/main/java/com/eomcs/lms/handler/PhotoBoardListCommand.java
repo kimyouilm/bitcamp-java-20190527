@@ -20,13 +20,14 @@ public class PhotoBoardListCommand implements Command {
       List<PhotoBoard> photoBoards = photoBoardDao.findAll();
       for (PhotoBoard photoBoard : photoBoards) {
         out.printf("%d, %-30s, %s, %d, %d\n", 
-            photoBoard.getNo(), photoBoard.getTitle(), 
+            photoBoard.getNo(), 
+            photoBoard.getTitle(), 
             photoBoard.getCreatedDate(), 
-            photoBoard.getViewCount(), photoBoard.getLessonNo());
+            photoBoard.getViewCount(),
+            photoBoard.getLessonNo());
       }
       
     } catch (Exception e) {
-      // 클라이언트에 답변
       out.println("데이터 목록 조회에 실패했습니다!");
       System.out.println(e.getMessage());
     }

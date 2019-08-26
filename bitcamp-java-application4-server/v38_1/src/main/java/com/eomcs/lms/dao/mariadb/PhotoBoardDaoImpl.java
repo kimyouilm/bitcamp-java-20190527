@@ -43,7 +43,6 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
         photoBoard.setCreatedDate(rs.getDate("cdt"));
         photoBoard.setViewCount(rs.getInt("vw_cnt"));
         photoBoard.setLessonNo(rs.getInt("lesson_id"));
-        
         list.add(photoBoard);
       }
       return list;
@@ -52,8 +51,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public PhotoBoard findBy(int no) throws Exception {
-    try (
-        Statement stmt = con.createStatement();
+    try (Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(
             "select * from lms_photo where photo_id=" + no)) {
 
@@ -97,38 +95,58 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
   
   public static void main(String[] args) throws Exception {
     try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");){
-      PhotoBoardDao dao = new PhotoBoardDaoImpl(con);
-      
+        "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");) {
+    
+      //PhotoBoardDao dao = new PhotoBoardDaoImpl(con);
+    
       //1) insert() 테스트
-//      
-//      PhotoBoard b = new PhotoBoard();
-//      b.setLessonNo(101);
-//      b.setTitle("사진 게시글 테스트1");
-//      
-//      dao.insert(b);
+      /*
+      PhotoBoard b = new PhotoBoard();
+      b.setLessonNo(101);
+      b.setTitle("사진 게시글 테스트2");
+      
+      dao.insert(b);
+      */
       
       //2) findAll() 테스트
-//      List<PhotoBoard> list = dao.findAll();
-//      for (PhotoBoard b : list)
-//        System.out.println(b);
+      /*
+      List<PhotoBoard> list = dao.findAll();
+      for (PhotoBoard b : list) {
+        System.out.println(b);
+      }
+      */
       
       //3) findBy() 테스트
-//      PhotoBoard b = dao.findBy(9);
-//      System.out.println(b);
+      /*
+      PhotoBoard b = dao.findBy(9);
+      System.out.println(b);
+      */
       
       //4) update() 테스트
-//      PhotoBoard b = new PhotoBoard();
-//      b.setNo(9);
-//      b.setTitle("제목 변경");
-//      dao.update(b);
+      /*
+      PhotoBoard b = new PhotoBoard();
+      b.setNo(9);
+      b.setTitle("제목 변경");
+      dao.update(b);
+      */
       
       //5) delete() 테스트
-      
-//      dao.delete(9);
+      /*
+      dao.delete(9);
+      */
       
       System.out.println("실행 완료!");
     }
   }
 
 }
+
+
+
+
+
+
+
+
+
+

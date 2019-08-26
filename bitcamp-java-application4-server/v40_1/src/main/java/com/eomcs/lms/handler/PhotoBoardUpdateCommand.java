@@ -12,11 +12,14 @@ import com.eomcs.util.ConnectionFactory;
 import com.eomcs.util.Input;
 
 public class PhotoBoardUpdateCommand implements Command {
+
   private ConnectionFactory conFactory;
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
 
-  public PhotoBoardUpdateCommand(ConnectionFactory conFactory, PhotoBoardDao photoBoardDao,
+  public PhotoBoardUpdateCommand(
+      ConnectionFactory conFactory,
+      PhotoBoardDao photoBoardDao, 
       PhotoFileDao photoFileDao) {
     this.conFactory = conFactory;
     this.photoBoardDao = photoBoardDao;
@@ -25,11 +28,12 @@ public class PhotoBoardUpdateCommand implements Command {
 
   @Override
   public void execute(BufferedReader in, PrintStream out) {
-
     Connection con = null;
+    
     try {
       con = conFactory.getConnection();
       con.setAutoCommit(false);
+      
       int no = Input.getIntValue(in, out, "번호? ");
 
       PhotoBoard photoBoard = photoBoardDao.findBy(no);
@@ -39,13 +43,13 @@ public class PhotoBoardUpdateCommand implements Command {
       }
 
       out.println("제목을 입력하지 않으면 이전 제목을 유지합니다.");
-      String str = Input.getStringValue(in, out, String.format("제목(%s)? ", photoBoard.getTitle()));
+      String str = Input.getStringValue(in, out, 
+          String.format("제목(%s)? ", photoBoard.getTitle()));
 
       // 제목을 입력했으면 사진 게시글의 제목을 변경한다.
       if (str.length() > 0) {
         photoBoard.setTitle(str);
         photoBoardDao.update(photoBoard);
-        con.commit();
         out.println("게시물의 제목을 변경하였습니다.");
       }
 
@@ -59,13 +63,14 @@ public class PhotoBoardUpdateCommand implements Command {
       // 파일을 변경할 지 여부를 묻는다.
       out.println("사진은 일부만 변경할 수 없습니다.");
       out.println("전체를 새로 등록해야 합니다.");
-      String response = Input.getStringValue(in, out, "사진을 변경하시겠습니까?(y/N)");
+      String response = Input.getStringValue(in, out, 
+          "사진을 변경하시겠습니까?(y/N)");
 
       if (!response.equalsIgnoreCase("y")) {
         out.println("파일 변경을 취소합니다.");
         return;
       }
-
+      
       // 기존 사진 파일을 삭제한다.
       photoFileDao.deleteAll(no);
 
@@ -79,7 +84,7 @@ public class PhotoBoardUpdateCommand implements Command {
         if (filepath.length() == 0) {
           if (count > 0) {
             break;
-          } else {
+          } else { 
             out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
             continue;
           }
@@ -91,23 +96,17 @@ public class PhotoBoardUpdateCommand implements Command {
         count++;
       }
 
+      con.commit();
       out.println("사진을 변경하였습니다.");
-
+      
     } catch (Exception e) {
-      try {
-        con.rollback();
-      } catch (Exception e2) {
-      }
+      try {con.rollback();} catch (Exception e2) {}
+      
       out.println("데이터 변경에 실패했습니다!");
       System.out.println(e.getMessage());
-
+      
     } finally {
-      // => 커넥션 객체를 원래의 자동 커밋 상태로 설정한다.
-      // => DBMS 쪽 담당자(스레드)에게 이제부터 모든 데이터 변경작업은 즉시 실행할 것을 명령한다.
-      try {
-        con.setAutoCommit(true);
-      } catch (Exception e) {
-      }
+      try {con.setAutoCommit(true);} catch (Exception e) {}
     }
   }
 

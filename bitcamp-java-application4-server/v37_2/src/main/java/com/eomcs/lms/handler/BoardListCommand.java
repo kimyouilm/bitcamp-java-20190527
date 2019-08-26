@@ -5,7 +5,6 @@ import java.io.PrintStream;
 import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.util.Input;
 
 public class BoardListCommand implements Command {
   
@@ -26,7 +25,6 @@ public class BoardListCommand implements Command {
       }
       
     } catch (Exception e) {
-      // 클라이언트에 답변
       out.println("데이터 목록 조회에 실패했습니다!");
       System.out.println(e.getMessage());
     }
