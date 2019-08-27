@@ -1,4 +1,4 @@
-// 트렌잭션 다루기 - 여러 메소드에서 insert를 실행할 때(같은 sqlSession사용하기 1)
+// 트렌잭션 다루기 - Mybatis + SqlSessionFactoryProxy 로 트랜잭션 제어하기 
 package ch26.i;
 
 import java.io.InputStream;
