@@ -7,16 +7,17 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.util.DataSource;
 
 public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
-  DataSource dataSource;
+  SqlSessionFactory sqlSessionFactory;
   
-  public PhotoBoardDaoImpl(DataSource conFactory) {
-    this.dataSource = conFactory;
+  public PhotoBoardDaoImpl(SqlSessionFactory sqlSessionFactory) {
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
