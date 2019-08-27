@@ -23,14 +23,14 @@ public class LessonDaoImpl implements LessonDao {
 
   @Override
   public List<Lesson> findAll() throws Exception {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
       return sqlSession.selectList("LessonDao.findAll");
     }
   }
 
   @Override
   public Lesson findBy(int no) throws Exception {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
       return sqlSession.selectOne("LessonDao.findBy", no);
     }
   }
