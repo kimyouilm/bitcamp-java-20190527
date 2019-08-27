@@ -38,6 +38,8 @@ public class Test01 {
           b.getCreated_date(),
           b.getView_count());
     }
+    
+    sqlSession.close();
   }
 
 }

@@ -9,7 +9,7 @@ import com.eomcs.lms.domain.PhotoBoard;
 public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   SqlSessionFactory sqlSessionFactory;
-
+  
   public PhotoBoardDaoImpl(SqlSessionFactory sqlSessionFactory) {
     this.sqlSessionFactory = sqlSessionFactory;
   }
@@ -30,14 +30,12 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
 
   @Override
   public PhotoBoard findBy(int no) throws Exception {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
       PhotoBoard board = sqlSession.selectOne("PhotoBoardDao.findBy", no);
       if (board != null) {
         sqlSession.update("PhotoBoardDao.increaseViewCount", no);
-
       }
       return board;
-
     }
   }
 
@@ -54,7 +52,15 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
       return sqlSession.delete("PhotoBoardDao.delete", no);
     }
   }
-
+  
 }
+
+
+
+
+
+
+
+
 
 

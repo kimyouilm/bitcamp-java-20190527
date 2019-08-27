@@ -4,13 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PhotoFileDao">
 
+    <!-- 컬럼 이름과 자바 객체의 프로퍼티 이름을 연결한다. -->
+    <resultMap type="PhotoFile" id="PhotoFileMap">
+        <id column="photo_file_id" property="no" />
+        <result column="photo_id" property="boardNo" />
+        <result column="file_path" property="filePath" />
+    </resultMap>
+    
   <select id="findAll"
           parameterType="int" 
-          resultType="com.eomcs.lms.domain.PhotoFile">
+          resultType="PhotoFile">
     select 
-      photo_file_id no, 
-      photo_id boardNo, 
-      file_path filePath
+      photo_file_id, 
+      photo_id, 
+      file_path
     from 
       lms_photo_file
     where 
@@ -20,9 +27,9 @@
   </select>
   
   <insert id="insert" 
-          parameterType="com.eomcs.lms.domain.PhotoFile">
+          parameterType="PhotoFile">
     insert into lms_photo_file(photo_id, file_path)
-    values(#{no},#{filePath})
+    values(#{boardNo},#{filePath})
   </insert>
   
   <delete id="deleteAll" parameterType="int">
