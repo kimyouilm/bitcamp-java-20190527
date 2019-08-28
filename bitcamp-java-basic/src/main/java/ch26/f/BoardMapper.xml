@@ -74,15 +74,15 @@
     select * 
     from x_board
     <where>
-	    <if test="no != null">
-	      or board_id = #{no}
-	    </if>
-	    <if test="title != null">
-	      or title like concat('%', #{title}, '%')
-	    </if>
-	    <if test="contents != null">
-	      or contents like concat('%', #{contents}, '%')
-	    </if>
+       <if test="no != null">
+         or board_id = #{no}
+       </if>
+       <if test="title != null">
+         or title like concat('%', #{title}, '%')
+       </if>
+       <if test="contents != null">
+         or contents like concat('%', #{contents}, '%')
+       </if>
     </where>
   </select>
 
@@ -94,18 +94,18 @@
     from x_board
     where
       <choose> 
-	      <when test="no != null">
-	        board_id = #{no}
-	      </when>
-	      <when test="title != null">
-	        title like concat('%', #{title}, '%')
-	      </when>
-	      <when test="contents != null">
-	        contents like concat('%', #{contents}, '%')
-	      </when>
-	      <otherwise>
-	        1=1
-	      </otherwise>
+         <when test="no != null">
+           board_id = #{no}
+         </when>
+         <when test="title != null">
+           title like concat('%', #{title}, '%')
+         </when>
+         <when test="contents != null">
+           contents like concat('%', #{contents}, '%')
+         </when>
+         <otherwise>
+           1=1
+         </otherwise>
       </choose>
   </select>
 
@@ -114,15 +114,15 @@
     select * 
     from x_board
     <trim prefix="where" prefixOverrides="OR |AND">
-	    <if test="no != null">
-	      board_id = #{no}
-	    </if>
-	    <if test="title != null">
-	      or title like concat('%', #{title}, '%')
-	    </if>
-	    <if test="contents != null">
-	      or contents like concat('%', #{contents}, '%')
-	    </if>
+       <if test="no != null">
+         board_id = #{no}
+       </if>
+       <if test="title != null">
+         or title like concat('%', #{title}, '%')
+       </if>
+       <if test="contents != null">
+         or contents like concat('%', #{contents}, '%')
+       </if>
     </trim>
   </select>
   
@@ -192,8 +192,26 @@
           #{value}
         </foreach>
   </select>
+  
+   <select id="select9_2" resultMap="boardMap" parameterType="map">
+    select *
+    from x_board
+    where 
+        <foreach collection="list" item="value" separator="or">
+          title like concat('%', #{value}, '%')
+        </foreach>
+  </select>
+  
+     <select id="select9_3" resultMap="boardMap" parameterType="map">
+    select *
+    from x_board
+    where 
+        <foreach collection="list" item="b" separator="or">
+          title like concat('%', #{b.title}, '%')
+        </foreach>
+  </select>
+  
 </mapper>
-
 
 
 

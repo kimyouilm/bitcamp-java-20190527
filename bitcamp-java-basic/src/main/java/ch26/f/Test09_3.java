@@ -1,7 +1,8 @@
-// dynamic SQL 다루기 - <choose> 태그 사용 -> switch문과 비슷 if else문 합친거
+// dynamic SQL 다루기 - <foreach> 태그 사용법 III
 package ch26.f;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Test05 {
+public class Test09_3 {
 
   public static void main(String[] args) throws Exception {
     
@@ -21,32 +22,31 @@ public class Test05 {
     
     SqlSession sqlSession = sqlSessionFactory.openSession();
  
-    HashMap<String,Object> params = new HashMap<>();
-
-    // 여러 개의 조건 중 한 개에 대해 처리하기
+    ArrayList<Board> list = new ArrayList<>();
+    
     Scanner keyboard = new Scanner(System.in);
-    System.out.print("게시물 번호? ");
-    String value = keyboard.nextLine();
-    try {
-      params.put("no", Integer.parseInt(value));
-    } catch (Exception e) {
-    }
     
-    System.out.print("제목? ");
-    value = keyboard.nextLine();
-    if (value.length() > 0) {
-      params.put("title", value);
-    }
-    
-    System.out.print("내용? ");
-    value = keyboard.nextLine();
-    if (value.length() > 0) {
-      params.put("contents", value);
+    while (true) {
+      try {
+        System.out.print("게시물 제목? ");
+        String value = keyboard.nextLine();
+        if (value.length() == 0) {
+          break;
+        }
+        Board board = new Board();
+        board.setTitle(value);
+        list.add(board);
+      } catch (Exception e) {
+        break;
+      }
     }
     
     keyboard.close();
     
-    List<Board> boards = sqlSession.selectList("board.select5", params);
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("list", list);
+    
+    List<Board> boards = sqlSession.selectList("board.select9_3", params);
     
     for (Board b : boards) {
       System.out.println(b);

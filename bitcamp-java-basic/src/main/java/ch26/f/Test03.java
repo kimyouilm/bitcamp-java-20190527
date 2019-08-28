@@ -43,10 +43,7 @@ public class Test03 {
     if (value.length() > 0) {
       params.put("contents", value);
     }
-    
     keyboard.close();
-    
-    
     
     List<Board> boards = sqlSession.selectList("board.select3", params);
     

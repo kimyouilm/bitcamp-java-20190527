@@ -2,6 +2,7 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
+import java.util.HashMap;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.util.Input;
@@ -24,33 +25,43 @@ public class MemberUpdateCommand implements Command {
         return;
       }
       
+      // 혹시 String뿐만아니라 int가 있을 경우hashMap
       // 사용자로부터 변경할 값을 입력 받는다.
+//      HashMap<String,Object> data = new HashMap<>();
+      Member data = new Member();
+      // 사용자가 해당번호를 찾을수 있도록!
+      data.setNo(no);
       String str = Input.getStringValue(in, out, "이름(" + member.getName() + ")? ");
       if (str.length() > 0) {
-        member.setName(str);
+//        data.put("name", str);
+        data.setName(str);
       }
       
       str = Input.getStringValue(in, out, "이메일(" + member.getEmail() + ")? ");
       if (str.length() > 0) {
-        member.setEmail(str);
+//        data.put("email", str);
+        data.setEmail(str);
       }
       
       str = Input.getStringValue(in, out, "암호? ");
       if (str.length() > 0) {
-        member.setPassword(str);
+//        data.put("password", str);
+        data.setPassword(str);
       }
       
       str = Input.getStringValue(in, out, "사진(" + member.getPhoto() + ")? ");
       if (str.length() > 0) {
-        member.setPhoto(str);
+//        data.put("photo", str);
+        data.setPhoto(str);
       }
       
       str = Input.getStringValue(in, out, "전화(" + member.getTel() + ")? ");
       if (str.length() > 0) {
-        member.setTel(str);
+//        data.put("tel", str);
+        data.setTel(str);
       }
       
-      memberDao.update(member);
+      memberDao.update(data);
       out.println("데이터를 변경하였습니다.");
 
     } catch (Exception e) {
