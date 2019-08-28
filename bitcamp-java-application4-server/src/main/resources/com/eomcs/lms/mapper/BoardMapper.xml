@@ -44,8 +44,10 @@
   </insert>
   
   <update id="update" parameterType="Board">
-    update lms_board set
-      conts=#{contents}
+    update lms_board
+    <set>
+    <if test="contents != null">conts=#{contents}</if>    
+    </set>
     where board_id=#{no}
   </update>
   
