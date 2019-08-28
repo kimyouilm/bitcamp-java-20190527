@@ -5,7 +5,6 @@
 형식에 대한 공식적인(PUBLIC) 이름: "-//mybatis.org//DTD Config 3.0//EN"
 형식을 정의한 파일: "http://mybatis.org/dtd/mybatis-3-config.dtd"
  -->
- <!-- - (국제 표준이냐 개인이냐) -->
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">

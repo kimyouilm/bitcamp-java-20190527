@@ -22,7 +22,7 @@ public class Client2 {
 
       for (int i = 0; i < 100; i++) {
         // 보낼 데이터와 상대편(받는 이) 주소를 패킷에 담는다.
-        byte[] bytes = String.format("Hello! My name is Lima - %d", i).getBytes("UTF-8");
+        byte[] bytes = String.format("Hello! - %d", i).getBytes("UTF-8");
         
         DatagramPacket packet = new DatagramPacket(
             bytes, // 보내는 데이터(바이트 배열) 

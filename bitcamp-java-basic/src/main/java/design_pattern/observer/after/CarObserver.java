@@ -2,7 +2,6 @@ package design_pattern.observer.after;
 
 // 자동차의 상태가 바뀌었을 때 호출할 메서드 규칙을 정의한다.
 public interface CarObserver {
-  // Listener인경우 method()이름은 명사구(상태)임.
   
   // 자동차의 시동이 걸렸을 때 호출할 메서드
   // => 보통 메서드의 이름은 동사로 시작하는데,

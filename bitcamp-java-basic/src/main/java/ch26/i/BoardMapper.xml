@@ -6,22 +6,21 @@
 
 <mapper namespace="board">
 
-	<resultMap type="board" id="boardMap">
-		<id column="board_id" property="no" />
-		<result column="created_date" property="createdDate" />
-		<result column="view_count" property="viewCount" />
-	</resultMap>
+  <resultMap type="board" id="boardMap">
+    <id column="board_id"         property="no"/>
+    <result column="created_date" property="createdDate"/>
+    <result column="view_count"   property="viewCount"/>
+  </resultMap>
 
-	<select id="select" resultMap="boardMap">
-		select * from x_board
-	</select>
+  <select id="select" resultMap="boardMap">
+    select * from x_board
+  </select>
+  
+  <insert id="insert" parameterType="board">
+    insert into x_board(title,contents) 
+    values(#{title},#{contents})
+  </insert>
 
-	<insert id="insert" parameterType="board">
-		insert into
-		x_board(title,contents)
-		values(#{title},#{contents})
-	</insert>
-	
 </mapper>
 
 

@@ -19,8 +19,15 @@ public class Test01_2 {
     out.writeBoolean(b);
 
     out.close();
+
     System.out.println("출력 완료!");
   }
 }
+
+
+
+
+
+
 
 

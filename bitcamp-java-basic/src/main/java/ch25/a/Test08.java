@@ -16,7 +16,6 @@ public class Test08 {
       try (Statement stmt = con.createStatement()) {
         
         try (ResultSet rs = stmt.executeQuery(
-            // desc 내림차순으로 정렬하세요~
             "select * from x_board order by board_id desc")) {
         
           while (rs.next()) {

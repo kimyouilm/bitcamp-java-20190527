@@ -7,13 +7,14 @@ import java.io.ObjectInputStream;
 public class Test1_2 {
   public static void main(String[] args) throws Exception {
 
-    FileInputStream in1 = new FileInputStream("temp/score.data");
-    ObjectInputStream in = new ObjectInputStream(in1);
+    FileInputStream in0 = new FileInputStream("temp/score.data");
+    ObjectInputStream in = new ObjectInputStream(in0);
 
     Score1 score = (Score1) in.readObject();
     System.out.println(score);
 
     // getter/setter 없어도 필드 값을 읽는데 문제 없다.
+
     in.close();
   }
 }

@@ -7,7 +7,6 @@ public class Test02 {
     
     List list = new List(a);
     
-    // 원래 Test02 기본값
     int[] r = list.toArray(new EvenFilter() {
       @Override
       public boolean accept(int value) {
@@ -15,10 +14,9 @@ public class Test02 {
       }
     });
     
-//    int[] r = list.toArray(value -> (value % 2) == 1);
-    
     for (int v : r) {
       System.out.println(v);
     }
   }
+
 }

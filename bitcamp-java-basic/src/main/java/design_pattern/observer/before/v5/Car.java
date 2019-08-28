@@ -12,7 +12,6 @@ public class Car {
     
     // 예) 3월 2일 - 자동차 시동을 걸 때 브레이크 오일 유무를 검사하는 기능을 추가
     System.out.println("브레이크 오일 유무 검사");
-    
   }
   
   public void run() {
@@ -24,6 +23,7 @@ public class Car {
     
     // 예) 4월 15일 - 자동차 시동을 끌 때 전조등 자동 끄기 기능을 추가
     System.out.println("전조등을 끈다.");
+    
   }
 }
 

@@ -9,9 +9,12 @@ import java.util.Scanner;
 public class Test02 {
 
   public static void main(String[] args) {
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
-        Scanner keyScan = new Scanner(System.in)){
+    
+    
+    try (
+        Scanner keyboard = new Scanner(System.in);
+        Connection con = DriverManager.getConnection(
+        "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
 
       // 1) 트랜잭션 시작 - 커넥션 객체의 오토커밋을 false로 지정한다.
       con.setAutoCommit(false);
@@ -19,15 +22,16 @@ public class Test02 {
       // 2) 데이터 변경 작업을 수행 - 여러 개의 insert, update, delete 작업 수행 
       while (true) {
         System.out.print("제목? ");
-        String title = keyScan.nextLine();
-        
+        String title = keyboard.nextLine();
         if (title.length() == 0)
           break;
+        
         System.out.print("내용? ");
-        String contents = keyScan.nextLine();
+        String contents = keyboard.nextLine();
+        
         try (PreparedStatement stmt = con.prepareStatement(
             "insert into x_board(title, contents) values(?,?)")) {
-
+          
           stmt.setString(1, title);
           stmt.setString(2, contents);
           stmt.executeUpdate();

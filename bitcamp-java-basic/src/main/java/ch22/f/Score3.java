@@ -1,5 +1,5 @@
 package ch22.f;
-// 인스턴스 -> 바이트 배열 // 시리얼 넘버
+
 import java.io.Serializable;
 
 // java.io.Serializable
@@ -20,7 +20,6 @@ public class Score3 implements Serializable {
   //    tel 필드는 추가되었다 하더라도 기존의 성적 데이터에 영향을 끼치지 않기 때문에 
   //    이전 버전의 값을 그대로 읽어도 된다.
   //    이런 경우에 serialVersionUID의 값을 그대로 두는 것이다.
-  // 자동으로 구현
   private static final long serialVersionUID = 100L;
   
   private String name;
@@ -42,17 +41,13 @@ public class Score3 implements Serializable {
     this.math = math;
     compute();
   }
-
-  // Test3_1을 실행하여 score3.data 파일에 인스턴스를 출력한 후,
-  // tel 필드를 추가하고 toString() 메서드를 재생성한다.
+  
   @Override
   public String toString() {
     return "Score3 [name=" + name + ", tel=" + tel + ", kor=" + kor + ", eng=" + eng + ", math="
         + math + ", sum=" + sum + ", aver=" + aver + "]";
   }
-
-  //Test3_1을 실행하여 score3.data 파일에 인스턴스를 출력한 후,
-  // tel 필드를 추가하고 getter/setter 를 추가한다.
+  
   public String getTel() {
     return tel;
   }
@@ -60,7 +55,7 @@ public class Score3 implements Serializable {
   public void setTel(String tel) {
     this.tel = tel;
   }
-  
+
   public String getName() {
     return name;
   }

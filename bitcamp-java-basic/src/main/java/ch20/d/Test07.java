@@ -49,7 +49,6 @@ public class Test07 {
     
     // 다음과 같이 key가 들어있는 목록에서 key를 꺼내 줄 Iterator를 다시 리턴 받아야 한다. 
     //
-    // java.util.ConcurrentModificationException뜸 
     //iterator = keySet.iterator();
     
     while (iterator.hasNext()) {

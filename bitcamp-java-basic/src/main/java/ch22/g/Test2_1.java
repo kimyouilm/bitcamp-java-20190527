@@ -23,8 +23,9 @@ public class Test2_1 {
     // => serialize는 setter/getter의 존재여부와 상관없다.
     out.writeObject(score);
 
-    out.close();
     System.out.println("출력 완료!");
+
+    out.close();
 
   }
 

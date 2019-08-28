@@ -13,8 +13,11 @@ public class Test02_1 {
     // => java.io.BufferedOutputStream 클래스를 사용하라.
     // => java.io.DataOutputStream 클래스를 사용하라.
     //
-    Score[] students = {new Score("홍길동", 100, 100, 100), new Score("임꺽정", 90, 90, 90),
-        new Score("유관순", 80, 80, 80)};
+    Score[] students = {    
+        new Score("홍길동", 100, 100, 100),
+        new Score("임꺽정", 90, 90, 90),
+        new Score("유관순", 80, 80, 80)
+    };
 
     FileOutputStream out0 = new FileOutputStream("temp/score.data");
     BufferedOutputStream out1 = new BufferedOutputStream(out0);
@@ -29,12 +32,17 @@ public class Test02_1 {
       out.writeInt(s.getMath());
     }
 
-    out.flush();
+    out.flush(); // 버퍼에 남아 있는 잔여 데이터 추출을 잊지말라!
 
     out.close();
+
     System.out.println("출력 완료!");
   }
 
 }
+
+
+
+
 
 

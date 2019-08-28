@@ -20,10 +20,13 @@ public class Test1_1 {
 
     // 인스턴스 출력하기
     out.writeObject(score);
-    out.close();
+
     System.out.println("출력 완료!");
 
     // getter/setter 없어도 필드 값을 출력하는데 문제 없다.
+
+    out.close();
+
   }
 
 }

@@ -15,6 +15,7 @@ public class Test01 {
     //           ㄴ java.lang.Error
     // => 예) StackOverflowError, OutOfMemoryError, IOError, ThreadDeath 등 
     //
+    
     // StackOverflowError 발생시키기
     // => 예외를 처리하지 않으면 JVM에게 예외가 전달되고 JVM은 즉시 멈춘다.
     // => JVM이 멈추기 전에 현재까지 작업한 것을 저장하고 싶다면, 예외 처리 코드를 추가해야 한다.
@@ -39,15 +40,11 @@ public class Test01 {
     // 애플리케이션 예외 발생시키기
     // => 예외를 처리하지 않으면 JVM에게 전달되고, JVM은 즉시 멈춘다.
     // 
-    try {
-      int result = 100 / 0;
-      sum(result);
-    }catch (ArithmeticException e) {
-      System.out.println("ArithmeticException 오류가 발생하였습니다.");
-    }
-      System.out.println("실행 완료!");
+    int result = 100 / 0;
+    
     // 위의 코드에서 예외가 발생하면 다음 코드를 실행할 수 없다.
     // 왜? 즉시 JVM에게 예외 내용이 보고되고, JVM은 실행을 멈춘다. 
+    System.out.println("실행 완료!");
     
   }
   

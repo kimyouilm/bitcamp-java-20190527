@@ -4,15 +4,15 @@ public class Test02 {
 
   public static void main(String[] args) {
     // Observer 디자인 패턴 
-    // => 어떤 클래스에 변화가 일어 났을 때 다른 클래스에게 통보해 주는 것.
-    // => 통보는 받는 클래스를 "옵저버(observer)"라 부른다.
+    // => 어떤 객체에 변화가 일어 났을 때 다른 객체에게 통보해 주는 것.
+    // => 통보는 받는 객체를 "옵저버(observer)"라 부른다.
     //    또는 "리스너(listener)"라 부른다.
     // => 보통 이벤트를 다루는 시스템에서 많이 사용하는 패턴이다.
     // 
     
     // Observer 패턴 적용
     // 1) 상태가 바뀌었을 때 통지할 규칙을 정의한다.
-    //    => 객체의 상태가 바뀌었을 때 다른 클래스에게 통지해야 하는데,
+    //    => 객체의 상태가 바뀌었을 때 다른 객체에게 통지해야 하는데,
     //       그 방법이 메서드를 호출하는 것이다.
     //    => 즉 통지를 받을 객체가 가져야할 메서드 규칙을 정의한다.
     //    => CarObserver 인터페이스 정의 
@@ -31,7 +31,6 @@ public class Test02 {
     //    => CarObserver 인터페이스를 구현한 클래스 정의
     //    => 예) 자동차 안전벨트 점검 옵저버 => SafeBeltCarObserver
     //
-    System.out.println("------------------------------");
     
     // Car 클래스에 기능을 추가해보자!
     // => 옵저버 패턴을 적용하기 전에는 직접 Car 클래스에 코드를 추가하였다.
@@ -44,8 +43,9 @@ public class Test02 {
     //
     Car car = new Car();
     
-    // Car객체를 사용하기 전에 먼저 옵저버를 등록한다.
+    // Car 객체를 사용하기 전에 먼저 옵저버를 등록한다.
     car.addObserver(new SafeBeltCarObserver());
+    
     car.start();
     car.run();
     car.stop();

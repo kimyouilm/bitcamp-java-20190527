@@ -7,12 +7,13 @@ public class Test03 {
     Car car = new Car();
     
     car.addObserver(new SafeBeltCarObserver());
-    // 옵저버를 추가로 등록한다.
+    
+    // 새 옵저버를 추가로 등록한다.
     car.addObserver(new EngineOilCarObserver());
+
     car.start();
     car.run();
     car.stop();
-    
   }
 
 }

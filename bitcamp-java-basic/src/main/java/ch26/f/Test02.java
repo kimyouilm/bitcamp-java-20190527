@@ -1,4 +1,4 @@
-// 트렌잭션 다루기 - commit() & rollback
+// dynamic SQL 다루기 - 조건문 II
 package ch26.f;
 
 import java.io.InputStream;

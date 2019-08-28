@@ -8,8 +8,8 @@ import java.io.InputStream;
 public class BufferedInputStream extends DecoratorInputStream {
   
   byte[] buf = new byte[8192];
-  int size = 0; // 총사이즈 
-  int cursor = 0; // 지금있는곳 
+  int size = 0;
+  int cursor = 0;
   int count = 0;
   
   public BufferedInputStream(InputStream other) throws IOException {
@@ -18,14 +18,14 @@ public class BufferedInputStream extends DecoratorInputStream {
   
   @Override
   public int read() throws IOException {
-    if (cursor >= size) { // 버퍼에 보관된 데이터를 다 읽었으면, 
+    if (cursor >= size) { 
       count++;
-      size = other.read(buf); // 다시 상속 받은 메서드를 사용하여 1024 바이트를 읽어 온다.
-      if (size == -1) // 물론 읽은 데이터가 없다면, 즉 파일의 데이터를 다 읽었다면 -1을 리턴한다.
+      size = other.read(buf); 
+      if (size == -1) 
         return -1;
-      cursor = 0; // FileInputStream을 사용하여 새로 1024 바이트를 읽어 버퍼에 저장했다면,
-    }             // 다시 커서의 위치를 0으로 설정한다.
-
+      cursor = 0; 
+    }            
+    
     return buf[cursor++] & 0x000000ff; 
   }
   

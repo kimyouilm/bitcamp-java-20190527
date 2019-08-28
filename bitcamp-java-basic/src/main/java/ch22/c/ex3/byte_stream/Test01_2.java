@@ -8,25 +8,31 @@ public class Test01_2 {
 
     DataInputStream in = new DataInputStream("temp/data.bin");
 
-    System.out.println("읽기 시작!");
+    System.out.println("읽기 시작...");
     long start = System.currentTimeMillis();
     
     for (int cnt = 0; cnt < 100000; cnt++) {
-
       // 바이너리 데이터를 읽을 때는 저장한 순서(파일 포맷)에 맞춰 읽어야 한다.
       short s = in.readShort();
       int i = in.readInt();
       long l = in.readLong();
       String str = in.readUTF();
       boolean b = in.readBoolean();
-//      System.out.printf("%x, %x, %x, %s, %b\n", s, i, l, str, b);
     }
+
     long end = System.currentTimeMillis();
     System.out.println(end - start);
-
+    
     in.close();
+
     System.out.println("읽기 완료!");
   }
 }
+
+
+
+
+
+
 
 

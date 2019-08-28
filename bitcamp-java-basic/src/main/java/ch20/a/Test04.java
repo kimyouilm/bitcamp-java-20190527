@@ -65,6 +65,7 @@ public class Test04 {
     list.add(s2);
     list.add(s3);
     
+    
     System.out.println(list);
     
     // contains(): 

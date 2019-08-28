@@ -3,13 +3,12 @@ package ch22.e;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Test04_1 {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws Exception {
 
     ArrayList<Score> students = new ArrayList<>();
     students.add(new Score("홍길동", 100, 100, 100));
@@ -23,22 +22,25 @@ public class Test04_1 {
     //
     FileOutputStream out0 = new FileOutputStream("temp/score.data");
     BufferedOutputStream out1 = new BufferedOutputStream(out0);
-    // DataOutputStream에는 write() 가 없음
     ObjectOutputStream out = new ObjectOutputStream(out1);
 
     out.writeInt(students.size());
 
     for (Score s : students) {
-      // 통채로 출력
       out.writeObject(s);
     }
 
     out.flush();
 
     out.close();
+
     System.out.println("출력 완료!");
   }
 
 }
+
+
+
+
 
 

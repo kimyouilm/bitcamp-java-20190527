@@ -21,7 +21,6 @@ public class CalculatorServer1 {
         try (Socket socket = serverSocket.accept();
             BufferedReader in = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
-            // Decorator pattern
             PrintStream out = new PrintStream(socket.getOutputStream());) {
           
           System.out.println("클라이언트와 연결됨!");

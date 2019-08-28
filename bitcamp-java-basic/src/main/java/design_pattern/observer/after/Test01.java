@@ -1,4 +1,4 @@
-// v1: 옵저버 등록 전- 기능 기능만 사용
+// v1 : 옵저버 등록 전 - 기능 기능만 사용
 package design_pattern.observer.after;
 
 public class Test01 {
