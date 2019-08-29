@@ -37,11 +37,11 @@ public class Test01 {
     // 실제 작업을 수행하는 객체
     // => java.lang.reflect.InvocationHandler 인터페이스에 따라 동작하는 객체
     // => 즉 InvocationHandler 구현체
-    // 
     
     class MyHandler implements InvocationHandler {
       @Override
       public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        System.out.println("invoke()...호출됨!");
         // newProxyInstance()가 생성한 객체에 대해 메서드를 호출할 때마다 이 메서드가 호출된다.
         int a = (int) args[0]; // auto-unboxing => ((Integer)args[0]).intValue();
         int b = (int) args[1]; // auto-unboxing => ((Integer)args[1]).intValue();
@@ -58,11 +58,14 @@ public class Test01 {
 
     // Calculator 인터페이스를 구현한 클래스를 만들고 그 인스턴스를 생성하여 리턴한다.
     Calculator c1 = (Calculator) Proxy.newProxyInstance(
+        // 클래스 정보를 담은 객체를 type이라고 함(하아아암->함 최태훈 수정).
         Calculator.class.getClassLoader(), 
         new Class[] {Calculator.class}, 
         new MyHandler());
 
+    System.out.println("++++");
     System.out.println(c1.plus(10, 20));
+    System.out.println("----");
     System.out.println(c1.minus(10, 20));
   }
 

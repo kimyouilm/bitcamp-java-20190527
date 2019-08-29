@@ -1,4 +1,4 @@
-// v44_1 : mybatis의 dynamic sql 사용하기 
+// v45_2: Mybatis의 DAO 구현체 자동 생성기 이용하기. (BoardXxxCommand에만 적용)
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -13,16 +13,9 @@ import java.util.concurrent.Executors;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import com.eomcs.lms.dao.BoardDao;
-import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
-import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
-import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
-import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
-import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -46,6 +39,7 @@ import com.eomcs.lms.handler.PhotoBoardDeleteCommand;
 import com.eomcs.lms.handler.PhotoBoardDetailCommand;
 import com.eomcs.lms.handler.PhotoBoardListCommand;
 import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
+import com.eomcs.util.MybatisDaoFactory;
 import com.eomcs.util.PlatformTransactionManager;
 import com.eomcs.util.SqlSessionFactoryProxy;
 
@@ -77,32 +71,33 @@ public class App {
       PlatformTransactionManager txManager = 
           new PlatformTransactionManager(sqlSessionFactory);
       
+      // DAO 구현체 생성기를 준비한다.
+      MybatisDaoFactory daoFactory = new MybatisDaoFactory(sqlSessionFactory);
+      
       // Command 객체가 사용할 데이터 처리 객체를 준비한다.
-      BoardDao boardDao = new BoardDaoImpl(sqlSessionFactory);
-      MemberDao memberDao = new MemberDaoImpl(sqlSessionFactory);
-      LessonDao lessonDao = new LessonDaoImpl(sqlSessionFactory);
-      PhotoBoardDao photoBoardDao = new PhotoBoardDaoImpl(sqlSessionFactory);
-      PhotoFileDao photoFileDao = new PhotoFileDaoImpl(sqlSessionFactory);
+      MemberDao memberDao = daoFactory.createDao(MemberDao.class);
+      PhotoBoardDao photoBoardDao = daoFactory.createDao(PhotoBoardDao.class);
+      PhotoFileDao photoFileDao = daoFactory.createDao(PhotoFileDao.class);
 
       // 클라이언트 명령을 처리할 커맨드 객체를 준비한다.
-      commandMap.put("/lesson/add", new LessonAddCommand(lessonDao));
-      commandMap.put("/lesson/delete", new LessonDeleteCommand(lessonDao));
-      commandMap.put("/lesson/detail", new LessonDetailCommand(lessonDao));
-      commandMap.put("/lesson/list", new LessonListCommand(lessonDao));
-      commandMap.put("/lesson/update", new LessonUpdateCommand(lessonDao));
+      commandMap.put("/lesson/add", new LessonAddCommand(sqlSessionFactory));
+      commandMap.put("/lesson/delete", new LessonDeleteCommand(sqlSessionFactory));
+      commandMap.put("/lesson/detail", new LessonDetailCommand(sqlSessionFactory));
+      commandMap.put("/lesson/list", new LessonListCommand(sqlSessionFactory));
+      commandMap.put("/lesson/update", new LessonUpdateCommand(sqlSessionFactory));
 
-      commandMap.put("/member/add", new MemberAddCommand(memberDao));
-      commandMap.put("/member/delete", new MemberDeleteCommand(memberDao));
-      commandMap.put("/member/detail", new MemberDetailCommand(memberDao));
-      commandMap.put("/member/list", new MemberListCommand(memberDao));
-      commandMap.put("/member/update", new MemberUpdateCommand(memberDao));
-      commandMap.put("/member/search", new MemberSearchCommand(memberDao));
+      commandMap.put("/member/add", new MemberAddCommand(sqlSessionFactory));
+      commandMap.put("/member/delete", new MemberDeleteCommand(sqlSessionFactory));
+      commandMap.put("/member/detail", new MemberDetailCommand(sqlSessionFactory));
+      commandMap.put("/member/list", new MemberListCommand(sqlSessionFactory));
+      commandMap.put("/member/update", new MemberUpdateCommand(sqlSessionFactory));
+      commandMap.put("/member/search", new MemberSearchCommand(sqlSessionFactory));
 
-      commandMap.put("/board/add", new BoardAddCommand(boardDao));
-      commandMap.put("/board/delete", new BoardDeleteCommand(boardDao));
-      commandMap.put("/board/detail", new BoardDetailCommand(boardDao));
-      commandMap.put("/board/list", new BoardListCommand(boardDao));
-      commandMap.put("/board/update", new BoardUpdateCommand(boardDao));
+      commandMap.put("/board/add", new BoardAddCommand(sqlSessionFactory));
+      commandMap.put("/board/delete", new BoardDeleteCommand(sqlSessionFactory));
+      commandMap.put("/board/detail", new BoardDetailCommand(sqlSessionFactory));
+      commandMap.put("/board/list", new BoardListCommand(sqlSessionFactory));
+      commandMap.put("/board/update", new BoardUpdateCommand(sqlSessionFactory));
 
       commandMap.put("/photoboard/add", 
           new PhotoBoardAddCommand(txManager, photoBoardDao, photoFileDao));
@@ -221,7 +216,6 @@ public class App {
     }
   }
 }
-
 
 
 

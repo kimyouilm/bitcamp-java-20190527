@@ -11,6 +11,7 @@ public class Test02 {
     
     // Calculator, Calculator2, Calculator3 인터페이스를 구현한 
     // 클래스를 만들고 그 인스턴스를 생성하여 리턴한다.
+    // 클래스 로더~
     Object proxy = Proxy.newProxyInstance(
         Test02.class.getClassLoader(), 
         new Class[] {

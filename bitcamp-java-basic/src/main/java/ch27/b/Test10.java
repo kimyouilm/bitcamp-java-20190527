@@ -7,6 +7,7 @@ public class Test10 {
 
   public static void main(String[] args) throws Exception {
     // 배열 타입이 아닌 경우 항목이 없기 때문에 getComponentType()의 리턴 값은 null이다.
+    
     System.out.println(byte.class.getComponentType());
     
     System.out.println(byte.class.getName());

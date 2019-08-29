@@ -4,7 +4,7 @@ package ch27.b;
 public class Test01 {
 
   public static void main(String[] args) throws Exception {
-    
+    //                          static변수
     Class<?> clazz = Calculator.class;
     
     System.out.println(clazz.getName()); // 패키지 이름을 포함한 클래스명
