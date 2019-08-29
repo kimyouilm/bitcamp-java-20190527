@@ -11,40 +11,42 @@
 		<result column="cdt" property="registeredDate" />
 	</resultMap>
 
-	<select id="findAll" resultMap="MemberMap">
+	<sql id="basicColumn">
 		select
 		member_id,
 		name,
 		email,
 		tel,
 		cdt
+	</sql>
+
+	<sql id="where1">
+		where member_id=#{no}
+	</sql>
+
+	<select id="findAll" resultMap="MemberMap">
+		<include refid="basicColumn" />
 		from lms_member
 		order by name asc
 	</select>
 
 	<select id="findBy" parameterType="int" resultMap="MemberMap">
-		select
-		member_id,
-		name,
-		email,
-		tel,
-		cdt,
+		<include refid="basicColumn" />
+		,
 		photo
 		from lms_member
-		where member_id=#{value}
+		<include refid="where1" />
 	</select>
 
-	<select id="findByKeyword" resultMap="MemberMap">
-		select
-		member_id,
-		name,
-		email,
-		tel,
-		cdt
+	<!-- parameterType="string" 안적어도됨 -->
+	<select id="findByKeyword" parameterType="string"
+		resultMap="MemberMap">
+		<bind name="pattern" value="'%' + +parameter + '%'"/>
+		<include refid="basicColumn" />
 		from lms_member
-		where name like concat('%', #{value}, '%')
-		or email like concat('%', #{value}, '%')
-		or tel like concat('%', #{value}, '%')
+		where name like #{pattern}
+		or email like #{pattern}
+		or tel like #{pattern}
 		order by name asc
 	</select>
 
@@ -58,26 +60,21 @@
 		<set>
 			<if test="name != null">name=#{name},</if>
 			<if test="email != null">email=#{email},</if>
-			<if test="password != null">pwd=password(#{password}),</if>
+			<if test="password != null">pwd=password(#{password}), </if>
 			<if test="tel != null">tel=#{tel},</if>
 			<if test="photo != null">photo=#{photo}</if>
 		</set>
-		where member_id=#{no}
+		<include refid="where1" />
 	</update>
 
 	<delete id="delete" parameterType="int">
 		delete from lms_member
-		where member_id=#{value}
+		<include refid="where1" />
 	</delete>
 
 	<select id="findByEmailPassword" parameterType="Member"
 		resultMap="MemberMap">
-		select
-		member_id,
-		name,
-		email,
-		tel,
-		cdt
+		<include refid="basicColumn" />
 		from lms_member
 		where email=#{email} and pwd=password(#{password})
 	</select>

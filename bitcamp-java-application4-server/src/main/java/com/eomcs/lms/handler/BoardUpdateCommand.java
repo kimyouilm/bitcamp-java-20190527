@@ -26,14 +26,10 @@ public class BoardUpdateCommand implements Command {
         return;
       }
       
-      Board data = new Board();
-      data.setNo(no);
-      
       String str = Input.getStringValue(in, out, "내용? ");
       if (str.length() > 0) {
-        data.setContents(str);
-        
-        boardDao.update(data);
+        board.setContents(str);
+        boardDao.update(board);
         out.println("데이터를 변경하였습니다.");
         
       } else {
