@@ -10,7 +10,7 @@ public class Test01 {
   public static void main(String[] args) {
     // java.lang.reflect.Proxy
     // => 인터페이스 구현체를 만드는 역할을 한다.
-    // 
+     
     // newProxyInstance(
     //    구현체를 만들기 위해 사용하는 인터페이스의 클래스로더,
     //    구현할 인터페이스 정보 목록,
