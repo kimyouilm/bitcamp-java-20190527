@@ -13,6 +13,8 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Component {
   
   // 클래스에 이 주석을 붙일 때 추가적으로 설정하는 데이터
+  // 값을 설정할때는 변수 설정하듯이
+  // 값을 꺼낼때는 함수 호출하듯이 꺼내면 된다.
   String value() default ""; // value 속성의 값을 지정하지 않으면 기본이 빈 문자열 이다.
 
 }

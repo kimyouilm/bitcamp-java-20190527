@@ -2,9 +2,7 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-import com.eomcs.util.Component;
 
-@Component("/board/add")
 public interface Command {
   
   //기존 규칙은 그대로 둔다.

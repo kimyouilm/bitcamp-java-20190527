@@ -18,7 +18,6 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-import com.eomcs.lms.handler.Command;
 
 // 자바 객체를 자동 생성하여 관리하는 역할
 // 1단계: App 클래스에서 객체 생성 코드를 분리하기
@@ -62,7 +61,7 @@ public class ApplicationContext {
       if (file.isDirectory())
         return true;
 
-      // true = 결과에 포함해                                                                                    $ 포함 안된것
+      // true = 결과에 포함해 $ 포함 안된것
       if (file.getName().endsWith(".class") && file.getName().indexOf('$') == -1)
         return true;
 
@@ -73,13 +72,12 @@ public class ApplicationContext {
       if (f.isDirectory()) {
         findCommandClass(f, packageName + "." + f.getName());
       } else {
-        String className = String.format(
-            "%s.%s", packageName, f.getName().replace(".class", ""));
+        String className = String.format("%s.%s", packageName, f.getName().replace(".class", ""));
 
         try {
           Class<?> clazz = Class.forName(className);
           // command interface를 구현한 놈임? && 추상클래스가 아닌 일반 클래스라면 -->
-          if (isCommand(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
+          if (isComponent(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
             // --> if문 안으로 okay!
             classes.add(clazz);
           }
@@ -90,26 +88,42 @@ public class ApplicationContext {
     }
   }
 
-  private boolean isCommand(Class<?> clazz) {
-  //Command 인터페이스 구현체만 등록한다.
-    Class<?>[] interfaces = clazz.getInterfaces();
-    for (Class<?> c : interfaces) {
-      if (c == Command.class) {
-        return true;
-      }
-    }
-    return false;
+  private boolean isComponent(Class<?> clazz) {
+    // 클래스 정보(타입)에서 애노테이션 정보를 추출한다. annotation도 class로 취급(객체처럼 다룸)
+    // => annotation정보(타입)를 파라미터로 넘기면 그 annotation에 값을 리턴한다.
+    Component comp = clazz.getAnnotation(Component.class);
+    if (comp == null)
+      return false;
+
+    return true;
   }
 
   private void createCommand() {
     for (Class<?> clazz : classes) {
+
+      // 클래스 정보에서 Component annotation의 데이터를 추출한다.
+      // => 꺼내고자 하는 annotation type을 정확하게 지정해야 한다.
+      Component compAnno = clazz.getAnnotation(Component.class);
+
+      // 객체를 저장할 때 사용할 이름을 꺼낸다.
+      // @Component("/board/detail") => 여기서 "/board/detail" 값
+      String beanName = compAnno.value();
+      if (beanName.length() == 0) { // annotation의 bean 이름을 지정하지 않았다면.
+        beanName = clazz.getName(); // 클래스 이름을 bean이름으로 사용할 것이다.
+      }
+
       // 기본 생성자가 있으면 그 생성자를 호출하여 인스턴스를 만든다.
       try {
         // command에 기본생성자 가져와서
-        Constructor<?> defaultConstructor = clazz.getConstructor();
+        // Constructor<?> defaultConstructor = clazz.getConstructor();
         // 리턴 받을때 형변환 해줘야해
-        Command command = (Command) defaultConstructor.newInstance();
-        objPool.put(command.getCommandName(), command);
+        // 변수를 한번만 사용할꺼니까 그냥 바로 넣어주자
+        // Command command = (Command) defaultConstructor.newInstance();
+
+        // 보통 실무에서 이렇게 함!
+        objPool.put(beanName, clazz.getConstructor());
+        // 이해를 돕기위해서 변수에 넣어서 사용해준것임.
+        // objPool.put(beanName, defaultConstructor.newInstance());
         continue;
       } catch (Exception e) {
       }
@@ -129,9 +143,11 @@ public class ApplicationContext {
         // 준비된 값을 가지고 생성자를 통해 인스턴스를 생성한다.
         // 파라미터가 2개면 2개 3개면 3개를 만들어줄것이다.
         // 그리고서 prepareParameterValues로 가보자
-        Command command = (Command) constructor.newInstance(values);
+
+        // 한번만 사용해주는거 그냥 넣어버림
+        // Command command = (Command) constructor.newInstance(values);
         // 그리고 저장!
-        objPool.put(command.getCommandName(), command);
+        objPool.put(beanName, constructor.newInstance(values));
 
       } catch (Exception e) {
       }
@@ -156,7 +172,7 @@ public class ApplicationContext {
   private Object getBean(Class<?> type) {
     // 객체보관소의 값을 가져와서 iterator로 값을 꺼내줌
     Iterator<?> values = objPool.values().iterator();
-    
+
     while (values.hasNext()) {
       Object value = values.next();
 
@@ -210,12 +226,12 @@ public class ApplicationContext {
   private void createDao() throws Exception {
     // DAO 구현체 생성기를 준비한다.
     MybatisDaoFactory daoFactory = new MybatisDaoFactory(
-        // objectPool에 들어있는 sqlSessionFactory를 들고와서 얘를 통해서
+        // objectPool에 들어있는 sqlSessionFactory를 들고와서 얘를 통해서 -->1
         (SqlSessionFactory) objPool.get("sqlSessionFactory"));
 
-    // 얘를 만들려고
+    // --1 얘를 만들려고
     // 데이터 처리 객체를 준비한다.
-    //  sqlSession지운후 --> 추가함 (이전버전: board는 sqlSession을 써서 안만들어도됨)
+    // sqlSession 지운후 --> 추가함 (이전버전: board는 sqlSession을 써서 안만들어도됨)
     objPool.put("boardDao", daoFactory.createDao(BoardDao.class));
     objPool.put("memberDao", daoFactory.createDao(MemberDao.class));
     objPool.put("lessonDao", daoFactory.createDao(LessonDao.class));
