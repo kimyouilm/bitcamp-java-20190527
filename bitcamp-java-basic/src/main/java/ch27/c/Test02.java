@@ -14,7 +14,6 @@ public class Test02 {
     //Method m1 = Student.class.getMethod("setName", String.class);
     //Method m1 = Class.forName("ch27.c.Student").getMethod("setName", String.class);
     Method m1 = s1.getClass().getMethod("setName", String.class);
-    
     // => invoke(객체주소, 파라미터값, ...)
     m1.invoke(s1, "임꺽정"); // => s1.setName("임꺽정")
     
