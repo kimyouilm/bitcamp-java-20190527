@@ -61,7 +61,7 @@ public class ApplicationContext {
       if (file.isDirectory())
         return true;
 
-      // true = 결과에 포함해 $ 포함 안된것
+      //                                            -1 => 결과에 포함해 $ 포함 안된것
       if (file.getName().endsWith(".class") && file.getName().indexOf('$') == -1)
         return true;
 
@@ -76,9 +76,8 @@ public class ApplicationContext {
 
         try {
           Class<?> clazz = Class.forName(className);
-          // command interface를 구현한 놈임? && 추상클래스가 아닌 일반 클래스라면 -->
+          // 지금: annotation붙어있냐?(이전버전: command interface를 구현한 놈임?) && 추상클래스가 아닌 일반 클래스라면 -->
           if (isComponent(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
-            // --> if문 안으로 okay!
             classes.add(clazz);
           }
         } catch (ClassNotFoundException e) {
@@ -102,11 +101,11 @@ public class ApplicationContext {
     for (Class<?> clazz : classes) {
 
       // 클래스 정보에서 Component annotation의 데이터를 추출한다.
-      // => 꺼내고자 하는 annotation type을 정확하게 지정해야 한다.
+      // => Component.class -> 꺼내고자 하는 annotation type을 정확하게 지정해야 한다.
       Component compAnno = clazz.getAnnotation(Component.class);
 
       // 객체를 저장할 때 사용할 이름을 꺼낸다.
-      // @Component("/board/detail") => 여기서 "/board/detail" 값
+      // value() -> @Component("/board/detail") => 여기서 "/board/detail" 값
       String beanName = compAnno.value();
       if (beanName.length() == 0) { // annotation의 bean 이름을 지정하지 않았다면.
         beanName = clazz.getName(); // 클래스 이름을 bean이름으로 사용할 것이다.
@@ -117,11 +116,12 @@ public class ApplicationContext {
         // command에 기본생성자 가져와서
         // Constructor<?> defaultConstructor = clazz.getConstructor();
         // 리턴 받을때 형변환 해줘야해
+        
         // 변수를 한번만 사용할꺼니까 그냥 바로 넣어주자
         // Command command = (Command) defaultConstructor.newInstance();
 
         // 보통 실무에서 이렇게 함!
-        objPool.put(beanName, clazz.getConstructor());
+        objPool.put(beanName, clazz.getConstructor().newInstance());
         // 이해를 돕기위해서 변수에 넣어서 사용해준것임.
         // objPool.put(beanName, defaultConstructor.newInstance());
         continue;
@@ -181,8 +181,8 @@ public class ApplicationContext {
         return value;
 
       // 만약 못찾았어? 걱정마!
-      // 풀에서 꺼낸 객체의 인터페이스가 일치하는지 검사
       // 인터페이스로 한번더 검사!
+      // 풀에서 꺼낸 객체의 인터페이스가 일치하는지 검사
       Class<?>[] interfaces = value.getClass().getInterfaces();
       for (Class<?> c : interfaces) {
         if (c == type)
