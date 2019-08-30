@@ -2,25 +2,23 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.util.Component;
 import com.eomcs.util.Input;
 
+@Component("/lesson/add")
 public class LessonAddCommand implements Command {
 
-  private SqlSessionFactory sqlSessionFactory;
+  private LessonDao lessonDao;
 
-  public LessonAddCommand(SqlSessionFactory sqlSessionFactory) {
-    this.sqlSessionFactory = sqlSessionFactory;
+  public LessonAddCommand(LessonDao lessonDao) {
+    this.lessonDao = lessonDao;
   }
-
+  
   @Override
   public void execute(BufferedReader in, PrintStream out) {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      LessonDao lessonDao = sqlSession.getMapper(LessonDao.class);
-      
+    try {
       Lesson lesson = new Lesson();
       
       lesson.setTitle(Input.getStringValue(in, out, "수업명? "));

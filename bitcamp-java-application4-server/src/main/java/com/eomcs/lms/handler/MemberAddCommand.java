@@ -2,26 +2,22 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.util.Component;
 import com.eomcs.util.Input;
 
+@Component("/member/add")
 public class MemberAddCommand implements Command {
-  private SqlSessionFactory sqlSessionFactory;
+  private MemberDao memberDao;
 
-  public MemberAddCommand(SqlSessionFactory sqlSessionFactory) {
-    this.sqlSessionFactory = sqlSessionFactory;
+  public MemberAddCommand(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
-
+  
   @Override
   public void execute(BufferedReader in, PrintStream out) {
-    
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      MemberDao memberDao = sqlSession.getMapper(MemberDao.class);
-      
+    try {
       Member member = new Member();
       member.setName(Input.getStringValue(in, out, "이름? "));
       member.setEmail(Input.getStringValue(in, out, "이메일? "));

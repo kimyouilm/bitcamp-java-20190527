@@ -5,7 +5,9 @@ import java.io.PrintStream;
 import java.util.List;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
+import com.eomcs.util.Component;
 
+@Component("/photoboard/list")
 public class PhotoBoardListCommand implements Command {
   
   private PhotoBoardDao photoBoardDao;

@@ -6,8 +6,10 @@ import java.util.List;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
+import com.eomcs.util.Component;
 import com.eomcs.util.Input;
 
+@Component("/photoboard/detail")
 public class PhotoBoardDetailCommand implements Command {
   
   private PhotoBoardDao photoBoardDao;
@@ -27,7 +29,6 @@ public class PhotoBoardDetailCommand implements Command {
         out.println("해당 번호의 데이터가 없습니다!");
         return;
       }
-      
       photoBoardDao.increaseViewCount(no);
       
       out.printf("제목: %s\n", photoBoard.getTitle());

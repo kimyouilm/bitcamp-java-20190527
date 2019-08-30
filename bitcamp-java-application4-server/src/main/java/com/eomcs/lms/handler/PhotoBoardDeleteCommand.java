@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.PrintStream;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
+import com.eomcs.util.Component;
 import com.eomcs.util.Input;
 import com.eomcs.util.PlatformTransactionManager;
 
+@Component("/photoboard/delete")
 public class PhotoBoardDeleteCommand implements Command {
   
   private PlatformTransactionManager txManager;
