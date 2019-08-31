@@ -18,7 +18,9 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-
+// 왜 이 클래스를 만들었나?
+//Command패턴에 대한 클래스들이 많으니 일일이 추가할 필요없이.
+//이 클래스 하나로 command클래스만 만들기만 하면 모두 해결(추가할 필요없음)
 // 자바 객체를 자동 생성하여 관리하는 역할
 // 1단계: App 클래스에서 객체 생성 코드를 분리하기
 // 2단계: 특정 패키지의 클래스에 대해 인스턴스 생성하기
@@ -61,7 +63,7 @@ public class ApplicationContext {
       if (file.isDirectory())
         return true;
 
-      //                                            -1 => 결과에 포함해 $ 포함 안된것
+      //                        중첩클래스                -1 => 결과에 포함해 $ 포함 안된것
       if (file.getName().endsWith(".class") && file.getName().indexOf('$') == -1)
         return true;
 

@@ -5,6 +5,7 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+// impl메소드에서 보면 아이디만 다르고 형식만 달라서 Mybatis를 만든것임.
 
 public class MybatisDaoFactory {
 
@@ -18,6 +19,7 @@ public class MybatisDaoFactory {
   @SuppressWarnings("unchecked")
   public <T> T createDao(Class<T> clazz) {
     return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz},
+        // new InvovationHandler = 넘어온 정보를 처리
         (Object proxy, Method method, Object[] args) -> {
           // InvocationHandler 구현체의 람다(lambda) 메서드
           // 자동으로 생성된 DAO 구현체에 대해 메서드를 호출하면 최종적으로 이 메서드가 호출된다.

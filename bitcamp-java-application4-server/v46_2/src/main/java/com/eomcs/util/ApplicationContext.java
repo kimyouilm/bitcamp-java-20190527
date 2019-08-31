@@ -19,9 +19,12 @@ import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.handler.Command;
 
+// Command패턴에 대한 클래스들이 많으니 일일이 추가할 필요없이.
+// 이 클래스 하나로 command클래스만 만들기만 하면 모두 해결(추가할 필요없음)
 // 자바 객체를 자동 생성하여 관리하는 역할
 // 1단계: App 클래스에서 객체 생성 코드를 분리하기
 // 2단계: 특정 패키지의 클래스에 대해 인스턴스 생성하기
+
 public class ApplicationContext {
 
   Map<String, Object> objPool = new LinkedHashMap<>();
@@ -61,7 +64,7 @@ public class ApplicationContext {
       if (file.isDirectory())
         return true;
 
-      // true = 결과에 포함해                                                                                  $ 포함 안된것
+      // true = 결과에 포함해 $ 포함 안된것 (중첩클래스)
       if (file.getName().endsWith(".class") && file.getName().indexOf('$') == -1)
         return true;
 
@@ -72,8 +75,7 @@ public class ApplicationContext {
       if (f.isDirectory()) {
         findCommandClass(f, packageName + "." + f.getName());
       } else {
-        String className = String.format(
-            "%s.%s", packageName, f.getName().replace(".class", ""));
+        String className = String.format("%s.%s", packageName, f.getName().replace(".class", ""));
 
         try {
           Class<?> clazz = Class.forName(className);
@@ -90,7 +92,7 @@ public class ApplicationContext {
   }
 
   private boolean isCommand(Class<?> clazz) {
-  //Command 인터페이스 구현체만 등록한다.
+    // Command 인터페이스 구현체만 등록한다.
     Class<?>[] interfaces = clazz.getInterfaces();
     for (Class<?> c : interfaces) {
       if (c == Command.class) {
@@ -105,13 +107,15 @@ public class ApplicationContext {
       // 기본 생성자가 있으면 그 생성자를 호출하여 인스턴스를 만든다.
       try {
         // command에 기본생성자 가져와서
+        // 왜 생성자를 들고올까?
+        // newInstance를 하려면 생성자가있어야할수있음.
         Constructor<?> defaultConstructor = clazz.getConstructor();
         // 리턴 받을때 형변환 해줘야해
+        // defaultConstrucor를 이용해서 만든 newInstance().
         Command command = (Command) defaultConstructor.newInstance();
         objPool.put(command.getCommandName(), command);
         continue;
-      } catch (Exception e) {
-      }
+      } catch (Exception e) {}
 
       // 다른 생성자 꺼내기
       // 생성자가 2,3개는요!?? ==> 그건 담에 하자...
@@ -155,13 +159,14 @@ public class ApplicationContext {
   private Object getBean(Class<?> type) {
     // 객체보관소의 값을 가져와서 iterator로 값을 꺼내줌
     Iterator<?> values = objPool.values().iterator();
-    
+
     while (values.hasNext()) {
       Object value = values.next();
 
       // 풀에서 꺼낸 객체의 타입이 일치하는지 검사
       if (value.getClass() == type)
         return value;
+      // value는 그 파라미터의 타입인 해당 Dao가 나옴
 
       // 풀에서 꺼낸 객체의 인터페이스가 일치하는지 검사
       // 만약 못찾았어? 걱정마!
@@ -201,7 +206,7 @@ public class ApplicationContext {
 
   private void createTransactionManager() throws Exception {
     PlatformTransactionManager txManager = new PlatformTransactionManager(
-        // 기존에 objectPool에들어있는 sql~것을 command에서 써야하기때문에
+        
         (SqlSessionFactory) objPool.get("sqlSessionFactory"));
     objPool.put("txManager", txManager);
   }
@@ -214,8 +219,8 @@ public class ApplicationContext {
 
     // 얘를 만들려고
     // 데이터 처리 객체를 준비한다.
-    //  board는 sqlSession을 써서 안만들어도됨.
-//    objPool.put("boardDao", daoFactory.createDao(BoardDao.class));
+    // board는 sqlSession을 써서 안만들어도됨.
+    // objPool.put("boardDao", daoFactory.createDao(BoardDao.class));
     objPool.put("memberDao", daoFactory.createDao(MemberDao.class));
     objPool.put("lessonDao", daoFactory.createDao(LessonDao.class));
     objPool.put("photoBoardDao", daoFactory.createDao(PhotoBoardDao.class));
