@@ -27,7 +27,7 @@ public class Test01 {
     
     @MyAnnotation int local; // 로컬변수 선언에 붙일 수 있다.
     
-    //@MyAnnotation System.out.println("okok"); // 그러나 다른 일반 문장에는 붙일 수 없다.
+//    @MyAnnotation System.out.println("okok"); // 그러나 다른 일반 문장에는 붙일 수 없다.
     
     //@MyAnnotation // 다른 일반 문장에는 붙일 수 없다.
     for (int i = 0; i < 100; i++) {
