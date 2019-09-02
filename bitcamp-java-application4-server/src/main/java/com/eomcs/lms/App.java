@@ -1,4 +1,4 @@
-// v48_1: 애노테이션으로 호출될 메소드를 지정하기.
+// v49_1: CRUD 기능을 한 클래스에 모으기.
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -97,7 +97,6 @@ public class App {
             // 인터페이스로부터 해방 (Command Interface)
             // 꼭 Command가 아니어도됨
             // Command command = (Command) appCtx.getBean(request);
-            // 클래스 정보를 알아내자 instance주소만 있으면 알아낼수있음 모든 클래스는 Object를 상속 받았기 때문에
             Object command = appCtx.getBean(request);
             Method requestHandler = getRequestHandler(command);
 
@@ -133,6 +132,7 @@ public class App {
     private Method getRequestHandler(Object command) {
       // 요청을 처리하기 위해 호출할 메소드를 찾아낸다.
       // 상속받은 메소드 전부 포함해서 public method가져와라~
+      // 클래스 정보를 알아내자 instance주소만 있으면 알아낼수있음 모든 클래스는 Object를 상속 받았기 때문에
       Method[] methods = command.getClass().getMethods();
 
       for (Method m : methods) {
