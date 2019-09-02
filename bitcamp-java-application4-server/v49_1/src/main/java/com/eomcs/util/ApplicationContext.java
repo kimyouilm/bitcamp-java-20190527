@@ -32,6 +32,7 @@ public class ApplicationContext {
   Map<String, Object> objPool = new LinkedHashMap<>();
 
   // 자동 생성할 타입(클래스 정보(객체타입)) 목록
+  // command class들이 들어있음
   ArrayList<Class<?>> classes = new ArrayList<>();
 
   public ApplicationContext(String packageName) throws Exception {
@@ -98,7 +99,6 @@ public class ApplicationContext {
     Component comp = clazz.getAnnotation(Component.class);
     if (comp == null)
       return false;
-
     return true;
   }
 
@@ -246,7 +246,7 @@ public class ApplicationContext {
 
   public Map<String, Object> getBeansWithAnnotation(Class<? extends Annotation> annotationType) {
     HashMap<String, Object> beans = new HashMap<>();
-    
+
     Set<String> names = objPool.keySet();
     names.forEach(name -> {
       Object obj = objPool.get(name);

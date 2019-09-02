@@ -34,7 +34,9 @@ public class App {
     // 처음에는 클라이언트 요청을 처리해야 하는 상태로 설정한다.
     state = CONTINUE;
     // 패키지 이름임 / 를 넣어야 경로
+    // 객체 관리
     appCtx = new ApplicationContext("com.eomcs.lms");
+    // method 관리
     handlerMapping = createRequestMappingHandlerMapping();
   }
 
@@ -56,7 +58,7 @@ public class App {
 
         // component에서 mapping객체를 따로 추출하는 작업?
         // @RequestMapping이 붙은 메소드를 찾으면 mapping 객체에 보관한다.
-        // method의 객체, method
+        // 메소드 호출하려면 객체 주소를 알아야함, method
         mapping.addRequestHandler(anno.value(), obj, m);
         // System.out.printf("%s ==> %s\n", anno.value(), m.getName());
       }
@@ -137,6 +139,7 @@ public class App {
               // Object obj = requestHandler.bean;
               // m.invoke(obj, in, out);
               
+              //                            객체의 주소
               requestHandler.method.invoke(requestHandler.bean, in, out);
             } else
               throw new Exception("요청을 처리할 메소드가 없습니다.");

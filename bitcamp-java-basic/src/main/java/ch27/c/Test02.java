@@ -2,7 +2,7 @@
 package ch27.c;
 
 import java.lang.reflect.Method;
-
+// 다시보기
 public class Test02 {
 
   public static void main(String[] args) throws Exception {
