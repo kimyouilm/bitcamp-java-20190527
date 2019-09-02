@@ -10,7 +10,6 @@ public class EngineOilCarObserver implements CarObserver {
 
   @Override
   public void carStopped() {
-    // TODO Auto-generated method stub
     
   }
   

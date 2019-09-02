@@ -2,10 +2,12 @@ package com.eomcs.util;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,14 +20,15 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
+
 // 왜 이 클래스를 만들었나?
-//Command패턴에 대한 클래스들이 많으니 일일이 추가할 필요없이.
-//이 클래스 하나로 command클래스만 만들기만 하면 모두 해결(추가할 필요없음)
+// Command패턴에 대한 클래스들이 많으니 일일이 추가할 필요없이.
+// 이 클래스 하나로 command클래스만 만들기만 하면 모두 해결(추가할 필요없음)
 // 자바 객체를 자동 생성하여 관리하는 역할
 // 1단계: App 클래스에서 객체 생성 코드를 분리하기
 // 2단계: 특정 패키지의 클래스에 대해 인스턴스 생성하기
 public class ApplicationContext {
-
+  final ArrayList<String> list = new ArrayList<>();
   Map<String, Object> objPool = new LinkedHashMap<>();
 
   // 자동 생성할 타입(클래스 정보(객체타입)) 목록
@@ -63,7 +66,7 @@ public class ApplicationContext {
       if (file.isDirectory())
         return true;
 
-      //                        중첩클래스                -1 => 결과에 포함해 $ 포함 안된것
+      // 중첩클래스 -1 => 결과에 포함해 $ 포함 안된것
       if (file.getName().endsWith(".class") && file.getName().indexOf('$') == -1)
         return true;
 
@@ -118,7 +121,7 @@ public class ApplicationContext {
         // command에 기본생성자 가져와서
         // Constructor<?> defaultConstructor = clazz.getConstructor();
         // 리턴 받을때 형변환 해줘야해
-        
+
         // 변수를 한번만 사용할꺼니까 그냥 바로 넣어주자
         // Command command = (Command) defaultConstructor.newInstance();
 
@@ -228,7 +231,7 @@ public class ApplicationContext {
   private void createDao() throws Exception {
     // DAO 구현체 생성기를 준비한다.
     MybatisDaoFactory daoFactory = new MybatisDaoFactory(
-        // objectPool에 들어있는 sqlSessionFactory를 들고와서 얘를 통해서 -->1
+        // objectPool에 들어있는 sqlSessionFactory를 들고와서 얘를 통해서 --> 1
         (SqlSessionFactory) objPool.get("sqlSessionFactory"));
 
     // --1 얘를 만들려고
@@ -239,6 +242,29 @@ public class ApplicationContext {
     objPool.put("lessonDao", daoFactory.createDao(LessonDao.class));
     objPool.put("photoBoardDao", daoFactory.createDao(PhotoBoardDao.class));
     objPool.put("photoFileDao", daoFactory.createDao(PhotoFileDao.class));
+  }
+
+  public Map<String, Object> getBeansWithAnnotation(Class<? extends Annotation> annotationType) {
+    HashMap<String, Object> beans = new HashMap<>();
+    
+    Set<String> names = objPool.keySet();
+    names.forEach(name -> {
+      Object obj = objPool.get(name);
+
+      if (obj.getClass().getAnnotation(annotationType) != null) {
+        beans.put(name, obj);
+      }
+    });
+
+    // objList.forEach(new Consumer() {
+    //
+    // @Override
+    // public void accept(Object t) {
+    // // TODO Auto-generated method stub
+    //
+    // }
+    // });
+    return beans;
   }
 }
 

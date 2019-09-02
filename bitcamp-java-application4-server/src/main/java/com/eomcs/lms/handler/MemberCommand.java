@@ -9,7 +9,7 @@ import com.eomcs.util.Component;
 import com.eomcs.util.Input;
 import com.eomcs.util.RequestMapping;
 
-@Component("/member/add")
+@Component
 public class MemberCommand {
   private MemberDao memberDao;
 
@@ -17,7 +17,7 @@ public class MemberCommand {
     this.memberDao = memberDao;
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/member/add") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void add(BufferedReader in, PrintStream out) {
     try {
       Member member = new Member();
@@ -36,7 +36,7 @@ public class MemberCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/member/delete") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void delete(BufferedReader in, PrintStream out) {
     try {
       int no = Input.getIntValue(in, out, "번호? ");
@@ -52,7 +52,7 @@ public class MemberCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/member/detail") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void detail(BufferedReader in, PrintStream out) {
     try {
       int no = Input.getIntValue(in, out, "번호? ");
@@ -75,7 +75,7 @@ public class MemberCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/member/list") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void list(BufferedReader in, PrintStream out) {
     try {
       List<Member> members = memberDao.findAll();
@@ -91,7 +91,7 @@ public class MemberCommand {
     }
   }
   
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/member/search") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void search(BufferedReader in, PrintStream out) {
     try {
       String keyword = Input.getStringValue(in, out, "검색어? ");
@@ -109,7 +109,7 @@ public class MemberCommand {
     }
   }
   
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/member/update") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void update(BufferedReader in, PrintStream out) {
     try {
       int no = Input.getIntValue(in, out, "번호? ");

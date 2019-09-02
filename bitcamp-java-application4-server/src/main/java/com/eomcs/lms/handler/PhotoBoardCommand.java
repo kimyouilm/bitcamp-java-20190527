@@ -12,7 +12,7 @@ import com.eomcs.util.Input;
 import com.eomcs.util.PlatformTransactionManager;
 import com.eomcs.util.RequestMapping;
 
-@Component("/photoboard/add")
+@Component
 public class PhotoBoardCommand {
 
   private PlatformTransactionManager txManager;
@@ -26,7 +26,7 @@ public class PhotoBoardCommand {
     this.photoFileDao = photoFileDao;
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/photoboard/add") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void add(BufferedReader in, PrintStream out) {
     try {
       txManager.beginTransaction();
@@ -74,7 +74,7 @@ public class PhotoBoardCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/photoboard/delete") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void delete(BufferedReader in, PrintStream out) {
     try {
       txManager.beginTransaction();
@@ -106,7 +106,7 @@ public class PhotoBoardCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/photoboard/detail") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void detail(BufferedReader in, PrintStream out) {
     try {
       // 클라이언트에게 번호를 요구하여 받는다.
@@ -136,7 +136,7 @@ public class PhotoBoardCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/photoboard/list") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void list(BufferedReader in, PrintStream out) {
     try {
       List<PhotoBoard> photoBoards = photoBoardDao.findAll();
@@ -151,7 +151,7 @@ public class PhotoBoardCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/photoboard/update") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void update(BufferedReader in, PrintStream out) {
     try {
       txManager.beginTransaction();

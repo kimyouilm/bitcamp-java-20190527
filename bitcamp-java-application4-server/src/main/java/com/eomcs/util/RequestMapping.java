@@ -13,4 +13,5 @@ import java.lang.annotation.Target;
 
 public @interface RequestMapping {
 
+  String value(); // 명령어를 설정하는 프로퍼티
 }

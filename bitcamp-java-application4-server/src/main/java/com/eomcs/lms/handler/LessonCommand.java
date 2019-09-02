@@ -9,7 +9,7 @@ import com.eomcs.util.Component;
 import com.eomcs.util.Input;
 import com.eomcs.util.RequestMapping;
 
-@Component("/lesson/add")
+@Component
 public class LessonCommand {
 
   private LessonDao lessonDao;
@@ -18,7 +18,7 @@ public class LessonCommand {
     this.lessonDao = lessonDao;
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/lesson/add") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void add(BufferedReader in, PrintStream out) {
     try {
       Lesson lesson = new Lesson();
@@ -39,7 +39,7 @@ public class LessonCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/lesson/delete") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void delete(BufferedReader in, PrintStream out) {
     try {
 
@@ -57,7 +57,7 @@ public class LessonCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/lesson/detail") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void detail(BufferedReader in, PrintStream out) {
     try {
       int no = Input.getIntValue(in, out, "번호? ");
@@ -80,7 +80,7 @@ public class LessonCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/lesson/list") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void list(BufferedReader in, PrintStream out) {
     try {
       List<Lesson> lessons = lessonDao.findAll();
@@ -95,8 +95,8 @@ public class LessonCommand {
     }
   }
 
-  @RequestMapping // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
-  public void execute(BufferedReader in, PrintStream out) {
+  @RequestMapping("/lesson/update") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  public void update(BufferedReader in, PrintStream out) {
     try {
       int no = Input.getIntValue(in, out, "번호? ");
 

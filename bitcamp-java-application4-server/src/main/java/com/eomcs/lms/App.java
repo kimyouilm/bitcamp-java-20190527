@@ -1,4 +1,4 @@
-// v49_1: CRUD 기능을 한 클래스에 모으기.
+// v49_1: CRUD 기능을 한 클래스에 모으기 + @RequestMapping method를 별도로 관리 해야 한다.
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -7,10 +7,15 @@ import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.eomcs.util.ApplicationContext;
+import com.eomcs.util.Component;
 import com.eomcs.util.RequestMapping;
+import com.eomcs.util.RequestMappingHandlerMapping;
+import com.eomcs.util.RequestMappingHandlerMapping.RequestHandler;
 import com.eomcs.util.SqlSessionFactoryProxy;
 
 public class App {
@@ -19,6 +24,7 @@ public class App {
   private static final int STOP = 0;
 
   ApplicationContext appCtx;
+  RequestMappingHandlerMapping handlerMapping;
   int state;
 
   // 스레드풀
@@ -29,6 +35,33 @@ public class App {
     state = CONTINUE;
     // 패키지 이름임 / 를 넣어야 경로
     appCtx = new ApplicationContext("com.eomcs.lms");
+    handlerMapping = createRequestMappingHandlerMapping();
+  }
+
+  private RequestMappingHandlerMapping createRequestMappingHandlerMapping() {
+    RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
+
+    // 객체풀에서 @Component 애노테이션이 붙은 객체 목록을 꺼낸다.
+    Map<String, Object> components = appCtx.getBeansWithAnnotation(Component.class);
+
+    // 객체 안에 선언된 메소드 중에서 @RequestMapping이 붙은 메소드를 찾아낸다.
+    Collection<Object> objList = components.values();
+    objList.forEach(obj -> {
+      // => 객체에서 메소드 정보를 추출한다.
+      Method[] methods = obj.getClass().getMethods();
+      for (Method m : methods) {
+        RequestMapping anno = m.getAnnotation(RequestMapping.class);
+        if (anno == null)
+          continue;
+
+        // component에서 mapping객체를 따로 추출하는 작업?
+        // @RequestMapping이 붙은 메소드를 찾으면 mapping 객체에 보관한다.
+        // method의 객체, method
+        mapping.addRequestHandler(anno.value(), obj, m);
+        // System.out.printf("%s ==> %s\n", anno.value(), m.getName());
+      }
+    });
+    return mapping;
   }
 
   @SuppressWarnings("static-access")
@@ -87,22 +120,24 @@ public class App {
         String request = in.readLine();
         if (request.equals("quit")) {
           out.println("Good bye!");
-
         } else if (request.equals("serverstop")) {
           state = STOP;
           out.println("Good bye!");
-
         } else {
           try {
             // 인터페이스로부터 해방 (Command Interface)
             // 꼭 Command가 아니어도됨
             // Command command = (Command) appCtx.getBean(request);
-            Object command = appCtx.getBean(request);
-            Method requestHandler = getRequestHandler(command);
+            // 해당 명령어를 처리할 bean을 찾아서
+            RequestHandler requestHandler = handlerMapping.getRequestHandler(request);
+            // RequestHandler를 이용해서 호출함.
 
             if (requestHandler != null) {
-              // 찾았으면 호출한다.
-              requestHandler.invoke(command, in, out);
+              // Method m = requestHandler.method;
+              // Object obj = requestHandler.bean;
+              // m.invoke(obj, in, out);
+              
+              requestHandler.method.invoke(requestHandler.bean, in, out);
             } else
               throw new Exception("요청을 처리할 메소드가 없습니다.");
           } catch (Exception e) {
@@ -126,22 +161,6 @@ public class App {
         SqlSessionFactoryProxy proxy = (SqlSessionFactoryProxy) appCtx.getBean("sqlSessionFactory");
         proxy.clearSession();
       }
-    }
-
-    // 클래스의 메소드 중에서 @RequestMapping이 붙은 메소드를 찾아낸다.
-    private Method getRequestHandler(Object command) {
-      // 요청을 처리하기 위해 호출할 메소드를 찾아낸다.
-      // 상속받은 메소드 전부 포함해서 public method가져와라~
-      // 클래스 정보를 알아내자 instance주소만 있으면 알아낼수있음 모든 클래스는 Object를 상속 받았기 때문에
-      Method[] methods = command.getClass().getMethods();
-
-      for (Method m : methods) {
-        RequestMapping anno = m.getAnnotation(RequestMapping.class);
-        if (anno != null) {
-          return m;
-        }
-      }
-      return null;
     }
   }
 
