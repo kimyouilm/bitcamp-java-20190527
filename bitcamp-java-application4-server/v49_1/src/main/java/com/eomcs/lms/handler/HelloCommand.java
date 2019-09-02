@@ -2,7 +2,7 @@ package com.eomcs.lms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
-import org.springframework.stereotype.Component;
+import com.eomcs.util.Component;
 import com.eomcs.util.RequestMapping;
 
 @Component
