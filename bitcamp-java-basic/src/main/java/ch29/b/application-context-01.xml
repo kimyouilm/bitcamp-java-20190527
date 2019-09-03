@@ -9,7 +9,7 @@
     class : 빈의 클래스명. 패키지명을 포함해야 한다.
     => Spring IoC 컨테이너는 기본 생성자를 호출하여 객체를 생성한다.
   -->
-  <bean id="c1" class="ch29.b.Car"></bean>
+  <bean id="c1" class="ch29.b.Car"/>
   
   <!-- 끝 태그를 생략할 수 있다. -->
   <bean id="c2" class="ch29.b.Car"/>

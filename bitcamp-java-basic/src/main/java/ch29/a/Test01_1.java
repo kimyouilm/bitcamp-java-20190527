@@ -10,7 +10,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 // class path
 // JVM에게 야~ 이 클래스 실행시켜줘 할때 JVM이 그 클래스를 찾아가는 경로
-public class Test01 {
+public class Test01_1 {
   public static void main(String[] args) {
     // IoC(Inversion Of Control) 컨테이너
     // => bean container 라고도 부른다.
@@ -65,7 +65,7 @@ public class Test01 {
     // => 생성자에 설정 정보를 갖고 있는 클래스의 타입 정보를 넘긴다. 
     ApplicationContext iocContainer3 = 
         new AnnotationConfigApplicationContext(AppConfig.class);
-    
+    System.out.println(iocContainer3);
     System.out.println("실행 완료!");
   }
 }

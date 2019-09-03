@@ -28,7 +28,7 @@ public class Test02 {
       System.out.println();
     }
     
-    // 값을 꺼낼 때는 이름이든 별명이든 구분하지 않는다.
+    // 값을 꺼낼 때는 (id)이름이든 (name)별명이든 구분하지 않는다.
     Car c6 = (Car) iocContainer.getBean("c6");
     Car c7 = (Car) iocContainer.getBean("c7");
     Car c8 = (Car) iocContainer.getBean("c8");
@@ -37,7 +37,8 @@ public class Test02 {
     if (c6 == c8) System.out.println("c6 == c8");
     
     Car c9 = (Car) iocContainer.getBean("c9");
-    if (c6 == c9) System.out.println("c6 == c9");
+//    if (c6 == c9) System.out.println("c6 == c9");
+    System.out.println(c6 == c9);
   }
 }
 

@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<!DOCTYPE students PUBLIC "-//bitcamp//student dtd 1.0//EN" "test01.dtd">
+
+<!-- xml 상수를 저어엉의 했구나아 => 
+응 xml entity야~ -->
+
+<!--<t0> <t1></t1> <t2></t2> <name></name> <expr> <![CDATA[ white space(new 
+	line, tab, space) if (a &lt; 20) str = "작다"; else if (a >= 20 &amp;&amp; 
+	a &lt; 20) str = "그렇다;" ]]> </expr> </t0> -->
+	<!-- xmlns(xml name space) -->
+<students xmlns:s="http://bitcamp.co.kr/java130/students">
+	<student>
+		<type>일반</type>
+		<name>홍길동</name>
+		<age>21</age>
+		<tel>123-123-1234</tel>
+		<school>
+		<name>비트대학교</name>
+		<grade>대학교</grade>
+		</school>
+		<school>
+		<name>캠프고등학교</name>
+		<grade>고등학교</grade>
+		</school>
+	</student>
+	
+	<student2 type="재학생" name="홍길동" age="12" tel="1111-1234"/>
+</students>

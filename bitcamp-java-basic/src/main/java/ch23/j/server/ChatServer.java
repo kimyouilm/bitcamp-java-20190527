@@ -62,14 +62,15 @@ public class ChatServer {
         // 출력 스트림을 ChatServer에 보관한다.
         outputStreams.add(out);
         
+        new Thread().start();
+        
         while (true) {
           String message = in.readLine();
           if (message.equals("quit"))
             break;
-          
+          new MessageSender(message).run();
           // 채팅 방에 참여한 모든 사람들에게 메시지를 전달한다.
           // => 메시지를 전문적으로 보내는 일을 하는 객체에 맡긴다.
-          new Thread(new MessageSender(message)).start();
         }
         
         // 채팅 방에 참여한 모든 사람들에게 퇴장 메시지를 전달한다.

@@ -36,6 +36,7 @@ public class App {
     state = CONTINUE;
     // 패키지 이름임 / 를 넣어야 경로
     // 내가 AppConfig에 등록했으니까 너가 알아서 설정해
+    // appCtx는 iocContain => 메쇼드이름으로 리턴값을갖고있음
     appCtx = new AnnotationConfigApplicationContext(AppConfig.class);
 
     // Spring IoC 컨테이너에 들어 있는(Spring IoC 컨테이너가 생성한) 객체 알아내기

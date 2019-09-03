@@ -13,7 +13,9 @@
     => application : (웹) 웹 애플리케이션 당 한 개
   -->
   <bean id="c1" class="ch29.b.Car"/>
+  <!-- singleton은 객체를 한번만 만듬. -->
   <bean id="c2" class="ch29.b.Car2" scope="singleton"/>
+  <!-- prototype은 객체를 여러번 만듬. -->
   <bean id="c3" class="ch29.b.Car3" scope="prototype"/>
   
 </beans>

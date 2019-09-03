@@ -5,13 +5,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import ch29.SpringUtils;
 
 public class Test03 {
   public static void main(String[] args) {
     ApplicationContext iocContainer = 
         new ClassPathXmlApplicationContext("ch29/b/application-context-03.xml");
     
-    System.out.println("---------------------------------------");
+    SpringUtils.printObjects(iocContainer);
+    System.out.println("------------------------------------------------------");
     
     // Singleton 객체는 IoC 컨테이너를 생성할 때 미리 생성된다. 
     // getBean()을 호출할 때는 미리 생성된 객체를 리턴한다.
@@ -23,6 +25,7 @@ public class Test03 {
     System.out.println(obj1 == obj3); // true
     
     // scope 속성에 singleton 이라고 명시할 수 있다.
+    // 몇번을 호출하더라도 같은 인스턴스 
     Car2 obj11 = (Car2) iocContainer.getBean("c2");
     Car2 obj12 = (Car2) iocContainer.getBean("c2");
     Car2 obj13 = (Car2) iocContainer.getBean("c2");
@@ -33,6 +36,7 @@ public class Test03 {
     // scope이 prototype 일 경우 미리 객체를 생성하지 않는다.
     // getBean()을 호출했을 때 생성한다. 
     // 그리고 getBean()을 호출할 때 마다 새 객체를 만들어 리턴한다.
+    // 새로만든 인스턴스이기 때문에 false 가 나옴. 
     Car3 obj21 = (Car3) iocContainer.getBean("c3");
     Car3 obj22 = (Car3) iocContainer.getBean("c3");
     Car3 obj23 = (Car3) iocContainer.getBean("c3");
