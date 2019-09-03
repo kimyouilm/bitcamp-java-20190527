@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 // Java Config? 
 // 자바 소스파일에다가 annotation을 사용해서 설정하는것
+import ch29.SpringUtils;
 
 // class path
 // JVM에게 야~ 이 클래스 실행시켜줘 할때 JVM이 그 클래스를 찾아가는 경로
@@ -59,13 +60,17 @@ public class Test01_1 {
     // 절때 경로를 넣으면 아니되오. 불펴어언
     ApplicationContext iocContainer2 = 
         new FileSystemXmlApplicationContext(
-            "file:///C:\\Users\\Lima\\git\\bitcamp-java-20190527\\bitcamp-java-basic\\src\\main\\java\\ch29\\a\\application-context.xml");
-    
+            //C:\\Users\\Lima\\git\\bitcamp-java-20190527\\bitcamp-java-basic\\src\\main\\java\\ch29\\a\\application-context.xml
+            "file:///D:\\git\\bitcamp-java-20190527\\bitcamp-java-basic\\src\\main\\java\\ch29\\a\\application-context.xml");
+    SpringUtils.printObjects(iocContainer2);
+    System.out.println("--------------------------------");
     // 3) 자바 클래스 파일의 애노테이션으로부터 설정 정보를 추출한다. = java config라 부른다.
     // => 생성자에 설정 정보를 갖고 있는 클래스의 타입 정보를 넘긴다. 
     ApplicationContext iocContainer3 = 
         new AnnotationConfigApplicationContext(AppConfig.class);
-    System.out.println(iocContainer3);
+//    System.out.println(iocContainer3);
+    SpringUtils.printObjects(iocContainer3);
+    System.out.println("--------------------------------");
     System.out.println("실행 완료!");
   }
 }

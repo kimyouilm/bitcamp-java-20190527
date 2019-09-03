@@ -12,7 +12,7 @@ public class Car {
   private BlackBox blackBox;
   
   public Car() {
-    System.out.println("Car()");
+    System.out.println("Car()꺅");
   }
   
   @Override
@@ -24,49 +24,49 @@ public class Car {
     return maker;
   }
   public void setMaker(String maker) {
-    System.out.println("Car.setMaker()");
+    System.out.println("Car.setMaker()꺅");
     this.maker = maker;
   }
   public String getModel() {
     return model;
   }
   public void setModel(String model) {
-    System.out.println("Car.setModel()");
+    System.out.println("Car.setModel()꺅");
     this.model = model;
   }
   public int getCc() {
     return cc;
   }
   public void setCc(int cc) {
-    System.out.println("Car.setCc()");
+    System.out.println("Car.setCc()꺅");
     this.cc = cc;
   }
   public int getValve() {
     return valve;
   }
   public void setValve(int valve) {
-    System.out.println("Car.setValve()");
+    System.out.println("Car.setValve(꺅)");
     this.valve = valve;
   }
   public boolean isAuto() {
     return auto;
   }
   public void setAuto(boolean auto) {
-    System.out.println("Car.setAuto()");
+    System.out.println("Car.setAuto()꺅");
     this.auto = auto;
   }
   public Date getCreatedDate() {
     return createdDate;
   }
   public void setCreatedDate(Date createdDate) {
-    System.out.println("Car.setCreatedDate()");
+    System.out.println("Car.setCreatedDate()꺅");
     this.createdDate = createdDate;
   }
   public BlackBox getBlackBox() {
     return blackBox;
   }
   public void setBlackBox(BlackBox blackBox) {
-    System.out.println("Car.setBlackBox()");
+    System.out.println("Car.setBlackBox()꺅");
     this.blackBox = blackBox;
   }
   
