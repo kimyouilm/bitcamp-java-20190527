@@ -12,6 +12,7 @@
     <property name="customEditors">
       <map>
         <entry key="java.util.Date" value="ch29.g.MyCustomDateEditor"/>
+        <!--                                String을Black박스로 바꿀때 이변환기를 사용해라 -->
         <entry key="ch29.g.BlackBox" value="ch29.g.MyCustomBlackBoxEditor"/>
       </map>
     </property>

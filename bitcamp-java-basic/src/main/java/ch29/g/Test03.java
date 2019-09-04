@@ -12,6 +12,19 @@ public class Test03 {
     System.out.println("---------------------------------------");
     
     System.out.println(iocContainer.getBean("c1"));
+    
+    
+    
+    
+    
+    
+//    Map<String, Car> map1 = new HashMap<>();
+//    map1.put("str", new Car());
+//    
+//    Map<String, Class<Car>> map2  = new HashMap<>();
+//    map2.put("str1", Car.class);
+//    map2.put("str2", BlackBox.class);
+    
   }
 }
 

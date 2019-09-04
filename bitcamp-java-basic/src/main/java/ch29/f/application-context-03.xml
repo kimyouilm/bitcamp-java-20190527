@@ -13,7 +13,7 @@
      => 주의!
         factory-method 가 없다고 해서 팩토리 클래스의 객체가 저장되는 것이 아니다.
      => 객체 생성 원리
-        - 스프링 IoC 컨테이너는 class 속성에 지정된 클래스를 조사한다.
+        - 스프7사한다.
         - 만약 일반 클래스라면 그대로 객체를 생성하여 id 값으로 저장한다.
         - 만약 FactoryBean 규칙에 따라 만든 클래스라면,
           해당 클래스의 객체를 생성한다.
@@ -38,10 +38,34 @@
     <constructor-arg ref="blackBox"/>
   </bean>
   
+  <!-- FactoryBean가 만들어진 Car객체가 저장될것임!!!!! 그렇군! -->
   <bean id="c1" class="ch29.f.CarFactoryBean">
     <constructor-arg ref="blackBox"/>
     <constructor-arg value="sonata"/>
   </bean>
+  <!-- 
+  Class<?> clazz = CarFactoryBean.class;
+  //                      클래스의 인터페이스 정보를 모두 가져옴
+  Class<?>[] interfaces = clazz.getInterfaces();
+  boolean isFactoryBean = false;
+  for (Class<?> c : interfaces){
+    if (c == FactoryBean.class) {
+    ifFactoryBean = true;
+      break;
+    }
+  }
+  if (isFactoryBean) {
+  // 객체 생성한후
+     CarFactoryBean factory = new CarFactoryBean(blackBox, "sonata");
+     // getObject() 메소드를 호출한후 그 리턴값을 c1에 저장해라는 말. 
+     Car c1 = factory.getObject();
+  } else
+      CarFactoryBean c1 = new CarFactoryBean(blackBox, "sonata")
+   -->
+   <bean id="bb" class="ch29.f.BlackBoxFactoryBean">
+     <constructor-arg value="비트비트"/>
+     <constructor-arg value="하루종일"/>
+   </bean>
 </beans>
 
 

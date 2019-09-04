@@ -15,10 +15,14 @@
         id로 저장되는 객체는 팩토리 객체가 아니라 팩토리 메서드가 리턴한 값이다.
   -->
   
+  <!--  factory-bean = 공장 객체 주소 근데 공장 객체가없음 carFactory id를 갖는 tag를 찾음 그래서 밑으로~~ -->
+  <!--  factory-bean=>> carFactory의 인스턴스 주소를 줘야함. -->
   <bean id="c1" factory-bean="carFactory" factory-method="create">
+  <!-- parameter 값으로 equus를 줌 -->
     <constructor-arg value="equus"/>
   </bean>
   
+  <!--  !!일로옴 근데 블박이 필요함 그래서 블박 먼저 나오는 거임-->
   <bean id="carFactory" class="ch29.f.CarFactory2">
     <constructor-arg ref="blackBox"/>
   </bean>
@@ -28,6 +32,16 @@
     <property name="model" value="daynight"/>
   </bean>
   
+  <!-- 
+  BlackBox blackBox = new BlackBox();
+  balckBox.setMaker("비트오토");
+  blackBox.setModel("daynight");
+  
+  // 이생성자는 blackBox를 원함
+  CarFactory2 carFactory = new CarFactory2(blackBox); // 객체 생성
+  
+  Car c1 = carFactory.create("equus");
+   -->
 </beans>
 
 
