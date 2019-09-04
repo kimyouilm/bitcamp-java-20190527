@@ -17,6 +17,7 @@
   
   <!--  factory-bean = 공장 객체 주소 근데 공장 객체가없음 carFactory id를 갖는 tag를 찾음 그래서 밑으로~~ -->
   <!--  factory-bean=>> carFactory의 인스턴스 주소를 줘야함. -->
+  <!-- 잘못됨. create()메소드는 static메소드이기 때문에 carFactory객체를 만들 필요가 없이 car객체만있으면됨 -->
   <bean id="c1" factory-bean="carFactory" factory-method="create">
   <!-- parameter 값으로 equus를 줌 -->
     <constructor-arg value="equus"/>

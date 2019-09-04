@@ -10,6 +10,7 @@ public class Car {
   private int valve;
   private boolean auto;
   private Date createdDate;
+  @Autowired  
   private BlackBox blackBox;
   
   public Car() {
@@ -67,11 +68,12 @@ public class Car {
   public BlackBox getBlackBox() {
     return blackBox;
   }
-  @Autowired 
-  public void setBlackBox(BlackBox blackBox) {
-    System.out.println("Car.setBlackBox()");
-    this.blackBox = blackBox;
-  }
+  // 애가 없으면 
+//  @Autowired 
+//  public void setBlackBox(BlackBox blackBox) {
+//    System.out.println("Car.setBlackBox()");
+//    this.blackBox = blackBox;
+//  }
 }
 
 

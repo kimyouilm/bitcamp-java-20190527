@@ -49,8 +49,9 @@ public class Test01_1 {
     // => 설정 파일 경로를 지정할 때 자바 패키지 경로를 지정한다.
     //    파일 경로이기 때문에 패키지와 패키지 사이에는 . 대신에 /를 사용해야 한다.
     ApplicationContext iocContainer1 = 
-        new ClassPathXmlApplicationContext("ch29/a/application-context.xml");
-    
+        new ClassPathXmlApplicationContext("ch29/a/application-context-02.xml");
+    SpringUtils.printObjects(iocContainer1);
+    System.out.println("--------------------------------");
     // 2) 운영체제의 파일 시스템에서 설정 파일을 찾는 IoC 컨테이너
     // => 설정 파일 경로를 지정할 때 직접 파일 경로를 지정해야 한다.
     // => 주의!
@@ -61,13 +62,13 @@ public class Test01_1 {
     ApplicationContext iocContainer2 = 
         new FileSystemXmlApplicationContext(
             //C:\\Users\\Lima\\git\\bitcamp-java-20190527\\bitcamp-java-basic\\src\\main\\java\\ch29\\a\\application-context.xml
-            "file:///D:\\git\\bitcamp-java-20190527\\bitcamp-java-basic\\src\\main\\java\\ch29\\a\\application-context.xml");
+            "file:///C:\\Users\\Lima\\git\\bitcamp-java-20190527\\bitcamp-java-basic\\src\\main\\java\\ch29\\a\\application-context-02.xml");
     SpringUtils.printObjects(iocContainer2);
     System.out.println("--------------------------------");
     // 3) 자바 클래스 파일의 애노테이션으로부터 설정 정보를 추출한다. = java config라 부른다.
     // => 생성자에 설정 정보를 갖고 있는 클래스의 타입 정보를 넘긴다. 
     ApplicationContext iocContainer3 = 
-        new AnnotationConfigApplicationContext(AppConfig.class);
+        new AnnotationConfigApplicationContext(Test01.class);
 //    System.out.println(iocContainer3);
     SpringUtils.printObjects(iocContainer3);
     System.out.println("--------------------------------");

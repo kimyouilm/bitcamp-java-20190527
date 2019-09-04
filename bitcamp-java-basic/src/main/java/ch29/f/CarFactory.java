@@ -1,3 +1,4 @@
+
 package ch29.f;
 // 팩토리 클래스가 생성한 객체를 IoC 컨테이너에 보관하기.
 public class CarFactory {

@@ -155,6 +155,7 @@ public class MyAutowiredAnnotationBeanPostProcessor implements BeanPostProcessor
     }
   }
 
+  // dependency를 의존하고있는 메소드를 찾을꺼임
   private void injectDependency(Object dependency) {
     // 이 타입의 빈을 원하는 세터 목록을 꺼낸다.
     // => 즉 이 타입의 객체를 받기 위해 호출이 연기된 메소드가 있는지 확인한다.

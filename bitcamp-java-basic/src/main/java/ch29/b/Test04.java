@@ -5,12 +5,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import ch29.SpringUtils;
 
 public class Test04 {
   public static void main(String[] args) {
     ApplicationContext iocContainer = 
         new ClassPathXmlApplicationContext("ch29/b/application-context-04.xml");
-    
+    SpringUtils.printObjects(iocContainer);
     System.out.println("---------------------------------------");
     
     // 스프링 IoC 컨테이너에 보관된 객체 꺼내기
