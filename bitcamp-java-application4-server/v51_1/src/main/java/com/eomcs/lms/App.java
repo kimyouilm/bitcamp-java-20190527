@@ -1,4 +1,4 @@
-// v52-_1: Spring Annotation을 이용하여 transaction처리하기
+// v51_1: Spring IoC 컨테이너  + Mybatis
 package com.eomcs.lms;
 
 import java.io.BufferedReader;

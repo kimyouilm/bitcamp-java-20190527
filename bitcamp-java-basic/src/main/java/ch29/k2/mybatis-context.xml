@@ -29,7 +29,7 @@
     <property name="basePackage" value="ch29.k2.dao" />
   </bean>
   -->
-
+  <!-- Dao 구현체 자동생성하는 설정 -->
   <mybatis:scan base-package="ch29.k2.dao"/>
   
 </beans>
