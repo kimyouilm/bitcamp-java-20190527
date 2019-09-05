@@ -4,7 +4,6 @@ package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,6 +11,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -22,6 +23,8 @@ import com.eomcs.util.RequestMappingHandlerMapping.RequestHandler;
 
 public class App {
 
+  // Log4j의 로그 출력 도구를 준비한다.
+  private static final Logger logger = LogManager.getLogger(App.class);
   private static final int CONTINUE = 1;
   private static final int STOP = 0;
 
@@ -189,6 +192,13 @@ public class App {
   }
 
   public static void main(String[] args) {
+    logger.fatal("fatal...");
+    logger.error("error...");
+    logger.warn("warn...");
+    logger.info("info...");
+    logger.debug("debug...");
+    logger.trace("trace...");
+    
     try {
       App app = new App();
       app.service();
