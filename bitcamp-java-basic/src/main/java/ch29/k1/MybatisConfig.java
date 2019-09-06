@@ -26,7 +26,7 @@ public class MybatisConfig {
   // Mybatis의 SqlSessionFactory 객체 준비
   @Bean
   public SqlSessionFactory sqlSessionFactory(
-      //                        getResources 때문에 함께 받은거임
+      //                        getResources() 때문에 함께 받은거임
       DataSource dataSource, ApplicationContext appCtx) throws Exception {
     // SqlSessionFactory를 만들 때 기존의 SqlSessionFactoryBuilder를 사용하면,
     // Mybatis설정 파일(예:mybatis-config.xml)이 필요하다.

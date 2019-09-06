@@ -68,12 +68,12 @@ public class Car {
   public BlackBox getBlackBox() {
     return blackBox;
   }
-  // 애가 없으면 
-//  @Autowired 
-//  public void setBlackBox(BlackBox blackBox) {
-//    System.out.println("Car.setBlackBox()");
-//    this.blackBox = blackBox;
-//  }
+//   애가 없으면 
+  @Autowired 
+  public void setBlackBox(BlackBox blackBox) {
+    System.out.println("Car.setBlackBox()");
+    this.blackBox = blackBox;
+  }
 }
 
 

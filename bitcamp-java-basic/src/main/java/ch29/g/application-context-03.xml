@@ -27,7 +27,6 @@
       </map>
     </property>
   </bean>  
-
   
   <bean id="c1" class="ch29.g.Car">
     <property name="maker" value="비트자동차"/>
