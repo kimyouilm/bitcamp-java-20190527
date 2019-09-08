@@ -115,7 +115,7 @@ public class App implements HttpRequestHandler {
         .build();
 
     final HttpServer server = ServerBootstrap.bootstrap()
-        .setListenerPort(8888)
+        .setListenerPort(4444)
         .setServerInfo("Bitcamp/1.1")
         .setSocketConfig(socketConfig)
         .setSslContext(null)
