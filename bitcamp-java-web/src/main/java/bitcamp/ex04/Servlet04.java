@@ -15,7 +15,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-//import org.apache.commons.fileupload.servlet.ServletFileUpload6;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 @WebServlet("/ex04/s4")
@@ -62,15 +61,15 @@ public class Servlet04 extends GenericServlet {
     // 파라미터 모두 String으로 받는다.
     // => 멀티파트 형식으로 전송된 데이터는 getParameter()로 꺼낼 수 없다.
     
-    String age = req.getParameter("age");
-    String name = req.getParameter("name");
-    String photo = req.getParameter("photo");
+//    String age = req.getParameter("age");
+//    String name = req.getParameter("name");
+//    String photo = req.getParameter("photo");
     
     res.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = res.getWriter();
-    out.printf("이름=%s\n", name);
-    out.printf("나이=%s\n", age);
-    out.printf("사진=%s\n", photo);
+//    out.printf("이름=%s\n", name);
+//    out.printf("나이=%s\n", age);
+//    out.printf("사진=%s\n", photo);
     
     
     // 멀티파트 형식의 데이터 처리하기
@@ -111,11 +110,13 @@ public class Servlet04 extends GenericServlet {
           // 업로드 파일을 저장할 때 사용할 파일명을 준비한다.
           // => 원래의 파일명을 사용하지 않는다.
           // => 다른 클라이언트가 같은 이름의 파일을 업로드 하면 기존 파일을 덮어쓸 수 있기 때문이다.
+          // 중복되어도됨
           String filename = UUID.randomUUID().toString();
           
           // 전체 파일 경로를 준비한다.
           // => /java-web/upload/파일명
           File file = new File(this.uploadDir + "/" + filename);
+          System.out.println(file.getCanonicalPath());
           
           // 파일 경로에 업로드 파일을 저장한다.
           part.write(file);

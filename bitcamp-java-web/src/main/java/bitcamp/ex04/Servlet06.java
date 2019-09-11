@@ -35,6 +35,8 @@ public class Servlet06 extends GenericServlet {
     res.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = res.getWriter();
     
+    out.println(req.getParameter("name"));
+    out.println("-----------------------------------------");
     for (String name : names) {
       out.printf("이름=%s\n", name);
     }
