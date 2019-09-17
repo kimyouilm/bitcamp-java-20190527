@@ -35,7 +35,6 @@
   
   <!-- SQL 문이 저장된 파일 목록 -->
   <mappers>
-  
     <!-- SQL 문이 저장된 파일 -->
     <mapper resource="com/eomcs/lms/mapper/BoardMapper.xml"/>
     <mapper resource="com/eomcs/lms/mapper/MemberMapper.xml"/>
