@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ex10/s21")
 @SuppressWarnings("serial")
 public class Servlet21 extends HttpServlet {
-  
+
   @Override
   protected void service(
       HttpServletRequest request, 
