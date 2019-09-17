@@ -28,8 +28,8 @@ public class MemberDetailServlet extends HttpServlet{
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    out.println("<html><head><title>수업 상세</title></head>");
-    out.println("<body><h1>수업 상세</h1>");
+    out.println("<html><head><title>회원 상세</title></head>");
+    out.println("<body><h1>회원5 상세</h1>");
     try {
       int no = Integer.parseInt(request.getParameter("no"));
 
