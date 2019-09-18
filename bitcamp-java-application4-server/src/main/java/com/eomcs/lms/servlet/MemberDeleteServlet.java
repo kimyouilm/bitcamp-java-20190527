@@ -2,17 +2,20 @@ package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.dao.MemberDao;
 
 @WebServlet("/member/delete")
-public class MemberDeleteServlet extends HttpServlet{
-  
+public class MemberDeleteServlet extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
   private MemberDao memberDao;
 
@@ -24,25 +27,21 @@ public class MemberDeleteServlet extends HttpServlet{
   }
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>회원 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>" + "</head>");
-    out.println("<body><h1>회원 삭제</h1>");
+  public void doGet(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException, ServletException {
     try {
       int no = Integer.parseInt(request.getParameter("no"));
 
-      if (memberDao.delete(no) > 0) {
-        out.println("<p>삭제하였습니다.!</p>");
-      } else {
-        out.println("<p>해당 데이터가 없습니다.</p>");
+      if (memberDao.delete(no) == 0) {
+        throw new Exception("해당 데이터가 없습니다.");
       }
+      response.sendRedirect("/member/list");
 
     } catch (Exception e) {
-      out.println("<p>데이터 삭제에 실패했습니다!</p>");
-      System.out.println(e.getMessage());
+      request.setAttribute("message", "데이터 삭제에 실패했습니다");
+      request.setAttribute("refresh", "/member/list");
+      request.setAttribute("error", e);
+      request.getRequestDispatcher("/error").forward(request, response);
     }
-    out.println("</body></html>");
   }
 }

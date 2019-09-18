@@ -2,14 +2,15 @@ package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.io.StringWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
@@ -18,6 +19,8 @@ public class BoardAddServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
+  private static final Logger logger = LogManager.getLogger(BoardAddServlet.class);
+  
   private BoardDao boardDao;
 
   @Override
@@ -41,23 +44,21 @@ public class BoardAddServlet extends HttpServlet {
   }
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>게시물 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/board/list'>" + "</head>");
-    out.println("<body><h1>게시물 등록</h1>");
+  public void doPost(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException, ServletException {
     try {
       Board board = new Board();
       board.setContents(request.getParameter("contents"));
 
       boardDao.insert(board);
-      out.println("<p>저장하였습니다.</p>");
+      
+      response.sendRedirect("/board/list");
 
     } catch (Exception e) {
-      out.println("<p>데이터 저장에 실패했습니다!</p>");
-      throw new RuntimeException(e);
+      request.setAttribute("message", "데이터 저장에 실패했습니다");
+      request.setAttribute("refresh", "/board/list");
+      request.setAttribute("error", e);
+      request.getRequestDispatcher("/error").forward(request, response);
     }
-    out.println("</body></html>");
   }
 }

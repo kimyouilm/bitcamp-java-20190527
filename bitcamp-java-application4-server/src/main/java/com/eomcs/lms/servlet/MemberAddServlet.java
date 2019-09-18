@@ -2,11 +2,14 @@ package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
@@ -42,11 +45,7 @@ public class MemberAddServlet extends HttpServlet{
   }
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    out.println("<html><head><title>맴버 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>" + "</head>");
-    out.println("<body><h1>맴버 등록</h1>");
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     try {
       Member member = new Member();
       member.setName(request.getParameter("name"));
@@ -56,12 +55,12 @@ public class MemberAddServlet extends HttpServlet{
       member.setName(request.getParameter("tel"));
 
       memberDao.insert(member);
-      out.println("<p>저장하였습니다.</p>");
-
+      response.sendRedirect("/member/list");
     } catch (Exception e) {
-      out.println("<p>데이터 저장에 실패했습니다!</p>");
-      System.out.println(e.getMessage());
+      request.setAttribute("message", "데이터 추가에 실패했습니다");
+      request.setAttribute("refresh", "/member/list");
+      request.setAttribute("error", e);
+      request.getRequestDispatcher("/error").forward(request, response);
     }
-    out.println("</body></html>");
   }
 }
