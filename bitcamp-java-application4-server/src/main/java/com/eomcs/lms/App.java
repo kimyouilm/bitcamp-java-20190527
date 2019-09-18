@@ -1,10 +1,18 @@
-// v56_5 : 세션을 활용하여 로그인, 로그아웃 처리하기
+// v56_8 : 멀티파트 파라미터 처리하기
 package com.eomcs.lms;
 
 // 작업:
-// => LoginServlet 변경
-// => HeaderServlet 변경
-// => LogoutServlet 생성
+// => /webapp/upload/member 디렉토리 생성
+// => MemberAddServlet 변경
+// => MemberDetailServlet 변경
+// => /webapp/css/common.css 변경
+// => MemberUpdateServlet 변경
+//
+// => /webapp/upload/photoboard 디렉토리 생성
+// => PhotoBoardAddServlet 변경
+// => PhotoBoardDetailServlet 변경
+// => /webapp/css/common.css 변경
+// => PhotoBoardUpdateServlet 변경
 
 // dummy 클래스!
 // => 기존 버전에서 계속 존재했던 클래스라서 그대로 둠.
