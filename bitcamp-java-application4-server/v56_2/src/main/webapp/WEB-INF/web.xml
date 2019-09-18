@@ -11,7 +11,7 @@
 
 	<display-name>bitcamp-java-application4</display-name>
 
-	<!-- 모든 서블릿이 공유하는 파라미터라면! => 리스너에서 쓸 예정-->
+	<!-- 모든 서블릿이 공유하는 파라미터라면! => 리스너에서 쓸 예정 -->
 	<context-param>
 		<param-name>contextClass</param-name>
 		<param-value>org.springframework.context.annotation.AnnotationConfigApplicationContext</param-value>
