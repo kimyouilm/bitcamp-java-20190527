@@ -21,8 +21,9 @@ public class Servlet01 extends GenericServlet {
       throws ServletException, IOException {
     
     // 테스트
-    // - http://localhost:8888/bitcamp-java-web/ex05/test01.html 실행
+    // - http://localhost:8080/java-web/ex05/test01.html 실행
     //
+    
     // HTTP 프로토콜로 통신을 하는 서블릿 컨테이너는 
     // service() 메서드를 호출할 때 
     // ServletRequest의 값으로 HttpServletRequest를 전달한다.

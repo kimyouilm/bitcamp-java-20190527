@@ -7,7 +7,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 
 // 서블릿 컨테이너가 관리하는 컴포넌트
 // => 서블릿, 필터, 리스너
@@ -17,9 +16,9 @@ import javax.servlet.annotation.WebFilter;
 //
 // 필터 배포하기
 // => DD 파일(web.xml)에 설정하거나 애노테이션으로 설정하면 된다.
-// 
-// 다음같이 애노테이션으로도 가능
-@WebFilter("/ex02/*")
+// => 다음과 같이 애노테이션으로 할 수도 있다.
+
+//@WebFilter("/ex02/*")
 public class Filter02 implements Filter {
   
   @Override

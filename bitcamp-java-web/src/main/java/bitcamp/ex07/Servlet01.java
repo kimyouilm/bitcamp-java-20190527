@@ -21,9 +21,9 @@ public class Servlet01 extends HttpServlet {
       throws ServletException, IOException {
     
     // 테스트 방법:
-    // => http://localhost:8888/bitcamp-java-web/ex07/s1?a=100&b=200&op=+
-    // => http://localhost:8888/bitcamp-java-web/ex07/s1?a=100&b=200&op=-
-    // => http://localhost:8888/bitcamp-java-web/ex07/s1?a=100&b=200&op=*
+    // => http://localhost:8080/java-web/ex07/s1?a=100&b=200&op=+
+    // => http://localhost:8080/java-web/ex07/s1?a=100&b=200&op=-
+    // => http://localhost:8080/java-web/ex07/s1?a=100&b=200&op=*
     //
     // 주의!
     // => + 연산을 수행하지 못한다. 
@@ -34,7 +34,7 @@ public class Servlet01 extends HttpServlet {
     // => + 문자의 URL 인코딩 값은?
     //       %2b
     // => 따라서 + 연산을 파라미터 값으로 보내려면 
-    //    http://localhost:8888/bitcamp-java-web/ex07/s1?a=100&b=200&op=%2b
+    //    http://localhost:8080/java-web/ex07/s1?a=100&b=200&op=%2b
     // 
     response.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = response.getWriter();

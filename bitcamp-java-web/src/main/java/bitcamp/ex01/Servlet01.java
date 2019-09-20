@@ -14,7 +14,7 @@ import javax.servlet.ServletResponse;
 //
 // 서블릿 실행 방법
 // => http://서버주소:포트번호/웹애플리케이션이름/서블릿URL
-//    예) http://localhost:8888/java-web/ex01/s01
+//    예) http://localhost:8080/java-web/ex01/s01
 //
 // 서블릿 구동 과정 
 // 1) 웹 브라우저가 서블릿 실행을 요청한다.
@@ -49,6 +49,7 @@ public class Servlet01 implements Servlet {
   public Servlet01() {
     System.out.println("Servlet01()");
   }
+  
   @Override
   public void init(ServletConfig config) throws ServletException {
     // 서블릿 객체를 생성한 후 생성자 다음에 이 메서드가 호출된다.

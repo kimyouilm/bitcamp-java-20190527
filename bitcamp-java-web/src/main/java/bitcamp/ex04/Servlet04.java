@@ -55,22 +55,22 @@ public class Servlet04 extends GenericServlet {
     //
     
     // 멀티파트 데이터를 처리할 때는 다음의 인코딩 설정이 적용되지 않는다.
-    req.setCharacterEncoding("UTF-8");
+    //req.setCharacterEncoding("UTF-8");
 
     // getParameter()가 null을 리턴한다는 것을 확인하기 위해 
     // 파라미터 모두 String으로 받는다.
     // => 멀티파트 형식으로 전송된 데이터는 getParameter()로 꺼낼 수 없다.
-    
-//    String age = req.getParameter("age");
-//    String name = req.getParameter("name");
-//    String photo = req.getParameter("photo");
+    /*
+    String age = req.getParameter("age");
+    String name = req.getParameter("name");
+    String photo = req.getParameter("photo");
     
     res.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = res.getWriter();
-//    out.printf("이름=%s\n", name);
-//    out.printf("나이=%s\n", age);
-//    out.printf("사진=%s\n", photo);
-    
+    out.printf("이름=%s\n", name);
+    out.printf("나이=%s\n", age);
+    out.printf("사진=%s\n", photo);
+    */
     
     // 멀티파트 형식의 데이터 처리하기
     // 1) Apache 라이브러리 가져온다.
@@ -79,7 +79,7 @@ public class Servlet04 extends GenericServlet {
     //    - '$ gradle eclipse' 실행하여 이클립스 설정 파일을 갱신한다.
     //    - 이클립스 IDE에서 프로젝트 정보를 갱신한다.
     // 2) Apache commons-fileupload 문서에 따라 코딩한다.
-    
+    ///*
     // => 멀티파트 데이터를 분석하여 FileItem 객체에 담아 줄 공장을 준비한다.
     DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
     
@@ -110,7 +110,6 @@ public class Servlet04 extends GenericServlet {
           // 업로드 파일을 저장할 때 사용할 파일명을 준비한다.
           // => 원래의 파일명을 사용하지 않는다.
           // => 다른 클라이언트가 같은 이름의 파일을 업로드 하면 기존 파일을 덮어쓸 수 있기 때문이다.
-          // 중복되어도됨
           String filename = UUID.randomUUID().toString();
           
           // 전체 파일 경로를 준비한다.
@@ -129,7 +128,7 @@ public class Servlet04 extends GenericServlet {
       }
       
       res.setContentType("text/html;charset=UTF-8");
-      PrintWriter out2 = res.getWriter();
+      PrintWriter out = res.getWriter();
       out.println("<html>");
       out.println("<head><title>servlet04</title></head>");
       out.println("<body><h1>파일 업로드 결과</h1>");
@@ -142,6 +141,7 @@ public class Servlet04 extends GenericServlet {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    //*/
   }
 }
 

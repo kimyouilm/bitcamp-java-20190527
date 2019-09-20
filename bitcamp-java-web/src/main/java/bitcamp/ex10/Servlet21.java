@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ex10/s21")
 @SuppressWarnings("serial")
 public class Servlet21 extends HttpServlet {
-
+  
   @Override
   protected void service(
       HttpServletRequest request, 
@@ -43,12 +43,12 @@ Date: Wed, 03 Apr 2019 02:05:46 GMT
  
  */
     // 사용 범위를 지정하지 않은 쿠키
-    // => 쿠키를 발급한 서블릿과 같은 경로이거나 하위 경로의 서블릿을 요청할 때만
+    // => 쿠키를 발급한 서블릿과 같은 경로이거나 하위 경로의 서블릿을 요청할 때만 
     //    웹 브라우저가 서버에 쿠키를 보낸다.
     Cookie c1 = new Cookie("v1", "aaa");
     
     // 사용 범위 지정
-    // => 쿠키를 발급한 서블릿의 경로에 상관없이 지정된 경로의 서블릿을 요청할 때
+    // => 쿠키를 발급한 서블릿의 경로에 상관없이 지정된 경로의 서블릿을 요청할 때 
     //    웹 브라우저가 서버에 쿠키를 보낸다.
     Cookie c2 = new Cookie("v2", "bbb");
     c2.setPath("/bitcamp-java-web/ex10/a");

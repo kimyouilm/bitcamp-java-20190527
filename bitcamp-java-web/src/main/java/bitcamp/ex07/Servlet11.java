@@ -21,9 +21,9 @@ public class Servlet11 extends HttpServlet {
       throws ServletException, IOException {
     
     // 테스트 방법:
-    // => http://localhost:8888/bitcamp-java-web/ex07/s11?a=100&b=200&op=%2b
-    // => http://localhost:8888/bitcamp-java-web/ex07/s11?a=100&b=200&op=-
-    // => http://localhost:8888/bitcamp-java-web/ex07/s11?a=100&b=200&op=*
+    // => http://localhost:8080/java-web/ex07/s11?a=100&b=200&op=%2b
+    // => http://localhost:8080/java-web/ex07/s11?a=100&b=200&op=-
+    // => http://localhost:8080/java-web/ex07/s11?a=100&b=200&op=*
     //
     response.setContentType("text/plain;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -45,9 +45,8 @@ public class Servlet11 extends HttpServlet {
     // 다른 서블릿을 실행시킨다. 실행이 완료되면 되돌아 온다.
     // => forward()는 다른 서블릿으로 실행을 위임한 후 되돌아 오지 않지만,
     //    include()는 다른 서블릿으로 실행을 위임한 후 되돌아 온다.
-    // => 인클루드의 경우 이전 서블릿에서 setContentType()을 설정 해야한다.
+    // => 인클루드의 경우 이전 서블릿에서 setContentType()을 설정해야 한다.
     요청배달자.include(request, response);
-//    요청배달자.forward(request, response);
     
     out.println("---------------------------------------");
   }

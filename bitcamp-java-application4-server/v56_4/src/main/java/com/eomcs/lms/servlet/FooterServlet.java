@@ -16,7 +16,7 @@ public class FooterServlet extends HttpServlet {
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // 인클루딩 서블리세서는 setContentType()을 호출해봐야 소용없다.
+    // 인클루딩  서블릿에서는 setContentType()을 호출해봐야 소용없다.
     // 이 서블릿을 요청하는 쪽에서 처리해야 한다.
     // response.setContentType("text/html;charset=UTF-8");
 
