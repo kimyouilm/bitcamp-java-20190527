@@ -10,8 +10,8 @@ import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-@WebServlet("/board/update")
-public class BoardUpdateServlet extends HttpServlet {
+@WebServlet("/board/detail")
+public class BoardDetailServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   
   private BoardDao boardDao;
@@ -22,22 +22,27 @@ public class BoardUpdateServlet extends HttpServlet {
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     boardDao = appCtx.getBean(BoardDao.class);
   }
-
+  
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) 
+  public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException, ServletException {
+    
     try {
-      Board board = new Board();
-      board.setNo(Integer.parseInt(request.getParameter("no")));
-      board.setContents(request.getParameter("contents"));
-      boardDao.update(board);
-      response.sendRedirect("/board/list");
+      int no = Integer.parseInt(request.getParameter("no"));
+      
+      Board board = boardDao.findBy(no);
+      if (board == null) {
+        throw new Exception("해당 번호의 데이터가 없습니다!");
+      } 
+        
+      boardDao.increaseViewCount(no);
+      
+      request.setAttribute("board", board);
+      request.setAttribute("viewUrl", "/jsp/board/detail.jsp");
       
     } catch (Exception e) {
-      request.setAttribute("message", "데이터 변경에 실패했습니다!");
-      request.setAttribute("refresh", "/board/list");
       request.setAttribute("error", e);
-      request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+      request.setAttribute("refresh", "list");
     }
   }
 }
