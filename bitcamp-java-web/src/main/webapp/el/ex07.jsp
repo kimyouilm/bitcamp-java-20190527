@@ -23,6 +23,12 @@ pageContext.setAttribute("map", map);
 ${map["s01"]}<br>
 ${map['s01']}<br>
 ${map.s01}<br>
+<%--
+key 문자열에 공백이나 특수 문자가 포함된 경우에는 점(.)을 사용할 수 없다.
+ ${map.04 ^^}<br>
+ --%>
+ ${"map.04 ^^""} <br>
+ ${'map.04 ^^'} <br>
 </body>
 </html>
 

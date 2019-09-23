@@ -1,7 +1,5 @@
-<%@ page language="java" 
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    trimDirectiveWhitespaces="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +7,8 @@
 <title>JSTL</title>
 </head>
 <body>
-<h1>JSTL 개요</h1>
-<%-- 
+  <h1>JSTL 개요</h1>
+  <%-- 
 - JSTL(JSP Standard Tag Library)? 
   - JSP 확장 태그이다.
   - 기본으로 제공하지 않는다.
@@ -31,21 +29,30 @@
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
   - JSTL 태그 사용
       <접두어명:태그명 속성="값" 속성="값"/> 
+      
+* I18N(Internationalization의 약자)
+=> 프로그램을 짤 때 여러 언어를 고려해서 코딩하는 것을 말한다.
+=> 특히 화면에서 버튼에 제목이나, 라벨을 출력할 때 특정 언어로 고정된 값을 출력하지 않고,
+      외부 파일(예: label-koKR.properties)에서 읽어 온 값을 출력하도록 프로그래밍 하는 것.
+      
+* L10N(Localization)
+=> 특정 언어에 대해 라벨 텍스트를 담은 프로퍼티 파일(label_ko_KR.properties)을
+     작성하는 것을 말한다.
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h2>오호라!!!</h2>
+  <h2>오호라!!!</h2>
 
-<%
-out.println("<h2>오호라!!!</h2>");
-%>
+  <%
+    out.println("<h2>오호라!!!</h2>");
+  %>
 
-<%="<h2>오호라!!!</h2>"%>
+  <%="<h2>오호라!!!</h2>"%>
 
-${"<h2>오호라!!!</h2>"}
+  ${"<h2>오호라!!!</h2>"}
 
-<c:out value="<h2>오호라!!!<h2>"/>
+  <c:out value="<h2>오호라!!!<h2>" />
 
 </body>
 </html>

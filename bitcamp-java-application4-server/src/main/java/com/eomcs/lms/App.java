@@ -1,10 +1,8 @@
-// v57_1 : JSP를 활용하여 서블릿에서 출력 기능 분리하기 
+// v57_3 : JSP에 JSTL 적용하기
 package com.eomcs.lms;
 
 // 작업:
-// => /webapp/jsp/board 폴더 생성
-// => BoardXxxServlet 에서 출력 기능을 JSP로 이전
-// => /webapp/jsp/board/*.jsp 생성
+// => /webapp/jsp/**/*.jsp 변경
 //
 //
 // dummy 클래스!

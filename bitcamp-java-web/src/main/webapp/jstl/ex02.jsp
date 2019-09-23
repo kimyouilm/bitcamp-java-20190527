@@ -23,15 +23,3 @@
 <c:out value="${'임꺽정'}" default="홍길동"/><br>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

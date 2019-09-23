@@ -1,8 +1,6 @@
-<%@page import="com.eomcs.lms.domain.PhotoFile"%>
-<%@page import="java.util.List"%>
-<%@page import="com.eomcs.lms.domain.PhotoBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,33 +14,23 @@
     
 <div id='content'>
 <h1>사진게시물</h1>
-<%
-PhotoBoard photoBoard = (PhotoBoard) request.getAttribute("photoBoard");
-%>
 <form action='/photoboard/update'
       method='post' enctype='multipart/form-data'>
-번호: <input type='text' name='no' value='<%=photoBoard.getNo()%>' readonly><br>
-제목: <input type='text' name='title' value='<%=photoBoard.getTitle()%>'><br>
-수업: <%=photoBoard.getLessonNo()%><br>
-조회수: <%=photoBoard.getViewCount()%><br>
+번호: <input type='text' name='no' value='${photoBoard.no}' readonly><br>
+제목: <input type='text' name='title' value='${photoBoard.title}'><br>
+수업: ${photoBoard.lessonNo}<br>
+조회수: ${photoBoard.viewCount}<br>
 <p>
-<% 
-List<PhotoFile> files = photoBoard.getFiles();
-for (PhotoFile file : files) {
-  if (file.getFilePath() == null)
-    continue;
-%>
-  <img src='/upload/photoboard/<%=file.getFilePath()%>' class='photo2'> 
-<%}%>
+<c:forEach items="${photoBoard.files}" var="file">
+  <img src='/upload/photoboard/${file.filePath}' class='photo2'> 
+</c:forEach>
 </p>
-<% 
-for (int i = 0; i < 6; i++) {
-%>
+<c:forEach begin="1" end="6">
   사진: <input type='file' name='filePath'><br>
-<%}%>
+</c:forEach>
 
 <button>변경</button>
-<a href='/photoboard/delete?no=<%=photoBoard.getNo()%>'>삭제</a>
+<a href='/photoboard/delete?no=${photoBoard.no}'>삭제</a>
 </form>
 </div>
 

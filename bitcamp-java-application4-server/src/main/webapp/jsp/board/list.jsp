@@ -1,7 +1,6 @@
-<%@page import="com.eomcs.lms.domain.Board"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,17 +22,14 @@
   <th>등록일</th>
   <th>조회수</th>
 </tr>
-<%
-List<Board> boards = (List<Board>)request.getAttribute("boards");
-for (Board board : boards) {
-%>
+<c:forEach items="${boards}" var="board">
   <tr>
-    <td><%=board.getNo()%></td>
-    <td><a href='/board/detail?no=<%=board.getNo()%>'><%=board.getContents()%></a></td>
-    <td><%=board.getCreatedDate()%></td>
-    <td><%=board.getViewCount()%></td>
+    <td>${board.no}</td>
+    <td><a href='/board/detail?no=${board.no}'>${board.contents}</a></td>
+    <td>${board.createdDate}</td>
+    <td>${board.viewCount}</td>
   </tr>
-<%}%>
+</c:forEach>  
 </table>
 </div>
 
