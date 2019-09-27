@@ -47,7 +47,9 @@ public class Controller03_3 {
   public String handler3(SessionStatus status) {
     // 현재 페이지 컨트롤러의 @SessionAttributes 에 지정된 값만 무효화시키기
     status.setComplete();
-    
+    // 용도:
+    // => 현재 페이지 컨트롤러에서 작업중에 세션에 보관한 데이터를 보관했고,
+    //    현재 페이지 컨트롤러가 보관한 데이터만 삭제하고 싶다면 이 방식으로 처리하라.
     return "status.setComplete()";
   }
 
