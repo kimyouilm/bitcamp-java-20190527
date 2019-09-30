@@ -28,7 +28,7 @@
     from 
       lms_lesson
     order by 
-      lesson_id desc
+      sdt desc
   </select>
   
   <select id="findBy" parameterType="int" resultMap="LessonMap">

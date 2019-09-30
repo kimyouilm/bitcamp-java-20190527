@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    // 프로젝트를 웹 애플리케이션 프로젝트를 다룰때 사용할 명령어 포함시키기
+    
+    // 웹 애플리케이션 프로젝트를 다룰 때 사용할 명령어 포함시키기
     id 'war'
     id 'eclipse-wtp'
 }
-
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -15,6 +15,7 @@ tasks.withType(JavaCompile) {
 war {
     archiveName = 'app4.war'
 }
+
 repositories {
     jcenter()
 }
@@ -26,22 +27,19 @@ dependencies {
     // MariaDB JDBC Driver
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.3'
     
-    // Spring Ioc 컨테이너
+    // Spring IoC 컨테이너
     compile group: 'org.springframework', name: 'spring-context', version: '5.1.9.RELEASE'
     
-    // Spring-JDBC
+    // Spring JDBC
     compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.9.RELEASE'
     
     // Mybatis-Spring
     compile group: 'org.mybatis', name: 'mybatis-spring', version: '2.0.2'
     
-    // Spring-webMVC
+    // Spring WebMVC
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.1.9.RELEASE'
     
-    // Apache log4j
-    // compile group: 'log4j', name: 'log4j', version: '1.2.17'
-    
-    // Apache log4j2
+    // Log4j2
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.1'
     
     // Apache HttpClient
@@ -50,13 +48,6 @@ dependencies {
     // Servlet API
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     
-    // JSTL
-    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
-    
     implementation 'com.google.guava:guava:27.1-jre'
     testImplementation 'junit:junit:4.12'
 }
-// 일반 프로젝트가 아니기땜에 지움(웹에서만 사용)
-//application {
-//    mainClassName = 'com.eomcs.lms.App'
-//}

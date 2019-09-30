@@ -10,11 +10,12 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
 @Configuration
-// <tx:annotation-driven/>의 Java Config설정
+
+// <tx:annotation-driven/> 의 Java Config 설정 
 // => @Transactional 애노테이션을 처리할 객체를 등록한다.
 @EnableTransactionManagement 
+
 @PropertySource("classpath:com/eomcs/lms/conf/jdbc.properties")
 public class DatabaseConfig {
   

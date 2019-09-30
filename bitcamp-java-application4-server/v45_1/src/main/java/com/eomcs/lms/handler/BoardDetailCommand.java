@@ -26,6 +26,7 @@ public class BoardDetailCommand implements Command {
         return;
       }
       boardDao.increaseViewCount(no);
+      
       out.printf("내용: %s\n", board.getContents());
       out.printf("작성일: %s\n", board.getCreatedDate());
       

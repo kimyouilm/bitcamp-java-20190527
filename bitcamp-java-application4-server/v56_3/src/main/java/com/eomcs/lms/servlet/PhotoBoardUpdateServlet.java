@@ -19,18 +19,16 @@ import com.eomcs.lms.domain.PhotoFile;
 @WebServlet("/photoboard/update")
 public class PhotoBoardUpdateServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = LogManager.getLogger(PhotoBoardUpdateServlet.class);
-  // 이 클래스에서 로그를 출력할 일이 있다면 다음과 같이 로거를 만들어 사용하라!
-  /*
-   * private static final Logger logger = LogManager.getLogger(PhotoBoardAddServlet.class);
-   */
-
+  
+  private static final Logger logger = 
+      LogManager.getLogger(PhotoBoardUpdateServlet.class);
+  
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
-
+  
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     photoBoardDao = appCtx.getBean(PhotoBoardDao.class);
     photoFileDao = appCtx.getBean(PhotoFileDao.class);
@@ -58,27 +56,26 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
         photoFileDao.insert(photoFile);
         count++;
       }
-
+      
       if (count == 0) {
-        throw new Exception("사진 파일 없음!");
+        throw new Exception("최소 한 개의 사진 파일을 등록해야 합니다.");
       }
+      
       response.sendRedirect("/photoboard/list");
-
+      
     } catch (Exception e) {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
-      out.println("<html><head><title>사진게시물 변경</title>"
-          + "<meta http-equiv='Refresh' content='1;url=/photoboard/list'>" + "</head>");
+      out.println("<html><head><title>사진게시물 변경</title></head>");
       out.println("<body><h1>사진게시물 변경</h1>");
       out.println("<p>데이터 변경에 실패했습니다!</p>");
       out.println("</body></html>");
-      response.setHeader("Refresh", "1/url=/photoboard/list");
+      response.setHeader("Refresh", "1;url=/photoboard/list");
 
       // 왜 오류가 발생했는지 자세한 사항은 로그로 남긴다.
       StringWriter strOut = new StringWriter();
       e.printStackTrace(new PrintWriter(strOut));
       logger.error(strOut.toString());
-
     }
   }
 

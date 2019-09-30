@@ -1,4 +1,3 @@
-
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
@@ -14,18 +13,18 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
 @WebServlet("/lesson/update")
-public class LessonUpdateServlet extends HttpServlet{
-
+public class LessonUpdateServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  private LessonDao lessonDao;
   
+  private LessonDao lessonDao;
+
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     lessonDao = appCtx.getBean(LessonDao.class);
   }
-  
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;charset=UTF-8");
@@ -56,3 +55,15 @@ public class LessonUpdateServlet extends HttpServlet{
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+

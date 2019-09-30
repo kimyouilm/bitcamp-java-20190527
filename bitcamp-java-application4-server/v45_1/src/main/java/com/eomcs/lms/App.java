@@ -1,4 +1,4 @@
-// v45_1: Java Proxy를 이용하여 DAO 구현체 자동 생성하기.
+// v45_1 : Java Proxy를 이용하여 DAO 구현체 자동 생성하기
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -220,6 +220,7 @@ public class App {
     }
   }
 }
+
 
 
 

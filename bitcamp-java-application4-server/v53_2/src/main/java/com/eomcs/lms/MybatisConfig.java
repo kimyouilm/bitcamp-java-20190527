@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @MapperScan("com.eomcs.lms.dao")
-// 데이터베이스를 넣고 뺄려면 sql써야하니까 
+
 public class MybatisConfig {
   
   @Bean

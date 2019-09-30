@@ -14,20 +14,21 @@ import com.eomcs.lms.domain.Board;
 
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
-
   private static final long serialVersionUID = 1L;
-
+  
   private BoardDao boardDao;
-
+  
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     boardDao = appCtx.getBean(BoardDao.class);
   }
-
+  
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException, ServletException {
+    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>게시물 목록</title>"
@@ -35,6 +36,7 @@ public class BoardListServlet extends HttpServlet {
         + "<link rel='stylesheet' href='/css/common.css'>"
         + "</head>");
     out.println("<body>");
+    
     request.getRequestDispatcher("/header").include(request, response);
     
     out.println("<div id='content'>");
@@ -45,20 +47,24 @@ public class BoardListServlet extends HttpServlet {
       out.println("<tr><th>번호</th><th>내용</th><th>등록일</th><th>조회수</th></tr>");
       List<Board> boards = boardDao.findAll();
       for (Board board : boards) {
-        out.printf(
-            "<tr><td>%d</td>" + "<td><a href='/board/detail?no=%d'>%s</a></td>"
-                + "<td>%s</td><td>%d</td></tr>\n",
-            board.getNo(), board.getNo(), board.getContents(), board.getCreatedDate(),
+        out.printf("<tr><td>%d</td>"
+            + "<td><a href='/board/detail?no=%d'>%s</a></td>"
+            + "<td>%s</td><td>%d</td></tr>\n", 
+            board.getNo(),
+            board.getNo(),
+            board.getContents(), 
+            board.getCreatedDate(), 
             board.getViewCount());
       }
       out.println("</table>");
-
+      
     } catch (Exception e) {
       out.println("<p>데이터 목록 조회에 실패했습니다!</p>");
       throw new RuntimeException(e);
+      
     } finally {
       out.println("</div>");
-      request.getRequestDispatcher("/footer").include(request, response);      
+      request.getRequestDispatcher("/footer").include(request, response);
       out.println("</body></html>");
     }
   }

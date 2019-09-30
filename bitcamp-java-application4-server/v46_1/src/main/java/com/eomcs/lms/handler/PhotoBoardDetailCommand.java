@@ -16,6 +16,10 @@ public class PhotoBoardDetailCommand implements Command {
     this.photoBoardDao = photoBoardDao;
   }
   
+  public String getCommandName() {
+    return "/photoboard/detail";
+  }
+  
   @Override
   public void execute(BufferedReader in, PrintStream out) {
     try {
@@ -27,7 +31,6 @@ public class PhotoBoardDetailCommand implements Command {
         out.println("해당 번호의 데이터가 없습니다!");
         return;
       }
-      
       photoBoardDao.increaseViewCount(no);
       
       out.printf("제목: %s\n", photoBoard.getTitle());

@@ -12,14 +12,14 @@ import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 @WebServlet("/member/update")
-public class MemberUpdateServlet extends HttpServlet{
-  
+public class MemberUpdateServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
+  
   private MemberDao memberDao;
 
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     memberDao = appCtx.getBean(MemberDao.class);
   }

@@ -43,6 +43,9 @@ public class PhotoBoardCommand {
     out.println("사진1: <input type='text' name='filePath1'><br>");
     out.println("사진2: <input type='text' name='filePath2'><br>");
     out.println("사진3: <input type='text' name='filePath3'><br>");
+    out.println("사진4: <input type='text' name='filePath4'><br>");
+    out.println("사진5: <input type='text' name='filePath5'><br>");
+    out.println("사진6: <input type='text' name='filePath6'><br>");
     out.println("<button>등록</button>");
     out.println("</form>");
     out.println("</body></html>");

@@ -87,7 +87,7 @@ public class BoardCommand {
       e.printStackTrace();
     }
   }
-  
+
   @RequestMapping("/board/update") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void update(BufferedReader in, PrintStream out) {
     try {
@@ -114,5 +114,4 @@ public class BoardCommand {
       System.out.println(e.getMessage());
     }
   }
-
 }

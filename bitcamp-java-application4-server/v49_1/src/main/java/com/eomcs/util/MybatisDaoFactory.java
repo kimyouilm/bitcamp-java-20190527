@@ -20,7 +20,7 @@ public class MybatisDaoFactory {
         clazz.getClassLoader(),
         
         new Class[] {clazz}, 
-        // proxy가 인스턴스 주소                       메소드의 파라미터들
+        
         (Object proxy, Method method, Object[] args) -> {
           // InvocationHandler 구현체의 람다(lambda) 메서드
           // 자동으로 생성된 DAO 구현체에 대해 메서드를 호출하면 최종적으로 이 메서드가 호출된다.

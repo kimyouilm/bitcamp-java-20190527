@@ -17,18 +17,16 @@ import com.eomcs.lms.dao.PhotoFileDao;
 @WebServlet("/photoboard/delete")
 public class PhotoBoardDeleteServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = LogManager.getLogger(PhotoBoardDeleteServlet.class);
-  // 이 클래스에서 로그를 출력할 일이 있다면 다음과 같이 로거를 만들어 사용하라!
-  /*
-   * private static final Logger logger = LogManager.getLogger(PhotoBoardAddServlet.class);
-   */
-
+  
+  private static final Logger logger = 
+      LogManager.getLogger(PhotoBoardDeleteServlet.class);
+  
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
-
+  
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     photoBoardDao = appCtx.getBean(PhotoBoardDao.class);
     photoFileDao = appCtx.getBean(PhotoFileDao.class);
@@ -36,30 +34,31 @@ public class PhotoBoardDeleteServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+    
     try {
       int no = Integer.parseInt(request.getParameter("no"));
-
+      
       if (photoBoardDao.findBy(no) == null) {
         throw new Exception("해당 데이터가 없습니다.");
       }
+      
+      photoFileDao.deleteAll(no);
+      photoBoardDao.delete(no);
       response.sendRedirect("/photoboard/list");
-
+      
     } catch (Exception e) {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
-      out.println("<html><head><title>사진게시물 삭제</title>"
-          + "<meta http-equiv='Refresh' content='1;url=/photoboard/list'>" + "</head>");
+      out.println("<html><head><title>사진게시물 삭제</title></head>");
       out.println("<body><h1>사진게시물 삭제</h1>");
       out.println("<p>데이터 삭제에 실패했습니다!</p>");
       out.println("</body></html>");
-      response.setHeader("Refresh", "1/url=/photoboard/list");
+      response.setHeader("Refresh", "1;url=/photoboard/list");
 
       // 왜 오류가 발생했는지 자세한 사항은 로그로 남긴다.
       StringWriter strOut = new StringWriter();
       e.printStackTrace(new PrintWriter(strOut));
       logger.error(strOut.toString());
-
     }
   }
 }

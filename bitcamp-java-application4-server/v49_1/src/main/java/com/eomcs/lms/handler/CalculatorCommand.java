@@ -8,47 +8,51 @@ import com.eomcs.util.RequestMapping;
 
 @Component
 public class CalculatorCommand {
-
-  int value1;
-  int value2;
-  int result;
-
+  
   @RequestMapping("/calc/plus")
-  public void add(BufferedReader in, PrintStream out) {
+  public void plus(BufferedReader in, PrintStream out) {
     try {
-      value1 = Input.getIntValue(in, out, "값1?>> ");
-      value2 = Input.getIntValue(in, out, "값2?>> ");
-      result = value1 + value2;
-
-      out.printf("%d + %d = %d\n", value1, value2, result);
+      int a = Input.getIntValue(in, out, "값1? ");
+      int b = Input.getIntValue(in, out, "값2? ");
+      
+      out.printf("%d + %d = %d\n", a, b, (a + b));
+      
     } catch (Exception e) {
+      out.println("계산 값이 옳지 않습니다.");
       e.printStackTrace();
     }
   }
-
+  
   @RequestMapping("/calc/minus")
   public void minus(BufferedReader in, PrintStream out) {
     try {
-      value1 = Input.getIntValue(in, out, "값1?>> ");
-      value2 = Input.getIntValue(in, out, "값2?>> ");
-      result = value1 - value2;
-
-      out.printf("%d - %d = %d\n", value1, value2, result);
+      int a = Input.getIntValue(in, out, "값1? ");
+      int b = Input.getIntValue(in, out, "값2? ");
+      
+      out.printf("%d - %d = %d\n", a, b, (a - b));
+      
     } catch (Exception e) {
+      out.println("계산 값이 옳지 않습니다.");
       e.printStackTrace();
     }
-
   }
-
-  // 실습과제:
-  // => 다음과 같이 실행하도록 위 클래스를 완성하라!
-  //
-
-  /*
-   * > /calc/plus 값1? 100 값2? 200
-   * 
-   * 100 + 200 = 300
-   * 
-   * > /calc/minus 값1? 100 값2? 200 100 - 200 = -100
-   */
+  
+  
+  
 }
+
+// 실습 과제:
+// => 다음과 같이 실행하도록 위 클래스를 완성하라!
+//
+/*
+명령> /calc/plus
+값1? 100
+값2? 200
+100 + 200 = 300
+
+명령> /calc/minus
+값1? 100
+값2? 200
+100 - 200 = -100
+
+ */

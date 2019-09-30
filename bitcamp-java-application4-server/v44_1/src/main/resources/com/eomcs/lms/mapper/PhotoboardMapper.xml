@@ -4,32 +4,68 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PhotoBoardDao">
 
-  <select id="findAll" resultType="com.eomcs.lms.domain.PhotoBoard">
+  <resultMap type="PhotoBoard" id="PhotoBoardMap">
+    <id column="photo_id" property="no"/>
+    <result column="titl" property="title"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="vw_cnt" property="viewCount"/>
+    <result column="lesson_id" property="lessonNo"/>
+  </resultMap>
+  
+  <resultMap type="PhotoBoard" id="PhotoBoardWithFilesMap">
+    <id column="photo_id" property="no"/>
+    <result column="titl" property="title"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="vw_cnt" property="viewCount"/>
+    <result column="lesson_id" property="lessonNo"/>
+    
+    <!-- 자식 테이블의 데이터와 PhotoFile 객체 연결 -->
+    <collection property="files" ofType="photoFile">
+      <id column="photo_file_id" property="no"/>
+      <result column="file_path" property="filePath"/>
+      <result column="photo_id" property="boardNo"/>
+    </collection>
+  </resultMap>
+  
+  <sql id="select1">
     select
-      photo_id no,
-      titl title,
-      cdt createdDate,
-      vw_cnt viewCount,
-      lesson_id lessonNo
+      photo_id,
+      titl,
+      cdt,
+      vw_cnt,
+      lesson_id
     from 
       lms_photo 
+  </sql>
+  
+  <select id="findAll" resultMap="PhotoBoardMap">
+    <include refid="select1"/>
     order by 
       photo_id desc
   </select>
   
-  <select id="findBy" 
-          parameterType="int" 
-          resultType="com.eomcs.lms.domain.PhotoBoard">
-    select
-      photo_id no,
-      titl title,
-      cdt createdDate,
-      vw_cnt viewCount,
-      lesson_id lessonNo
-    from 
-      lms_photo 
+  <select id="findBy" parameterType="int" resultMap="PhotoBoardMap">
+    <include refid="select1"/>
     where 
       photo_id=#{value}
+  </select>
+  
+  <select id="findWithFilesBy" 
+          parameterType="int" 
+          resultMap="PhotoBoardWithFilesMap">
+    select
+      p.photo_id,
+      p.titl,
+      p.cdt,
+      p.vw_cnt,
+      p.lesson_id,
+      f.photo_file_id,
+      f.file_path
+    from 
+      lms_photo p 
+        left outer join lms_photo_file f on p.photo_id=f.photo_id
+    where 
+      p.photo_id=#{value}
   </select>
   
   <update id="increaseViewCount" parameterType="int">
@@ -40,7 +76,7 @@
   </update>
   
   <insert id="insert" 
-          parameterType="com.eomcs.lms.domain.PhotoBoard"
+          parameterType="PhotoBoard"
           useGeneratedKeys="true"
           keyColumn="photo_id"
           keyProperty="no">
@@ -48,7 +84,7 @@
     values(#{lessonNo},#{title})
   </insert>
   
-  <update id="update" parameterType="com.eomcs.lms.domain.PhotoBoard">
+  <update id="update" parameterType="PhotoBoard">
     update lms_photo set
       titl=#{title}
     where photo_id=#{no}

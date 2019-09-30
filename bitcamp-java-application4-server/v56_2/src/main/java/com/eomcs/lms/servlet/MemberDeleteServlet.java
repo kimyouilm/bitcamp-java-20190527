@@ -11,14 +11,14 @@ import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.dao.MemberDao;
 
 @WebServlet("/member/delete")
-public class MemberDeleteServlet extends HttpServlet{
-  
+public class MemberDeleteServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
+  
   private MemberDao memberDao;
 
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     memberDao = appCtx.getBean(MemberDao.class);
   }
@@ -28,21 +28,25 @@ public class MemberDeleteServlet extends HttpServlet{
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>회원 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/member/list'>" + "</head>");
+        + "<meta http-equiv='Refresh' content='1;url=/member/list'>"
+        + "</head>");
     out.println("<body><h1>회원 삭제</h1>");
+    
     try {
       int no = Integer.parseInt(request.getParameter("no"));
-
+      
       if (memberDao.delete(no) > 0) {
-        out.println("<p>삭제하였습니다.!</p>");
+        out.println("<p>데이터를 삭제하였습니다.</p>");
       } else {
         out.println("<p>해당 데이터가 없습니다.</p>");
       }
-
+      
     } catch (Exception e) {
       out.println("<p>데이터 삭제에 실패했습니다!</p>");
-      System.out.println(e.getMessage());
+      throw new RuntimeException(e);
+      
+    } finally {
+      out.println("</body></html>");
     }
-    out.println("</body></html>");
   }
 }

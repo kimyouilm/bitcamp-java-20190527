@@ -22,21 +22,21 @@ public class LoginCommand {
   @RequestMapping("/auth/form")
   public void form(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
-    out.println("<html><head><title>로그인</title></head>");
-    out.println("<body><h1>로그인</h1>");
+    out.println("<html><head><title>로그인 폼</title></head>");
+    out.println("<body><h1>로그인 폼</h1>");
     out.println("<form action='/auth/login'>");
-    out.println("이메일 : <textarea name='email' rows='1' cols='50'></textarea><br>");
-    out.println("암호  : <textarea name='password' rows='1' cols='50'></textarea><br>");
+    out.println("이메일: <input type='text' name='email'><br>");
+    out.println("암호: <input type='text' name='password'><br>");
     out.println("<button>로그인</button>");
     out.println("</form>");
     out.println("</body></html>");
   }
   
-  @RequestMapping("/auth/login") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
+  @RequestMapping("/auth/login") 
   public void execute(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>로그인 결과</title></head>");
-
+    out.println("<body><h1>로그인</h1>");
     try {
       HashMap<String,Object> params = new HashMap<>();
       params.put("email", request.getParameter("email"));
@@ -46,14 +46,8 @@ public class LoginCommand {
       
       if (member == null) {
         out.println("<p>이메일 또는 암호가 맞지 않습니다!</p>");
-        out.println("<html><head><title>로그인실패</title>"
-            + "<meta http-equiv='Refresh' content='1;url=/auth/form'>" 
-            + "</head>");
       } else {
         out.printf("<p>%s 님 환영합니다.</p>\n", member.getName());
-        out.println("<html><head><title>로그인</title>"
-            + "<meta http-equiv='Refresh' content='1;url=/lesson/list'>" 
-            + "</head>");
       }
       
     } catch (Exception e) {

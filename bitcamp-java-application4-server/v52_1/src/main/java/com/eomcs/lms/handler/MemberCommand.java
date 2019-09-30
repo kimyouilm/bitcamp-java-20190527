@@ -26,16 +26,16 @@ public class MemberCommand {
       member.setPassword(Input.getStringValue(in, out, "암호? "));
       member.setPhoto(Input.getStringValue(in, out, "사진? "));
       member.setTel(Input.getStringValue(in, out, "전화? "));
-
+      
       memberDao.insert(member);
       out.println("저장하였습니다.");
-
+      
     } catch (Exception e) {
       out.println("데이터 저장에 실패했습니다!");
       System.out.println(e.getMessage());
     }
   }
-
+  
   @RequestMapping("/member/delete") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void delete(BufferedReader in, PrintStream out) {
     try {
@@ -46,17 +46,19 @@ public class MemberCommand {
       } else {
         out.println("해당 데이터가 없습니다.");
       }
+
     } catch (Exception e) {
       out.println("데이터 삭제에 실패했습니다!");
       System.out.println(e.getMessage());
     }
-  }
 
+  }
+  
   @RequestMapping("/member/detail") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void detail(BufferedReader in, PrintStream out) {
     try {
       int no = Input.getIntValue(in, out, "번호? ");
-
+      
       Member member = memberDao.findBy(no);
       if (member == null) {
         out.println("해당 번호의 데이터가 없습니다!");
@@ -74,7 +76,7 @@ public class MemberCommand {
       System.out.println(e.getMessage());
     }
   }
-
+  
   @RequestMapping("/member/list") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void list(BufferedReader in, PrintStream out) {
     try {
@@ -108,7 +110,7 @@ public class MemberCommand {
       System.out.println(e.getMessage());
     }
   }
-  
+
   @RequestMapping("/member/update") // 클라이언트 요청이 들어 왔을 때 이 메서드를 호출하라고 표시한다.
   public void update(BufferedReader in, PrintStream out) {
     try {

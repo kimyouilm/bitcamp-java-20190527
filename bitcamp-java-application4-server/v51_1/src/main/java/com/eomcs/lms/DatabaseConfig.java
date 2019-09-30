@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+
 @Configuration
 @PropertySource("classpath:com/eomcs/lms/conf/jdbc.properties")
 public class DatabaseConfig {

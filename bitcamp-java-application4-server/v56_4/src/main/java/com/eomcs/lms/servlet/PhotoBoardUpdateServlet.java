@@ -1,15 +1,11 @@
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
@@ -19,24 +15,21 @@ import com.eomcs.lms.domain.PhotoFile;
 @WebServlet("/photoboard/update")
 public class PhotoBoardUpdateServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  // 이 클래스에서 로그를 출력할 일이 있다면 다음과 같이 로거를 만들어 사용하라!
-  /*
-   * private static final Logger logger = LogManager.getLogger(PhotoBoardAddServlet.class);
-   */
-
+  
   private PhotoBoardDao photoBoardDao;
   private PhotoFileDao photoFileDao;
-
+  
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     photoBoardDao = appCtx.getBean(PhotoBoardDao.class);
     photoFileDao = appCtx.getBean(PhotoFileDao.class);
   }
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException, ServletException {
     try {
       PhotoBoard photoBoard = new PhotoBoard();
       photoBoard.setNo(Integer.parseInt(request.getParameter("no")));
@@ -57,18 +50,18 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
         photoFileDao.insert(photoFile);
         count++;
       }
-
+      
       if (count == 0) {
-        throw new Exception("사진 파일 없음!");
+        throw new Exception("최소 한 개의 사진 파일을 등록해야 합니다.");
       }
+      
       response.sendRedirect("/photoboard/list");
-
+      
     } catch (Exception e) {
-      request.setAttribute("message", "데이터 변경에 실패했습니다");
+      request.setAttribute("message", "데이터 변경에 실패했습니다!");
       request.setAttribute("refresh", "/photoboard/list");
       request.setAttribute("error", e);
       request.getRequestDispatcher("/error").forward(request, response);
-
     }
   }
 

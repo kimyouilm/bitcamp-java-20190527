@@ -31,7 +31,6 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     photoBoardDao = appCtx.getBean(PhotoBoardDao.class);
     photoFileDao = appCtx.getBean(PhotoFileDao.class);
-    
     uploadDir = getServletContext().getRealPath("/upload/photoboard");
   }
 
@@ -65,7 +64,7 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
       }
       
       if (count == 0) {
-        throw new Exception("최소 한개의 사진을 등록해!");
+        throw new Exception("사진 파일 없음!");
       }
       
       response.sendRedirect("/photoboard/list");

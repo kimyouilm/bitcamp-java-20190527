@@ -16,20 +16,20 @@ import com.eomcs.lms.domain.Board;
 
 @WebServlet("/board/add")
 public class BoardAddServlet extends HttpServlet {
-
   private static final long serialVersionUID = 1L;
-
-  private static final Logger logger = LogManager.getLogger(BoardAddServlet.class);
+  
+  private static final Logger logger = 
+      LogManager.getLogger(BoardAddServlet.class);
   
   private BoardDao boardDao;
-
+  
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     boardDao = appCtx.getBean(BoardDao.class);
   }
-
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;charset=UTF-8");
@@ -42,30 +42,30 @@ public class BoardAddServlet extends HttpServlet {
     out.println("</form>");
     out.println("</body></html>");
   }
-
+  
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
     try {
       Board board = new Board();
       board.setContents(request.getParameter("contents"));
-
       boardDao.insert(board);
       response.sendRedirect("/board/list");
-
+      
     } catch (Exception e) {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
-      out.println("<html><head><title>게시물 등록</title>"
-          + "<meta http-equiv='Refresh' content='1;url=/board/list'>" + "</head>");
+      out.println("<html><head><title>게시물 등록</title></head>");
       out.println("<body><h1>게시물 등록</h1>");
       out.println("<p>데이터 저장에 실패했습니다!</p>");
       out.println("</body></html>");
-      response.setHeader("Refresh", "1/url=/board/list");
-      
+      response.setHeader("Refresh", "1;url=/board/list");
+
       // 왜 오류가 발생했는지 자세한 사항은 로그로 남긴다.
       StringWriter strOut = new StringWriter();
       e.printStackTrace(new PrintWriter(strOut));
       logger.error(strOut.toString());
-    }
+    } 
   }
+
 }

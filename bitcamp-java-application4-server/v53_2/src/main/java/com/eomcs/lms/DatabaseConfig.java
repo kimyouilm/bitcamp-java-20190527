@@ -28,7 +28,6 @@ public class DatabaseConfig {
   @Value("${jdbc.password}") String jdbcPassword;
   
   @Bean
-  // ConnectionPool Database에 넣기도하고 가져오기도 하자나 그걸연결해주는 매개체같은거.
   public DataSource dataSource() {
     DriverManagerDataSource ds = new DriverManagerDataSource();
     ds.setDriverClassName(this.jdbcDriver); 
@@ -38,9 +37,7 @@ public class DatabaseConfig {
     return ds;
   }
   
-  
   @Bean
-  //               여러가지 일들은 묶어서 한번에 처리 하는것 transaction.
   public PlatformTransactionManager transactionManager(DataSource dataSource) {
     return new DataSourceTransactionManager(dataSource);
   }

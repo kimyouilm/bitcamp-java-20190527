@@ -59,11 +59,6 @@ public class BoardDetailServlet extends HttpServlet {
         out.println("<button>변경</button>");
         out.printf("<a href='/board/delete?no=%d'>삭제</a>\n", board.getNo());
         out.println("</form>");
-        
-        out.println("<form action='/board/add' method='post'>");
-        out.println("내용 : <textarea name='contents' rows='5' cols='50'></textarea><br>");
-        out.println("<button>등록</button>");
-        out.println("</form>");
         boardDao.increaseViewCount(no);
       }
       

@@ -1,6 +1,7 @@
 package com.eomcs.lms;
 
 import org.springframework.context.annotation.ComponentScan;
+
 // Spring IoC 컨테이너에게 알려줄 설정 정보를 애노테이션을 이용하여 
 // 이 클래스에 저장해 둔다.
 // 

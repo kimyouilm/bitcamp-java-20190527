@@ -26,25 +26,47 @@ public class LoginServlet extends HttpServlet {
   }
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException, ServletException {
+    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    out.println("<html><head><title>로그인 폼</title></head>");
-    out.println("<body><h1>로그인 폼</h1>");
+    out.println("<html><head><title>로그인 폼</title>"
+        + "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>"
+        + "<link rel='stylesheet' href='/css/common.css'>"
+        + "</head>");
+    out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+    
+    out.println("<div id='content'>");
+    out.println("<h1>로그인 폼</h1>");
     out.println("<form action='/auth/login' method='post'>");
     out.println("이메일: <input type='text' name='email'><br>");
     out.println("암호: <input type='text' name='password'><br>");
     out.println("<button>로그인</button>");
     out.println("</form>");
+    out.println("</div>");
+    request.getRequestDispatcher("/footer").include(request, response);
     out.println("</body></html>");
   }
   
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException, ServletException {
+    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    out.println("<html><head><title>로그인 결과</title></head>");
-    out.println("<body><h1>로그인</h1>");
+    out.println("<html><head><title>로그인 결과</title>"
+        + "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>"
+        + "<link rel='stylesheet' href='/css/common.css'>"
+        + "</head>");
+    out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+    
+    out.println("<div id='content'>");
+    out.println("<h1>로그인</h1>");
     try {
       HashMap<String,Object> params = new HashMap<>();
       params.put("email", request.getParameter("email"));
@@ -59,10 +81,14 @@ public class LoginServlet extends HttpServlet {
       }
       
     } catch (Exception e) {
-      out.println("<p>로그인 처리에 실패했습니다!</p>");
-      throw new RuntimeException(e);
+      request.setAttribute("message", "로그인 처리에 실패했습니다!");
+      request.setAttribute("refresh", "/board/list");
+      request.setAttribute("error", e);
+      request.getRequestDispatcher("/error").forward(request, response);
       
     } finally {
+      out.println("</div>");
+      request.getRequestDispatcher("/footer").include(request, response);
       out.println("</body></html>");
     }
   }

@@ -13,18 +13,17 @@ import com.eomcs.lms.domain.Board;
 
 @WebServlet("/board/detail")
 public class BoardDetailServlet extends HttpServlet {
-
   private static final long serialVersionUID = 1L;
-
+  
   private BoardDao boardDao;
-
+  
   @Override
   public void init() throws ServletException {
-    ApplicationContext appCtx =
+    ApplicationContext appCtx = 
         (ApplicationContext) getServletContext().getAttribute("iocContainer");
     boardDao = appCtx.getBean(BoardDao.class);
   }
-
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html;charset=UTF-8");
@@ -34,14 +33,16 @@ public class BoardDetailServlet extends HttpServlet {
     try {
       int no = Integer.parseInt(request.getParameter("no"));
       Board board = boardDao.findBy(no);
-
+      
       if (board == null) {
         out.println("<p>해당 번호의 데이터가 없습니다!</p>");
 
       } else {
         out.println("<form action='/board/update' method='post'>");
-        out.printf("번호 : <input type='text' name='no' value='%d' readonly><br>\n", board.getNo());
-        out.printf("내용 : <textarea name='contents' rows='5'" + " cols='50'>%s</textarea><br>\n",
+        out.printf("번호 : <input type='text' name='no' value='%d' readonly><br>\n",
+            board.getNo());
+        out.printf("내용 : <textarea name='contents' rows='5'"
+            + " cols='50'>%s</textarea><br>\n",
             board.getContents());
         out.printf("등록일: %s<br>\n", board.getCreatedDate());
         out.printf("조회수: %d<br>\n", board.getViewCount());
@@ -50,11 +51,13 @@ public class BoardDetailServlet extends HttpServlet {
         out.println("</form>");
         boardDao.increaseViewCount(no);
       }
-
+      
     } catch (Exception e) {
       out.println("<p>데이터 조회에 실패했습니다!</p>");
-      System.out.println(e.getMessage());
+      throw new RuntimeException(e);
+      
+    } finally {
+      out.println("</body></html>");
     }
-    out.println("</body></html>");
   }
 }

@@ -30,7 +30,7 @@
   <select id="findAll" resultMap="MemberMap">
     <include refid="basicColumn"/>
     from lms_member
-    order by member_id asc
+    order by name asc
   </select>
   
   <select id="findBy" parameterType="int" resultMap="MemberMap">

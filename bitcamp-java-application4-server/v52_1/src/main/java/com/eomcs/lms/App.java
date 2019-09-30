@@ -1,4 +1,4 @@
-// v52-_1: Spring Annotation을 이용하여 transaction처리하기
+// v52_1 : 스프링 애노테이션을 이용하여 트랜잭션 처리하기
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -11,8 +11,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -23,78 +21,75 @@ import com.eomcs.util.RequestMappingHandlerMapping.RequestHandler;
 
 public class App {
 
-  // Log4j의 로그 출력 도구를 준비한다.
-  private static final Logger logger = LogManager.getLogger(App.class);
   private static final int CONTINUE = 1;
   private static final int STOP = 0;
 
   ApplicationContext appCtx;
   RequestMappingHandlerMapping handlerMapping;
   int state;
-
+  
   // 스레드풀
   ExecutorService executorService = Executors.newCachedThreadPool();
-
+  
   public App() throws Exception {
     // 처음에는 클라이언트 요청을 처리해야 하는 상태로 설정한다.
-    state = CONTINUE;
-    // 패키지 이름임 / 를 넣어야 경로
-    // 내가 AppConfig에 등록했으니까 너가 알아서 설정해
-    // appCtx는 iocContain => 메쇼드이름으로 리턴값을갖고있음
+    state = CONTINUE; 
     appCtx = new AnnotationConfigApplicationContext(AppConfig.class);
-
+    
     // Spring IoC 컨테이너에 들어 있는(Spring IoC 컨테이너가 생성한) 객체 알아내기
     String[] beanNames = appCtx.getBeanDefinitionNames();
-    System.out.println("[Spring IoC 컨테이너 객체들]-----------");
+    System.out.println("[Spring IoC 컨테이너 객체들]------------");
     for (String beanName : beanNames) {
-      System.out.printf("%s(%s)\n", appCtx.getBean(beanName).getClass().getSimpleName(), beanName);
+      System.out.printf("%s(%s)\n",
+          appCtx.getBean(beanName).getClass().getSimpleName(),
+          beanName);
     }
-    System.out.println("----------------------------------");
-     handlerMapping = createRequestMappingHandlerMapping();
+    System.out.println("------------------------------------");
+    
+    handlerMapping = createRequestMappingHandlerMapping();
   }
 
   private RequestMappingHandlerMapping createRequestMappingHandlerMapping() {
-    RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
-
+    
+    RequestMappingHandlerMapping mapping = 
+        new RequestMappingHandlerMapping();
+    
     // 객체풀에서 @Component 애노테이션이 붙은 객체 목록을 꺼낸다.
-    Map<String, Object> components = appCtx.getBeansWithAnnotation(Component.class);
-
-    // 객체 안에 선언된 메소드 중에서 @RequestMapping이 붙은 메소드를 찾아낸다.
+    Map<String,Object> components = appCtx.getBeansWithAnnotation(Component.class);
+    
+    //System.out.println("==================================");
+    
+    // 객체 안에 선언된 메서드 중에서 @RequestMapping이 붙은 메서드를 찾아낸다.
     Collection<Object> objList = components.values();
     objList.forEach(obj -> {
       
       Method[] methods = null;
       
-   // 원본이 아니라 프록시 객체일 경우 원본 클래스 알아내기 
-      if (AopUtils.isAopProxy(obj)) {
-        // 프록시 객체의 클래스가 아니라 원본 객체의 클래스 정보를 가져온다.
-        Class<?> originClass;
+      if (AopUtils.isAopProxy(obj)) { // 원본이 아니라 프록시 객체라면
         try {
-          // 클래스 이름을 모르기 떄문에 알아내는 과아아정                                          getTargetClass()의 객체를 호출      
-          originClass = (Class<?>) obj.getClass().getMethod("getTargetClass").invoke(obj);
+          // 프록시 객체의 클래스가 아니라 원본 객체의 클래스 정보를 가져온다.
+          Class<?> originClass = 
+              (Class<?>) obj.getClass().getMethod("getTargetClass").invoke(obj);
           methods = originClass.getMethods();
         } catch (Exception e) {
           e.printStackTrace();
         }
       } else { // 원본 객체일 경우,
-        // 원본 객체의 클래스로붜 메소드 목록을 가져온다.
+        // 원본 객체의 클래스로부터 메서드 목록을 가져온다.
         methods = obj.getClass().getMethods();
-        
       }
-      // => 객체에서 메소드 정보를 추출한다.
+      
       for (Method m : methods) {
         RequestMapping anno = m.getAnnotation(RequestMapping.class);
-        
         if (anno == null)
           continue;
-
-        // component에서 mapping객체를 따로 추출하는 작업?
-        // @RequestMapping이 붙은 메소드를 찾으면 mapping 객체에 보관한다.
-        // method의 객체, method
+        // @RequestMapping 이 붙은 메서드를 찾으면 mapping 객체에 보관한다.
         mapping.addRequestHandler(anno.value()[0], obj, m);
-        // System.out.printf("%s ==> %s\n", anno.value(), m.getName());
+        //System.out.printf("%s ==> %s\n", anno.value(), m.getName());
       }
+      
     });
+    
     return mapping;
   }
 
@@ -107,8 +102,8 @@ public class App {
       while (true) {
         // 클라이언트가 접속하면 작업을 수행할 Runnable 객체를 만들어 스레드풀에 맡긴다.
         executorService.submit(new CommandProcessor(serverSocket.accept()));
-
-        // 한 클라이언트가 serverstop 명령을 보내면 종료 상태로 설정되고
+        
+        // 한 클라이언트가 serverstop 명령을 보내면 종료 상태로 설정되고 
         // 다음 요청을 처리할 때 즉시 실행을 멈춘다.
         if (state == STOP)
           break;
@@ -117,13 +112,13 @@ public class App {
       // 스레드풀에게 실행 종료를 요청한다.
       // => 스레드풀은 자신이 관리하는 스레드들이 실행이 종료되었는지 감시한다.
       executorService.shutdown();
-
+      
       // 스레드풀이 관리하는 모든 스레드가 종료되었는지 매 0.5초마다 검사한다.
       // => 스레드풀의 모든 스레드가 실행을 종료했으면 즉시 main 스레드를 종료한다.
       while (!executorService.isTerminated()) {
         Thread.currentThread().sleep(500);
       }
-
+      
       System.out.println("애플리케이션 서버를 종료함!");
 
     } catch (Exception e) {
@@ -133,19 +128,18 @@ public class App {
   }
 
   class CommandProcessor implements Runnable {
-
+    
     Socket socket;
-
-    // client가 연결되면 그 소켓 정보를 생성자에서 받아서
+    
     public CommandProcessor(Socket socket) {
       this.socket = socket;
     }
-
-    // 소켓으로 부터 입출력 얻고 클라이언트가 보낸 명령어를 읽은후 그 명령어를 찾아서 실행
+    
     @Override
     public void run() {
       try (Socket socket = this.socket;
-          BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+          BufferedReader in = new BufferedReader(
+              new InputStreamReader(socket.getInputStream()));
           PrintStream out = new PrintStream(socket.getOutputStream())) {
 
         System.out.println("클라이언트와 연결됨!");
@@ -154,26 +148,22 @@ public class App {
         String request = in.readLine();
         if (request.equals("quit")) {
           out.println("Good bye!");
+          
         } else if (request.equals("serverstop")) {
           state = STOP;
           out.println("Good bye!");
+          
         } else {
           try {
-            // 인터페이스로부터 해방 (Command Interface)
-            // 꼭 Command가 아니어도됨
-            // Command command = (Command) appCtx.getBean(request);
-            // 해당 명령어를 처리할 bean을 찾아서
-            RequestHandler requestHandler = handlerMapping.getRequestHandler(request);
-            // RequestHandler를 이용해서 호출함.
+            RequestHandler requestHandler = 
+                handlerMapping.getRequestHandler(request);
 
             if (requestHandler != null) {
-              // Method m = requestHandler.method;
-              // Object obj = requestHandler.bean;
-              // m.invoke(obj, in, out);
-
               requestHandler.method.invoke(requestHandler.bean, in, out);
-            } else
-              throw new Exception("요청을 처리할 메소드가 없습니다.");
+            } else {
+              throw new Exception("요청을 처리할 메서드가 없습니다.");
+            }
+            
           } catch (Exception e) {
             out.println("해당 명령을 처리할 수 없습니다.");
             e.printStackTrace();
@@ -186,19 +176,12 @@ public class App {
 
       } catch (Exception e) {
         System.out.println("클라이언트와 통신 오류!");
-
-      }
+        
+      } 
     }
   }
-
+  
   public static void main(String[] args) {
-    logger.fatal("fatal...");
-    logger.error("error...");
-    logger.warn("warn...");
-    logger.info("info...");
-    logger.debug("debug...");
-    logger.trace("trace...");
-    
     try {
       App app = new App();
       app.service();
@@ -209,5 +192,13 @@ public class App {
     }
   }
 }
+
+
+
+
+
+
+
+
 
 
