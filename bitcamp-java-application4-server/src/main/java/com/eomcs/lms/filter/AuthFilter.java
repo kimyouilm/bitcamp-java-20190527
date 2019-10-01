@@ -32,7 +32,6 @@ public class AuthFilter implements Filter {
     
     HttpServletRequest httpReq = (HttpServletRequest) request;
     HttpServletResponse httpResp = (HttpServletResponse) response;
-    
     String servletPath = httpReq.getServletPath();
     
     for (String p : path) {

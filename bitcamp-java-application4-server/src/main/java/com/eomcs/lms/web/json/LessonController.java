@@ -6,26 +6,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.service.BoardService;
+import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.service.LessonService;
 
 // @RestController
 // => request handler의 리턴 값이 응답 데이터임을 선언한다.
 // => 리턴 값은 내부에 설정된 HttpMessageConverter에 의해 JSON 문자열로 변환되어 보내진다.
 //
-@RestController("json.BoardController")
-@RequestMapping("/json/board")
-public class BoardController {
+@RestController("json.LessonController")
+@RequestMapping("/json/lesson")
+public class LessonController {
 
   @Resource
-  private BoardService boardService;
+  private LessonService lessonService;
 
   @PostMapping("add")
-  public JsonResult add(Board board) 
+  public JsonResult add(Lesson lesson) 
       throws Exception {
     try {
-      boardService.insert(board);
+      lessonService.insert(lesson);
       return new JsonResult().setState(JsonResult.SUCCESS);
+      
     } catch (Exception e) {
       return new JsonResult()
           .setState(JsonResult.FAILURE)
@@ -37,7 +38,7 @@ public class BoardController {
   public JsonResult delete(int no) 
       throws Exception {
     try {
-      boardService.delete(no);
+      lessonService.delete(no);
       return new JsonResult().setState(JsonResult.SUCCESS);
       
     } catch (Exception e) {
@@ -51,10 +52,11 @@ public class BoardController {
   public JsonResult detail(int no) 
       throws Exception {
     try {
-      Board board = boardService.get(no);
+      Lesson lesson = lessonService.get(no);
       return new JsonResult()
           .setState(JsonResult.SUCCESS)
-          .setResult(board);
+          .setResult(lesson);
+      
     } catch (Exception e) {
       return new JsonResult()
           .setState(JsonResult.FAILURE)
@@ -66,10 +68,11 @@ public class BoardController {
   public JsonResult list() 
       throws Exception {
     try {
-      List<Board> boards = boardService.list();
+      List<Lesson> lessons = lessonService.list();
       return new JsonResult()
           .setState(JsonResult.SUCCESS)
-          .setResult(boards);
+          .setResult(lessons);
+      
     } catch (Exception e) {
       return new JsonResult()
           .setState(JsonResult.FAILURE)
@@ -78,10 +81,10 @@ public class BoardController {
   }
   
   @PostMapping("update")
-  public JsonResult update(Board board) 
+  public JsonResult update(Lesson lesson) 
       throws Exception {
     try {
-      boardService.update(board);
+      lessonService.update(lesson);
       return new JsonResult().setState(JsonResult.SUCCESS);
       
     } catch (Exception e) {

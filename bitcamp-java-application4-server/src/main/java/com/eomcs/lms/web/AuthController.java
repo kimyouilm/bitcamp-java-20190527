@@ -37,6 +37,7 @@ public class AuthController {
 
     // 응답할 때 클라이언트가 입력한 이메일을 쿠키로 보낸다.
     Cookie cookie = new Cookie("email", email);
+    // cookie를 얼마동안 저장할껀지.
     cookie.setMaxAge(60 * 60 * 24 * 15);
     response.addCookie(cookie);
 
