@@ -6,14 +6,16 @@
   <style>
   /* position: absolute
     => absolute나 relative, fixed 타입의 조상을 기준으로 자신의 위치를 조정한다.
+              테투리 안쪽을 기준으로 위치를 계산한다.
     => 만약 조상 중에 absolute나 relative가 없다면,
-       html 태그를 기준으로 자신의 위치를 조정한다.
+              문서 가장자리를 html 태그를 기준으로 자신의 위치를 조정한다.
     => absolute 태그는 width, height를 지정하지 않으면 콘텐츠의 크기에 맞춘다.
     => 기준이 되는 태그가 움직이면 자신도 같이 움직인다.
   */
   html {
     border: 10px solid navy; 
     position: relative;
+    margin: 30px;
   }
 
   body {

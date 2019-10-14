@@ -42,8 +42,7 @@ function Score(name, kor, eng, math) {
 // 3) prototype에 저장된 프로퍼티는 그 함수를 통해 초기화된 모든 객체가 공통으로 사용할 수 있다.
 Score.prototype.sum = function() { 
     return this.kor + this.eng + this.math
-}
-
+}  
 Score.prototype.aver = function() { 
     return this.sum() / 3
 }
