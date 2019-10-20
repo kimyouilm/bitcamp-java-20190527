@@ -1,4 +1,4 @@
--- 수업 예제 데이터 
+ -- 수업 예제 데이터 
 insert into lms_lesson(lesson_id, titl, conts, sdt, edt, tot_hr, day_hr)
   values(101, 'java programming', 'java programming learn', '2019-1-1', '2019-2-28', 200, 6);
 insert into lms_lesson(lesson_id, titl, conts, sdt, edt, tot_hr, day_hr)

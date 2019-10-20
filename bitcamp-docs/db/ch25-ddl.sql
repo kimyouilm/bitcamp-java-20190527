@@ -26,7 +26,7 @@ create table x_board_file (
 
 -- 게시물 데이터 입력 
 insert into x_board(board_id, title, contents)
-values(1, 'title1', 'hello');
+values(1, 'title1', 'hello');.
 
 insert into x_board(board_id, title, contents)
 values(2, 'title2', 'hello');
@@ -77,7 +77,7 @@ select
   created_date
 from 
   x_board
-order by board_id desc;
+order by board_id de sc;
 
 select
   board_id,
