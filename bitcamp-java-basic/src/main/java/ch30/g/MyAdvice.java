@@ -1,11 +1,11 @@
 package ch30.g;
 
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.junit.After;
+import org.junit.Before;
 import org.springframework.stereotype.Component;
 
 // 지정된 객체의 메서드를 호출할 때,

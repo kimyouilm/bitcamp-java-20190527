@@ -8,8 +8,11 @@ public class X {
   public void m1() {
     // m1() 메서드를 실행하기 전에 기능을 추가하기
     // => 다음과 같이 직접 해당 기능을 수행하는 코드를 삽입해야 한다.
-    MyAdvice myAdvice = new MyAdvice();
-    myAdvice.advice1();
+//    MyAdvice myAdvice = new MyAdvice();
+//    myAdvice.advice1();
+    
+    long  startTime = System.currentTimeMillis();
+    System.out.println("시간 측정");
     
     // 이렇게 어떤 메서드를 실행하기 전이나 후에 기능을 추가하고 싶다면 
     // 해당 메서드를 찾아가서 코드를 편집해야 한다.
@@ -27,6 +30,14 @@ public class X {
     // 
     
     System.out.println("X.m1()");
+    // 시간 측정에  유효한 결과를  출력하기  위해 작업 실행 시간을 좀 늘린다.
+    for (int i = 0; i < 10000; i++) {
+      double temp = 3.14159  * Math.random();
+    }
+    // => 다음과 같이 직접 해당 기능을 수행하는 코드를 삽입한다.
+    long endTime = System.currentTimeMillis();
+    System.out.println("시간측정 종료!");
+    System.out.println("걸린시간: " + (endTime - startTime));
   }
 }
 
